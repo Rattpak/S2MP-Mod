@@ -15,9 +15,7 @@ private:
 public:
     static void init();
     static bool setDvar(std::string& dvarname, std::vector<std::string> cmd);
-    
-
+   
     static std::string toEngineString(const std::string& userString);
     static std::string toUserString(const std::string& engineString);
-    
 };

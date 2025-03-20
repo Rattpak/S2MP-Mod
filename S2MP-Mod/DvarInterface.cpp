@@ -14,13 +14,15 @@
 std::unordered_map<std::string, std::string> DvarInterface::userToEngineMap;
 std::unordered_map<std::string, std::string> DvarInterface::engineToUserMap;
 
-//dvar name and exploded cmd
-//TODO: Add more dvar types support
+//Sets a Dvar in engine using the Dvar Interface
+//Takes the name of the dvar, and the cmd vector
+//Returns true if dvar was found and changed
 bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd) {
     std::string dvarLower = dvarname;
     std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);
 
     dvar_t* var = Functions::_Dvar_FindVar(DvarInterface::toEngineString(dvarLower).c_str());
+    //TODO: Add more dvar types support
     if (var != nullptr) {
         switch (var->type) {
         case DVAR_TYPE_BOOL:
@@ -60,7 +62,7 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
     }
 }
 
-
+//Add a dvar mapping to the map
 void DvarInterface::addMapping(const std::string& userString, const std::string& engineString) {
     std::string dvarLower = userString;
     std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);

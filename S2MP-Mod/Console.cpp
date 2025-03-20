@@ -19,7 +19,7 @@
 #include "CustomCommands.hpp"
 #include "DvarInterface.hpp"
 
-
+//Output to all consoles without label
 void Console::print(std::string text) {
 	//External CLI
 	std::cout << text << std::endl;
@@ -28,6 +28,8 @@ void Console::print(std::string text) {
 	//Internal Console
 	//.....
 }
+
+//Output to all consoles with a label
 void Console::labelPrint(std::string label, std::string text) {
 	std::string s = "[" + label + "] " + text;
 	//External CLI
@@ -38,6 +40,7 @@ void Console::labelPrint(std::string label, std::string text) {
 	//.....
 }
 
+//Output to all consoles as info print
 void Console::infoPrint(std::string text) {
 	std::string s = "[INFO] " + text;
 	//External CLI
@@ -49,6 +52,7 @@ void Console::infoPrint(std::string text) {
 }
 
 //TODO: add preprocessor directive for developer like in t6sp-mod
+//Output to all consoles as client developer print
 void Console::devPrint(std::string text) {
 	std::string s = "[DEV] " + text;
 	//External CLI
@@ -59,6 +63,7 @@ void Console::devPrint(std::string text) {
 	//.....
 }
 
+//Output to all consoles as initialization print
 void Console::initPrint(std::string text) {
 	std::string s = "[INIT] " + text;
 	//External CLI
@@ -69,6 +74,7 @@ void Console::initPrint(std::string text) {
 	//.....
 }
 
+//Parse command string into a vector of strings. Anything inside of quotes will be a single string
 std::vector<std::string> Console::parseCmdToVec(const std::string& cmd) {
 	std::vector<std::string> components;
 	std::regex pattern(R"((\"[^\"]*\"|\S+))");
@@ -97,6 +103,7 @@ bool execCustomCmd(std::string& cmd) {
 	std::transform(cmd.begin(), cmd.end(), cmd.begin(), GameUtil::asciiToLower);
 	std::vector<std::string> p = Console::parseCmdToVec(cmd);
 
+	//--------------------TEMP--------------------
 	if (p[0] == "trans") {
 		if (p.size() == 2) {
 			Console::print("Translated String: " + std::string(Functions::_SEH_SafeTranslateString(p[1].c_str())));
@@ -111,6 +118,7 @@ bool execCustomCmd(std::string& cmd) {
 		}
 		return true;
 	}
+	//--------------------------------------------
 
 	if (p[0] == "noclip") {
 		Noclip::toggle();
@@ -150,13 +158,13 @@ bool execCustomCmd(std::string& cmd) {
 	return false;
 }
 
+//Formats a commands and sends it to the dvar interface. Returns true if successful
 bool setEngineDvar(std::string cmd) {
-	std::transform(cmd.begin(), cmd.end(), cmd.begin(), GameUtil::asciiToLower);
 	std::vector<std::string> p = Console::parseCmdToVec(cmd);
-
 	return DvarInterface::setDvar(p[0], p);
 }
 
+//All consoles use this to execute commands. 
 void Console::execCmd(std::string cmd) {
 	if (cmd.length() == 0) {
 		return;

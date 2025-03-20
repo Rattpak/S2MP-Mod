@@ -1,7 +1,7 @@
-//////////////////////////////////
-//			  Game Util
+/////////////////////////////////////////
+//           Game Util
 //	Utility functions for the mod
-//////////////////////////////////
+/////////////////////////////////////////
 #include "pch.h"
 #include "GameUtil.hpp"
 #include "FuncPointers.h"
@@ -41,12 +41,14 @@ int GameUtil::safeStringToInt(const std::string& str) {
     }
 }
 
+//Get pointer address as an std::string
 std::string GameUtil::getAddressAsString(void* address) {
     std::stringstream ss;
     ss << address;
     return ss.str();
 }
 
+//Use with std::transform
 char GameUtil::asciiToLower(char in) {
     if (in <= 'Z' && in >= 'A')
         return in - ('Z' - 'z');

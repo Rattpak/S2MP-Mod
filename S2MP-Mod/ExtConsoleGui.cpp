@@ -45,7 +45,6 @@ std::wstring stringToWString(const std::string& str) {
 }
 
 void ExternalConsoleGui::print(const std::string& s) {
-    //std::cout << "ExternalConsoleGui::print :" << s << std::endl;
     std::string modifiedString = s + "\r\n";
     std::wstring wstrNewText = stringToWString(modifiedString);
     int length = GetWindowTextLength(txtbox_output);
