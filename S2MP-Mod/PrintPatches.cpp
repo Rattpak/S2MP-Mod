@@ -3,7 +3,7 @@
 //	For reimplementing stripped print statements
 ////////////////////////////////////////////////////////
 #include "pch.h"
-#include "Console.h"
+#include "Console.hpp"
 #include "PrintPatches.hpp"
 #include <MinHook.h>
 

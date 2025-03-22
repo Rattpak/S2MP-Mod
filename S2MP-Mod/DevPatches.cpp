@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "DevPatches.hpp"
-#include "Console.h"
+#include "Console.hpp"
 #include <MinHook.h>
 #include "FuncPointers.h"
 

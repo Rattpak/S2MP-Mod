@@ -4,7 +4,7 @@
 //////////////////////////////////////
 #include "pch.h"
 #include "CustomCommands.hpp"
-#include "Console.h"
+#include "Console.hpp"
 #include "FuncPointers.h"
 #include <array>
 

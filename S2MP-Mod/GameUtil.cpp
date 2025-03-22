@@ -5,7 +5,7 @@
 #include "pch.h"
 #include "GameUtil.hpp"
 #include "FuncPointers.h"
-#include "Console.h"
+#include "Console.hpp"
 #include <sstream>
 #include <algorithm>
 

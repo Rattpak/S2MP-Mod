@@ -3,7 +3,7 @@
 //	Probably not needed anymore
 ////////////////////////////////////////////
 #include "pch.h"
-#include "Console.h"
+#include "Console.hpp"
 #include "DebugPatches.hpp"
 #include "GameUtil.hpp"
 #include <MinHook.h>

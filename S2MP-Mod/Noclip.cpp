@@ -4,7 +4,7 @@
 ////////////////////////////////////////////
 #include "pch.h"
 #include "Noclip.hpp"
-#include "Console.h"
+#include "Console.hpp"
 #include "Hook.hpp"
 #include "FuncPointers.h"
 #include <array>

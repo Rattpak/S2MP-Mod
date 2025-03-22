@@ -39,7 +39,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExtConsoleGui.h">
+    <ClInclude Include="ExtConsoleGui.hpp">
       <Filter>Source Files\Console</Filter>
     </ClInclude>
     <ClInclude Include="ConfigManager.h">
@@ -48,10 +48,10 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Console.h">
+    <ClInclude Include="Console.hpp">
       <Filter>Source Files\Console</Filter>
     </ClInclude>
-    <ClInclude Include="ExtConsole.h">
+    <ClInclude Include="ExtConsole.hpp">
       <Filter>Source Files\Console</Filter>
     </ClInclude>
     <ClInclude Include="FuncPointers.h">

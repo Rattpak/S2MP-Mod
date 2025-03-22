@@ -145,14 +145,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConfigManager.h" />
-    <ClInclude Include="Console.h" />
+    <ClInclude Include="Console.hpp" />
     <ClInclude Include="CustomCommands.hpp" />
     <ClInclude Include="D3D.hpp" />
     <ClInclude Include="DebugPatches.hpp" />
     <ClInclude Include="DevPatches.hpp" />
     <ClInclude Include="DvarInterface.hpp" />
-    <ClInclude Include="ExtConsole.h" />
-    <ClInclude Include="ExtConsoleGui.h" />
+    <ClInclude Include="ExtConsole.hpp" />
+    <ClInclude Include="ExtConsoleGui.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FuncPointers.h" />
     <ClInclude Include="GameUtil.hpp" />

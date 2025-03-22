@@ -3,12 +3,12 @@
 // Logic and Util for int and ext con
 ///////////////////////////////////////
 #include "pch.h"
-#include "Console.h"
+#include "Console.hpp"
 #include <string>
 #include <algorithm>
-#include "ExtConsole.h"
+#include "ExtConsole.hpp"
 #include <iostream>
-#include "ExtConsoleGui.h"
+#include "ExtConsoleGui.hpp"
 #include <sstream>
 #include <array>
 #include "FuncPointers.h"

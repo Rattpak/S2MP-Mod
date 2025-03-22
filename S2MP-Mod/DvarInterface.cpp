@@ -6,7 +6,7 @@
 ////////////////////////////////////////////
 #include "pch.h"
 #include "DvarInterface.hpp"
-#include "Console.h"
+#include "Console.hpp"
 #include "GameUtil.hpp"
 #include "FuncPointers.h"
 #include <algorithm>

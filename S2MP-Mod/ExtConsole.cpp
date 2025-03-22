@@ -9,10 +9,10 @@
 #include <sstream>
 #include <MinHook.h>
 #include <array>
-#include "ExtConsole.h"
+#include "ExtConsole.hpp"
 #include <signal.h>
-#include "ExtConsoleGui.h"
-#include "Console.h"
+#include "ExtConsoleGui.hpp"
+#include "Console.hpp"
 #include <thread>
 #include "FuncPointers.h"
 #include "DevPatches.hpp"

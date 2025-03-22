@@ -10,8 +10,8 @@
 #include <locale>
 #include <thread>
 #include <chrono>
-#include "ExtConsoleGui.h"
-#include "Console.h"
+#include "ExtConsoleGui.hpp"
+#include "Console.hpp"
 #include "ConfigManager.h"
 //#include <iostream> //for debugging
 WNDPROC g_wpOrigEditProc;
