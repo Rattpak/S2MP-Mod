@@ -142,6 +142,13 @@ bool execCustomCmd(std::string& cmd) {
 		return true;
 	}
 	
+	if (p[0] == "cg_hudblood") {
+		if (p.size() >= 2) {
+			CustomCommands::toggleHudBlood(GameUtil::stringToBool(p[1]));
+		}
+		return true;
+	}
+	
 	if (p[0] == "r_fog") {
 		if (p.size() >= 2) {
 			CustomCommands::toggleFog(GameUtil::stringToBool(p[1]));

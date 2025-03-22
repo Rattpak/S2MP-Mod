@@ -6,6 +6,7 @@ public:
 	static uintptr_t rawBase;
 	static void toggleGodmode();
 	static void toggleHud(bool b);
+	static void toggleHudBlood(bool b);
 	static void toggleGun(bool b);
 	static void toggleFog(bool b);
 private:

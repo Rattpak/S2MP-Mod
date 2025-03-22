@@ -17,10 +17,12 @@ void CustomCommands::toggleGodmode() {
 	if (CustomCommands::isGodmode) {
 		*health = 100;
 		Console::print("God: OFF");
+		Functions::_SV_SendServerCommand(0i64, 0, "%c \"God: ^1OFF\"", 101i64);
 	}
 	else {
 		*health = -1;
 		Console::print("God: ON");
+		Functions::_SV_SendServerCommand(0i64, 0, "%c \"God: ^2ON\"", 101i64);
 	}
 	CustomCommands::isGodmode = !CustomCommands::isGodmode;
 }
@@ -35,6 +37,19 @@ void CustomCommands::toggleHud(bool b) {
 	}
 	else {
 		WriteProcessMemory(pHandle, (LPVOID)(base + 0x960205), DISABLE_HUD_PATCH_BYTES.data(), DISABLE_HUD_PATCH_BYTES.size(), nullptr);
+	}
+}
+
+//cg_hudblood
+void CustomCommands::toggleHudBlood(bool b) {
+	constexpr std::array<unsigned char, 5> DISABLE_HUDBLOOD_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
+	constexpr std::array<unsigned char, 5> ENABLE_HUDBLOOD_PATCH_BYTES = { 0xE8, 0xF6, 0x4D, 0xFE, 0xFF }; //original
+	HANDLE pHandle = GetCurrentProcess();
+	if (b) {
+		WriteProcessMemory(pHandle, (LPVOID)(base + 0x5DCE5), ENABLE_HUDBLOOD_PATCH_BYTES.data(), ENABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
+	}
+	else {
+		WriteProcessMemory(pHandle, (LPVOID)(base + 0x5DCE5), DISABLE_HUDBLOOD_PATCH_BYTES.data(), DISABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
 	}
 }
 

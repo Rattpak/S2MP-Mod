@@ -50,6 +50,14 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
                 var->current.string = _strdup(cmd[1].c_str());
             }
             break;
+        case DVAR_TYPE_COLOR:
+            if (cmd.size() >= 5) {
+                var->current.color[0] = GameUtil::safeStringToFloat(cmd[1]);
+                var->current.color[1] = GameUtil::safeStringToFloat(cmd[2]);
+                var->current.color[2] = GameUtil::safeStringToFloat(cmd[3]);
+                var->current.color[3] = GameUtil::safeStringToFloat(cmd[4]);
+            }
+            break;
         default:
             Console::print("Unsupported dvar type: " + std::to_string(var->type));
             break;
