@@ -90,6 +90,7 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
 }
 
 void DvarInterface::addAllMappings() {
+    //from R_RegisterDvars
     addMapping("r_disable_clutter", "1841");
     addMapping("r_texFilterDisable", "91");
     addMapping("r_texFilterMipMode", "4107");
@@ -251,6 +252,65 @@ void DvarInterface::addAllMappings() {
     addMapping("r_frustomLightUseZBinning", "2244");
     addMapping("r_lightDpvs", "3825");
     addMapping("r_forwardPlusMode", "5818");
+
+    //from CG_CompassRegisterDvars
+    addMapping("compassSize", "2692");
+    addMapping("compassSoundPingFadeTime", "5111");
+    addMapping("compassClampIcons", "2980");
+    addMapping("compassFriendlyWidth", "4963");
+    addMapping("compassFriendlyHeight", "784");
+    addMapping("compassPlayerWidth", "3340");
+    addMapping("compassPlayerHeight", "2430");
+    addMapping("compassRotation", "4433");
+    addMapping("compassTickertapeStretch", "66");
+    addMapping("compassRadarPingFadeTime", "4811");
+    addMapping("compassRadarLineThickness", "3967");
+    addMapping("compassObjectiveArrowHeight", "660");
+    addMapping("compassObjectiveMaxRange", "3565");
+    addMapping("compassObjectiveMinAlpha", "5258");
+    addMapping("compassObjectiveIconWidth", "2483");
+    addMapping("compassObjectiveIconHeight", "2617");
+    addMapping("compassObjectiveDetailDist", "3934");
+    addMapping("compassPrototypeElevation", "3500");
+    addMapping("compassPrototypeFiring", "4129");
+    addMapping("compassHideVehicles", "965");
+    addMapping("cg_hudMapRadarLineThickness", "4365");
+    addMapping("cg_hudMapFriendlyWidth", "796");
+    addMapping("cg_hudMapFriendlyHeight", "714");
+    addMapping("cg_hudMapPlayerWidth", "4685");
+    addMapping("cg_hudMapPlayerHeight", "1428");
+    addMapping("cg_hudMapBorderWidth", "701");
+    addMapping("cg_compassTrailExplosiveNumItems", "1914");
+    addMapping("cg_compassTrailExplosiveItemDist", "4045");
+    addMapping("cg_compassTrailExplosiveFadeDur", "1030");
+    addMapping("cg_compassTrailExplosiveMinScale", "4718");
+    addMapping("cg_compassTrailExplosiveMaxScale", "2624");
+    addMapping("cg_compassTrailExplosiveRandScaleRange", "3789");
+    addMapping("cg_compassTrailExplosiveRandScaleOffset", "4641");
+    addMapping("cg_compassTrailFireNumItems", "2036");
+    addMapping("cg_compassTrailFireItemDist", "4244");
+    addMapping("cg_compassTrailFireFadeDur", "5604");
+    addMapping("cg_compassTrailFireMinScale", "4997");
+    addMapping("cg_compassTrailFireMaxScale", "35");
+    addMapping("cg_compassTrailFireRandScaleRange", "3497");
+    addMapping("cg_compassTrailFireRandScaleOffset", "1082");
+    addMapping("cg_compassScorestreakUseSelfColor", "5837");
+    addMapping("cg_compassEnemyDrawMode", "4530");
+    addMapping("cg_compassClippedEnemyIconScale", "3607");
+    addMapping("cg_compassClippedEnemyDistanceClose", "2283");
+    addMapping("cg_compassClippedEnemyDistanceMedium", "92");
+    addMapping("cg_compassClippedEnemyAlphaClose", "509");
+    addMapping("cg_compassClippedEnemyAlphaMedium", "1022");
+    addMapping("cg_compassClippedEnemyAlphaFar", "613");
+    addMapping("motionTrackerPingFadeTime", "3531");
+    addMapping("motionTrackerBlurDuration", "1186");
+    addMapping("motionTrackerPingSize", "5793");
+    addMapping("motionTrackerCenterX", "182");
+    addMapping("motionTrackerCenterY", "5006");
+    addMapping("motionTrackerPingPitchBase", "679");
+    addMapping("motionTrackerPingPitchNearby", "5435");
+    addMapping("motionTrackerPingPitchAddPerEnemy", "5477");
+
 }
 
 void DvarInterface::init() {
