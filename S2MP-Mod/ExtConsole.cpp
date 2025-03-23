@@ -89,7 +89,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 		//TODO: Add some like error handling here or a global var
 	}
 
-	//DebugPatches::init();
+	DebugPatches::init();
 	//PrintPatches::init();
 	DevPatches::init();
 	DvarInterface::init();
