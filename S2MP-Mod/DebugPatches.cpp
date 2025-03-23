@@ -17,6 +17,7 @@
 std::string DebugPatches::conLabel = "DP";
 uintptr_t DebugPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 typedef NTSTATUS(WINAPI* NtUserBuildHwndList_t)(HDESK hdesk, HWND hwndParent, BOOL fChildren, BOOL fOwner, DWORD dwThreadId, UINT cHwndMax, HWND* phwnd, PUINT pcHwndNeeded);
 NtUserBuildHwndList_t fpNtUserBuildHwndList = nullptr;
 

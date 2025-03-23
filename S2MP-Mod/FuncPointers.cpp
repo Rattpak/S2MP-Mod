@@ -17,3 +17,4 @@ Functions::Dvar_FindVar Functions::_Dvar_FindVar = (Functions::Dvar_FindVar)(bas
 Functions::SEH_SafeTranslateString Functions::_SEH_SafeTranslateString = (Functions::SEH_SafeTranslateString)(base + 0x7934D0);
 Functions::SEH_StringEd_GetString Functions::_SEH_StringEd_GetString = (Functions::SEH_StringEd_GetString)(base + 0x793520);
 Functions::Sys_Quit Functions::_Sys_Quit = (Functions::Sys_Quit)(base + 0x7F0400);
+Functions::GetAvailableCommandBufferIndex Functions::_GetAvailableCommandBufferIndex = (Functions::GetAvailableCommandBufferIndex)(base + 0x503030);

@@ -32,4 +32,7 @@ public:
 	typedef void (__cdecl* Sys_Quit)();
 	static Sys_Quit _Sys_Quit;
 	
+	typedef __int64 (__cdecl* GetAvailableCommandBufferIndex)();
+	static GetAvailableCommandBufferIndex _GetAvailableCommandBufferIndex;
+	
 };

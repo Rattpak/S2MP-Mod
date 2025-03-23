@@ -177,7 +177,8 @@ void Console::execCmd(std::string cmd) {
 		return;
 	}
 	if (!execCustomCmd(cmd) && !setEngineDvar(cmd)) {
-		//GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
+		//Console::devPrint("Passing cmd to command buffer");
+		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
 
 }

@@ -65,7 +65,7 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
         return true;
     }
     else {
-        Console::print("no dvar \"" + dvarname + "\"");
+        //Console::print("no dvar \"" + dvarname + "\"");
         return false;
     }
 }
