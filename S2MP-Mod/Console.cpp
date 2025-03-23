@@ -124,6 +124,23 @@ bool execCustomCmd(std::string& cmd) {
 		Noclip::toggle();
 		return true;
 	}
+	
+	if (p[0] == "map_restart") {
+		CustomCommands::mapRestart();
+		return true;
+	}
+	
+	if (p[0] == "fast_restart") {
+		CustomCommands::fastRestart();
+		return true;
+	}
+	
+	if (p[0] == "map") {
+		if (p.size() >= 2) {
+			CustomCommands::changeMap(p[1]);
+		}
+		return true;
+	}
 
 	if (p[0] == "god") {
 		CustomCommands::toggleGodmode();

@@ -18,3 +18,4 @@ Functions::SEH_SafeTranslateString Functions::_SEH_SafeTranslateString = (Functi
 Functions::SEH_StringEd_GetString Functions::_SEH_StringEd_GetString = (Functions::SEH_StringEd_GetString)(base + 0x793520);
 Functions::Sys_Quit Functions::_Sys_Quit = (Functions::Sys_Quit)(base + 0x7F0400);
 Functions::GetAvailableCommandBufferIndex Functions::_GetAvailableCommandBufferIndex = (Functions::GetAvailableCommandBufferIndex)(base + 0x503030);
+Functions::SV_MapRestart_f Functions::_SV_MapRestart_f = (Functions::SV_MapRestart_f)(base + 0x73E800);

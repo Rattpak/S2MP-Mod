@@ -45,6 +45,7 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
                 var->current.integer = GameUtil::safeStringToInt(cmd[1]);
             }
             break;
+        case 263:
         case DVAR_TYPE_STRING:
             if (cmd.size() >= 2) {
                 var->current.string = _strdup(cmd[1].c_str());
@@ -98,6 +99,7 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
 }
 
 void DvarInterface::addAllMappings() {
+    addMapping("nextmap", "4059");
     //from R_RegisterDvars
     addMapping("r_disable_clutter", "1841");
     addMapping("r_texFilterDisable", "91");
@@ -318,6 +320,7 @@ void DvarInterface::addAllMappings() {
     addMapping("motionTrackerPingPitchBase", "679");
     addMapping("motionTrackerPingPitchNearby", "5435");
     addMapping("motionTrackerPingPitchAddPerEnemy", "5477");
+    
 
 }
 

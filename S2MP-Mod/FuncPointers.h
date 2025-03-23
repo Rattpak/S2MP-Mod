@@ -35,4 +35,6 @@ public:
 	typedef __int64 (__cdecl* GetAvailableCommandBufferIndex)();
 	static GetAvailableCommandBufferIndex _GetAvailableCommandBufferIndex;
 	
+	typedef void (__cdecl* SV_MapRestart_f)();
+	static SV_MapRestart_f _SV_MapRestart_f;
 };

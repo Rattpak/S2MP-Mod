@@ -9,6 +9,9 @@ public:
 	static void toggleHudBlood(bool b);
 	static void toggleGun(bool b);
 	static void toggleFog(bool b);
+	static void changeMap(const std::string& mapname);
+	static void fastRestart();
+	static void mapRestart();
 private:
 	static bool isGodmode;
 };

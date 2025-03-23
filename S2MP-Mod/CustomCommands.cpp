@@ -7,6 +7,7 @@
 #include "Console.hpp"
 #include "FuncPointers.h"
 #include <array>
+#include "DvarInterface.hpp"
 
 uintptr_t CustomCommands::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 uintptr_t CustomCommands::rawBase = (uintptr_t)GetModuleHandle(NULL);
@@ -77,4 +78,20 @@ void CustomCommands::toggleFog(bool b) {
 	else {
 		WriteProcessMemory(pHandle, (LPVOID)(base + 0x47B19), DISABLE_FOG_PATCH_BYTES.data(), DISABLE_FOG_PATCH_BYTES.size(), nullptr);
 	}
+}
+
+void CustomCommands::changeMap(const std::string& mapname) {
+	//TODO
+}
+
+void CustomCommands::fastRestart() {
+	int* sv_map_restart = (int*)(base + 0xBD44240);
+	*sv_map_restart = 1;
+}
+
+void CustomCommands::mapRestart() {
+	int* sv_loadScripts = (int*)(base + 0xBD44244);
+	*sv_loadScripts = 1;
+	int* sv_map_restart = (int*)(base + 0xBD44240);
+	*sv_map_restart = 1;
 }
