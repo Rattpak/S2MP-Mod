@@ -8,12 +8,15 @@ Very early in development. Feel free to contribute (especially with the dvar int
 - External Developer Console
 - Reimplemented Stripped Commands / DVars
 - DVar Mapping
+  
 
 ## Reimplemented Commands / DVars
 - `noclip`
 - `god`
 - `r_fog`
 - `cg_drawgun`
+- `map_restart`
+- `fast_restart`
 
 ## Custom DVARs
 - `cg_drawlui` \<1 or 0\> - Enable drawing of LUI elements
