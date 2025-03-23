@@ -17,7 +17,7 @@ Very early in development. Feel free to contribute (especially with the dvar int
 
 ## Custom DVARs
 - `cg_drawlui` \<1 or 0\> - Enable drawing of LUI elements
-- `cg_hudblood` \<1 or 0\> - Enable drawing of LUI elements
+- `cg_hudblood` \<1 or 0\> - Enable drawing of on-screen damage blood
   
 ## Notes
 - You will need to inject the DLL yourself for now, but DM on discord if you would like the launcher
