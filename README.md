@@ -8,7 +8,7 @@ Very early in development. Feel free to contribute (especially with the dvar int
 - External Developer Console
 - Reimplemented Stripped Commands / DVars
 - DVar Mapping
-  
+- Mod auto runs between MP & ZM
 
 ## Reimplemented Commands / DVars
 - `noclip`
