@@ -84,9 +84,6 @@
     <ClInclude Include="DebugPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
-    <ClInclude Include="D3D.hpp">
-      <Filter>Source Files\Code</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -132,9 +129,6 @@
       <Filter>Source Files\Code</Filter>
     </ClCompile>
     <ClCompile Include="DebugPatches.cpp">
-      <Filter>Source Files\Code</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D.cpp">
       <Filter>Source Files\Code</Filter>
     </ClCompile>
   </ItemGroup>

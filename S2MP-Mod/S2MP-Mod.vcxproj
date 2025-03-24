@@ -147,7 +147,6 @@
     <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Console.hpp" />
     <ClInclude Include="CustomCommands.hpp" />
-    <ClInclude Include="D3D.hpp" />
     <ClInclude Include="DebugPatches.hpp" />
     <ClInclude Include="DevPatches.hpp" />
     <ClInclude Include="DvarInterface.hpp" />
@@ -167,7 +166,6 @@
     <ClCompile Include="ConfigManager.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="CustomCommands.cpp" />
-    <ClCompile Include="D3D.cpp" />
     <ClCompile Include="DebugPatches.cpp" />
     <ClCompile Include="DevPatches.cpp" />
     <ClCompile Include="dllmain.cpp" />
