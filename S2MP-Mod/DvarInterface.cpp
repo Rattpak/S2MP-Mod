@@ -35,6 +35,7 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
                 var->current.value = GameUtil::safeStringToFloat(cmd[1]);
             }
             break;
+        case 261:
         case DVAR_TYPE_INT:
             if (cmd.size() >= 2) {
                 var->current.integer = GameUtil::safeStringToInt(cmd[1]);
@@ -321,7 +322,108 @@ void DvarInterface::addAllMappings() {
     addMapping("motionTrackerPingPitchNearby", "5435");
     addMapping("motionTrackerPingPitchAddPerEnemy", "5477");
     
-
+    //from SocialConfig_Init
+    addMapping("theater_active", "616");
+    addMapping("facebook_active", "4761");
+    addMapping("facebook_delay", "1636");
+    addMapping("facebook_max_retry_time", "5797");
+    addMapping("facebook_retry_step", "4142");
+    addMapping("facebook_friends_max_retry_time", "339");
+    addMapping("facebook_friends_retry_step", "2306");
+    addMapping("facebook_friends_refresh_time", "5238");
+    addMapping("facebook_friends_throttle_time", "5232");
+    addMapping("facebook_friends_active", "2687");
+    addMapping("facebook_upload_video_active", "2688");
+    addMapping("facebook_upload_photo_active", "5141");
+    addMapping("userGroup_active", "1021");
+    addMapping("userGroup_max_retry_time", "1490");
+    addMapping("userGroup_retry_step", "1419");
+    addMapping("userGroup_RetryTime", "227");
+    addMapping("userGroup_refresh_time_secs", "55");
+    addMapping("userGroup_cool_off_time", "776");
+    addMapping("elite_clan_delay", "2672");
+    addMapping("elite_clan_active", "3629");
+    addMapping("elite_clan_get_clan_max_retry_time", "4416");
+    addMapping("elite_clan_get_clan_retry_step", "1092");
+    addMapping("elite_clan_get_members_max_retry_time", "4619");
+    addMapping("elite_clan_get_members_retry_step", "2452");
+    addMapping("elite_clan_get_blob_profile_max_retry_time", "4136");
+    addMapping("elite_clan_get_blob_profile_retry_step", "813");
+    addMapping("elite_clan_get_public_profile_max_retry_time", "1574");
+    addMapping("elite_clan_get_public_profile_retry_step", "2257");
+    addMapping("elite_clan_upload_emblemunlock_enable", "2849");
+    addMapping("elite_clan_get_private_member_profile_max_retry_time", "53");
+    addMapping("elite_clan_get_private_member_profile_retry_step", "834");
+    addMapping("elite_clan_set_private_member_profile_max_retry_time", "636");
+    addMapping("elite_clan_set_private_member_profile_retry_step", "2655");
+    addMapping("elite_clan_send_message_to_members_max_retry_time", "643");
+    addMapping("elite_clan_send_message_to_members_rerty_step", "4237");
+    addMapping("elite_clan_cool_off_time", "5281");
+    addMapping("elite_clan_motd_throttle_time", "2209");
+    addMapping("elite_clan_remote_view_active", "5205");
+    addMapping("elite_clan_remote_view_retry_step", "434");
+    addMapping("elite_clan_remote_view_max_retry_time", "5560");
+    addMapping("dw_presence_active", "4174");
+    addMapping("dw_presence_coop_join", "418");
+    addMapping("dw_presence_put_delay", "3550");
+    addMapping("dw_presence_put_rate", "561");
+    addMapping("dw_presence_get_rate", "3602");
+    addMapping("dw_interleave_all_nat_types", "3358");
+    addMapping("dw_enable_connection_telemetry", "1799");
+    addMapping("dw_nattrav_cache_enable", "770");
+    addMapping("dw_nattrav_cache_timeout", "463");
+    addMapping("num_available_map_packs", "5942");
+    addMapping("clientNetPerf_enabled", "1427");
+    addMapping("clientNetPerf_UserCmdTimeWindowMs", "156");
+    addMapping("clientNetPerf_UserCmdProcessedMinCount", "5040");
+    addMapping("clientNetPerf_UserCmdQueuedMinCount", "4912");
+    addMapping("clientNetPerf_UserCmdDroppedMinCount", "2614");
+    addMapping("sv_clientPacketsBurstMinCount", "2044");
+    addMapping("iotd_active", "2623");
+    addMapping("iotd_retry", "60");
+    addMapping("igs_td", "532");
+    addMapping("matchdata_active", "967");
+    addMapping("matchdata_maxcompressionbuffer", "2660");
+    addMapping("breadcrumbdata_active", "466");
+    addMapping("breadcrumbdata_maxcompressionbuffer", "4030");
+    addMapping("breadcrumbdata_frequency_seconds", "34");
+    addMapping("spawndata_active", "1745");
+    addMapping("spawndata_maxcompressionbuffer", "2149");
+    addMapping("matchnetperf_active", "109");
+    addMapping("playercard_cache_validity_life", "5175");
+    addMapping("playercard_cache_upload_max_retry_time", "3644");
+    addMapping("playercard_cache_upload_retry_step", "2476");
+    addMapping("playercard_cache_download_max_retry_time", "301");
+    addMapping("playercard_cache_download_retry_step", "3347");
+    addMapping("match_making_telemetry_chance", "743");
+    addMapping("log_host_migration_chance", "2574");
+    addMapping("max_ping_threshold_good", "4332");
+    addMapping("max_ping_threshold_medium", "4760");
+    addMapping("aci", "160");
+    addMapping("vpte", "5029");
+    addMapping("zombiesAllowSoloPause", "5353");
+    addMapping("dlog_active", "5785");
+    addMapping("marketing_refresh_time", "1543");
+    addMapping("emblems_active", "4798");
+    addMapping("selfie_active", "387");
+    addMapping("ca_intra_only", "3302");
+    addMapping("ca_do_mlc", "1966");
+    addMapping("ca_require_signin", "2520");
+    addMapping("ca_auto_signin", "5570");
+    addMapping("lb_times_in_window", "3355");
+    addMapping("lb_window", "2163");
+    addMapping("svwp", "765");
+    addMapping("dc_lobbymerge", "3583");
+    addMapping("net_write_tween_packets", "5801");
+    addMapping("net_read_tween_packets", "4773");
+    addMapping("net_latest_tween_threshold", "1907");
+    addMapping("ae_minBufferingTimeForHFEvents", "1778");
+    addMapping("ae_forceAllEventsDispatchType", "25");
+    addMapping("ae_dropGameEventsWithDispatchType", "5805");
+    addMapping("ae_dropGameEventsWithID", "5826");
+    addMapping("lfg_enabled", "2195");
+    addMapping("lfg_playlist_search_offset", "4609");
+    addMapping("lfg_freeslot_advertise_cutoff", "3008");
 }
 
 void DvarInterface::init() {
