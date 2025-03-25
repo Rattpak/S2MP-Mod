@@ -6,7 +6,7 @@
 #include "DebugPatches.hpp"
 #include "Console.hpp"
 #include "GameUtil.hpp"
-#include <MinHook.h>
+#include <C:\Users\Tazei\Downloads\S2MP-Mod-master\S2MP-Mod-master\include\MinHook.h>
 #include <Windows.h>
 #include <array>
 #include <mutex>

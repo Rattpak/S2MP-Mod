@@ -122,6 +122,8 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>"C:\Users\Tazei\Downloads\S2MP-Mod-master\S2MP-Mod-master\include\libMinHook.x64.lib";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>C:\Users\Tazei\Downloads\S2MP-Mod-master\S2MP-Mod-master\include;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,6 +143,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalLibraryDirectories>"C:\Users\Tazei\Downloads\minhook-master\minhook-master\build\VC17\lib\Release\libMinHook.x64.lib";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>"C:\Users\Tazei\Downloads\minhook-master\minhook-master\build\VC17\lib\Release\libMinHook.x64.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -160,6 +164,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="PrintPatches.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SetScore.hpp" />
     <ClInclude Include="structs.h" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +188,7 @@
     </ClCompile>
     <ClCompile Include="Noclip.cpp" />
     <ClCompile Include="PrintPatches.cpp" />
+    <ClCompile Include="SetScore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="s2mp_con.bmp" />

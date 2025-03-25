@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "DevPatches.hpp"
 #include "Console.hpp"
-#include <MinHook.h>
+#include <C:\Users\Tazei\Downloads\S2MP-Mod-master\S2MP-Mod-master\include\MinHook.h>
 #include "FuncPointers.h"
 #include <winternl.h>
 #include <psapi.h>
