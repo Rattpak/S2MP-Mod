@@ -18,13 +18,6 @@
 #include "Noclip.hpp"
 #include "CustomCommands.hpp"
 #include "DvarInterface.hpp"
-#include "Kill.hpp"
-#include "FreezePlayer.hpp"
-#include "ChangeGravity.hpp"
-#include "ThirdPersonToggle.hpp"
-#include "GiveWeapon.hpp"
-#include "SetName.hpp"
-#include "SetScore.hpp"
 
 //Output to all consoles without label
 void Console::print(std::string text) {
