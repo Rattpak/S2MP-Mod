@@ -1,3 +1,5 @@
+I am not the owner Rattpak is. I am just a developer :)
+
 # S2MP-Mod | Call of Duty: WWII Client Modification
 
 Discord Server: https://discord.gg/Wbb5YMZrHG
