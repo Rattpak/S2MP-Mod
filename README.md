@@ -28,6 +28,7 @@ Very early in development. Feel free to contribute (especially with the dvar int
   
 ## Notes
 - Place the launcher and the dll in the root folder of your WW2 installation. Run the launcher start the mod
+- Build in Release, x64
 
 ## Disclaimer
 This project is for educational and personal use only. I am not responsible for any bans, penalties, or any other consequences that may result from using this client. Use it at your own risk.
