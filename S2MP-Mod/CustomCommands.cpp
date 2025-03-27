@@ -15,6 +15,12 @@ bool CustomCommands::isGodmode = false;
 
 void CustomCommands::toggleGodmode() {
 	int* health = (int*)(rawBase + 0xA0C740C);
+
+	if (health == nullptr) {
+		Console::print("Error: Health pointer is invalid.");
+		return;
+	}
+
 	if (CustomCommands::isGodmode) {
 		*health = 100;
 		Console::print("God: OFF");
@@ -25,7 +31,25 @@ void CustomCommands::toggleGodmode() {
 		Console::print("God: ON");
 		Functions::_SV_SendServerCommand(0i64, 0, "%c \"God: ^2ON\"", 101i64);
 	}
+
 	CustomCommands::isGodmode = !CustomCommands::isGodmode;
+}
+
+void CustomCommands::setHealth(int healthValue) {
+	int* health = (int*)(rawBase + 0xA0C740C);
+
+	if (health == nullptr) {
+		Console::print("Error: Health pointer is invalid.");
+		return;
+	}
+
+	*health = healthValue;
+
+	std::string healthMessage = "Health set to: ^2" + std::to_string(healthValue);
+
+	Functions::_SV_SendServerCommand(0i64, 0, "%c \"%s\"", 101i64, healthMessage.c_str());
+
+	Console::print(healthMessage);
 }
 
 //cg_drawlui

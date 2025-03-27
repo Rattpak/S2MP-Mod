@@ -5,7 +5,7 @@
 #include "pch.h"
 #include "Console.hpp"
 #include "PrintPatches.hpp"
-#include <MinHook.h>
+#include <C:\Users\Tazei\Downloads\S2MP-Mod-master\S2MP-Mod-master\include\MinHook.h>
 
 uintptr_t PrintPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 

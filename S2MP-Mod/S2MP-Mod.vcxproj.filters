@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Code\Movement">
       <UniqueIdentifier>{0b53c889-46fc-46e6-a01f-592ad299e27b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Code\setscore">
+      <UniqueIdentifier>{b74eb0fc-984a-42ae-871f-b58179573d40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,6 +87,9 @@
     <ClInclude Include="DebugPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
+    <ClInclude Include="SetScore.hpp">
+      <Filter>Source Files\Code\setscore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="DebugPatches.cpp">
       <Filter>Source Files\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="SetScore.cpp">
+      <Filter>Source Files\Code\setscore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
