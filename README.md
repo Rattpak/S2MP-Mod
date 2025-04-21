@@ -32,3 +32,9 @@ Very early in development. Feel free to contribute (especially with the dvar int
 
 ## Disclaimer
 This project is for educational and personal use only. I am not responsible for any bans, penalties, or any other consequences that may result from using this client. Use it at your own risk.
+
+## Update Logs
+- Added help command use by saying `help`
+- Added FOV changer `cg_fov [number]` (not ready yet) / (in dev)
+- Added clear console command `cls` (in dev)
+- Added Server Info (in dev)
