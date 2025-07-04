@@ -86,18 +86,47 @@ void __fastcall hk_LUI_OpenMenu(int client, const char* menu, int a, uint32_t is
 void Hook_LUI_OpenMenu() {
     void* target = (void*)(GameUtil::base + 0x740A30);
 
-    if (MH_Initialize() != MH_OK)
+    if (MH_CreateHook(target, &hk_LUI_OpenMenu, reinterpret_cast<void**>(&_LUI_OpenMenu)) != MH_OK) {
+        Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
         return;
+    }
 
-    if (MH_CreateHook(target, &hk_LUI_OpenMenu, reinterpret_cast<void**>(&_LUI_OpenMenu)) != MH_OK)
+    if (MH_EnableHook(target) != MH_OK) {
+        Console::devPrint("ERROR: MH_EnableHook failure in function " + std::string(__FUNCTION__));
         return;
-
-    if (MH_EnableHook(target) != MH_OK)
-        return;
+    }
 }
 
+typedef void (*Cmd_AddCommandInternal_t)(const char* name, void* func, cmd_function_t* cmd);
+static Cmd_AddCommandInternal_t oCmd_AddCommandInternal = nullptr;
+
+void Cmd_AddCommandInternal_hookfunc(const char* name, void* func, cmd_function_t* cmd) {
+    if (name) {
+        Console::devPrint("Adding Cmd: " + std::string(name));
+    }
+
+    oCmd_AddCommandInternal(name, func, cmd);
+}
+
+void Hook_Cmd_AddCommandInternal() {
+    void* target = (void*)(GameUtil::base + 0x646100);
+
+
+        
+    if (MH_CreateHook(target, &Cmd_AddCommandInternal_hookfunc, reinterpret_cast<void**>(&oCmd_AddCommandInternal)) != MH_OK) {
+        Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
+        return;
+    }
+
+    if (MH_EnableHook(target) != MH_OK) {
+        Console::devPrint("ERROR: MH_EnableHook failure in function " + std::string(__FUNCTION__));
+        return;
+    }
+
+}
 void DevPatches::init() {
     Console::initPrint("DevPatches::init()");
     HookNtCreateUserProcess();
     Hook_LUI_OpenMenu();
+    Hook_Cmd_AddCommandInternal();
 }

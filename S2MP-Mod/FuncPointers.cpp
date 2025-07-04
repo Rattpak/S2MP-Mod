@@ -24,3 +24,5 @@ Functions::R_AddCmdDrawText Functions::_R_AddCmdDrawText = (Functions::R_AddCmdD
 Functions::R_RegisterFont Functions::_R_RegisterFont = (Functions::R_RegisterFont)(base + 0x888320);
 Functions::UI_RunMenuScript Functions::_UI_RunMenuScript = (Functions::UI_RunMenuScript)(base + 0x742520);
 Functions::SV_Loaded Functions::_SV_Loaded = (Functions::SV_Loaded)(base + 0x6D7090);
+Functions::R_AddCmdDrawStretchPic Functions::_R_AddCmdDrawStretchPic = (Functions::R_AddCmdDrawStretchPic)(base + 0x8ADEF0);
+Functions::R_AddCmdDrawTextWithCursor Functions::_R_AddCmdDrawTextWithCursor = (Functions::R_AddCmdDrawTextWithCursor)(base + 0x8AF200);

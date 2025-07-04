@@ -49,4 +49,10 @@ public:
 	
 	typedef bool (__cdecl* SV_Loaded)();
 	static SV_Loaded _SV_Loaded;
+	
+	typedef bool (__cdecl* R_AddCmdDrawStretchPic)(float x, float y, float w, float h, float xScale, float yScale, float xay, float yay, float* color, material_t* material);
+	static R_AddCmdDrawStretchPic _R_AddCmdDrawStretchPic;
+	
+	typedef bool (__cdecl* R_AddCmdDrawTextWithCursor)(const char* text, int max_chars, font_t* font, int unk0, int unk1, int pixel_h, float pos_x, float pos_y, float scale_x, float scale_y, float rotation, const float* color, long long style, int cursorPos, char cursor);
+	static R_AddCmdDrawTextWithCursor _R_AddCmdDrawTextWithCursor;
 };

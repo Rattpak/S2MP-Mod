@@ -77,6 +77,13 @@ struct font_t{
     glyph_t* glyphs;
 };
 
+//temp
+struct cmd_function_t {
+    cmd_function_t* next;
+    const char* name;
+    void(__cdecl* func)(void);
+};
+
 enum dvarType_t : __int32
 {
     DVAR_TYPE_BOOL = 0x0,

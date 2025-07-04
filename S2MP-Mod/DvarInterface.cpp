@@ -449,6 +449,36 @@ void DvarInterface::addAllMappings() {
     addMapping("hub_supply_drop_max_distance", "4143");
     addMapping("hub_leaderboard_max_distance", "3296");
 
+
+    addMapping("cg_foliagesnd_alias", "4011");
+    addMapping("cg_broadcasterSkycamDistance", "3119");
+    addMapping("cg_subtitleForcedColor", "5004");
+    addMapping("cg_subtitleColor", "2191");
+    addMapping("cg_gunReticleTeamColor_EnemyTeam", "4426");
+    addMapping("cg_gunReticleTeamColor_MyTeam", "4893");
+    addMapping("cg_ScorestreakColor_Enemy", "2906");
+    addMapping("cg_weaponVisInterval", "412");
+    addMapping("cg_disableScreenShake", "3926");
+    addMapping("useRelativeTeamColors", "1244");
+    addMapping("cg_weapHitCullEnable", "5446");
+    addMapping("cg_weapHitCullAngle", "207");
+    addMapping("overrideNVGModelWithKnife", "5025");
+    addMapping("cg_viewZSmoothingTime", "957");
+    addMapping("cg_viewZSmoothingMax", "2391");
+    addMapping("cg_viewZSmoothingMin", "5640");
+    addMapping("cg_invalidCmdHintBlinkInterval", "811");
+    addMapping("cg_invalidCmdHintDuration", "641");
+    addMapping("cg_flashbangNameFadeOut", "3428");
+    addMapping("cg_flashbangNameFadeIn", "5860");
+    addMapping("cg_friendlyNameFadeOut", "5344");
+    addMapping("cg_friendlyNameFadeIn", "3768");
+    addMapping("cg_drawFriendlyNames", "1380");
+    addMapping("cg_overheadNamesFont", "731");
+    addMapping("cg_overheadNamesGlow", "257");
+    addMapping("cg_overheadNamesFarScale", "1900");
+    addMapping("cg_overheadNamesFarDist", "2393");
+    addMapping("cg_overheadNamesNearDist", "1733");
+
     //3708 1 skips the title screen
 }
 
