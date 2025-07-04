@@ -10,7 +10,7 @@
 #include <algorithm>
 typedef unsigned int uint32;
 uintptr_t GameUtil::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
-char** commandTextBuffers = reinterpret_cast<char**>(GameUtil::base + 0xAC664B8);
+char** commandTextBuffers = reinterpret_cast<char**>(GameUtil::base + 0xBD9A728); //updated
 
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();

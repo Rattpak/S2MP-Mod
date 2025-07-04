@@ -14,6 +14,8 @@ uintptr_t CustomCommands::rawBase = (uintptr_t)GetModuleHandle(NULL);
 bool CustomCommands::isGodmode = false;
 
 void CustomCommands::toggleGodmode() {
+	Console::devPrint("Function " + std::string(__FUNCTION__) + " needs offset update!");
+	return;
 	int* health = (int*)(rawBase + 0xA0C740C);
 	if (CustomCommands::isGodmode) {
 		*health = 100;
@@ -30,6 +32,8 @@ void CustomCommands::toggleGodmode() {
 
 //cg_drawlui
 void CustomCommands::toggleHud(bool b) {
+	Console::devPrint("Function " + std::string(__FUNCTION__) + " needs offset update!");
+	return;
 	constexpr std::array<unsigned char, 5> DISABLE_HUD_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
 	constexpr std::array<unsigned char, 5> ENABLE_HUD_PATCH_BYTES = { 0xE8, 0x66, 0xE8, 0xFF, 0xFF }; //original
 	HANDLE pHandle = GetCurrentProcess();
@@ -43,6 +47,8 @@ void CustomCommands::toggleHud(bool b) {
 
 //cg_hudblood
 void CustomCommands::toggleHudBlood(bool b) {
+	Console::devPrint("Function " + std::string(__FUNCTION__) + " needs offset update!");
+	return;
 	constexpr std::array<unsigned char, 5> DISABLE_HUDBLOOD_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
 	constexpr std::array<unsigned char, 5> ENABLE_HUDBLOOD_PATCH_BYTES = { 0xE8, 0xF6, 0x4D, 0xFE, 0xFF }; //original
 	HANDLE pHandle = GetCurrentProcess();
@@ -56,6 +62,8 @@ void CustomCommands::toggleHudBlood(bool b) {
 
 //cg_drawGun
 void CustomCommands::toggleGun(bool b) {
+	Console::devPrint("Function " + std::string(__FUNCTION__) + " needs offset update!");
+	return;
 	constexpr std::array<unsigned char, 5> DISABLE_GUNDRAW_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
 	constexpr std::array<unsigned char, 5> ENABLE_GUNDRAW_PATCH_BYTES = { 0xE8, 0x97, 0x15, 0x0D, 0x00 }; //original
 	HANDLE pHandle = GetCurrentProcess();
@@ -69,6 +77,8 @@ void CustomCommands::toggleGun(bool b) {
 
 //r_fog
 void CustomCommands::toggleFog(bool b) {
+	Console::devPrint("Function " + std::string(__FUNCTION__) + " needs offset update!");
+	return;
 	constexpr std::array<unsigned char, 5> DISABLE_FOG_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
 	constexpr std::array<unsigned char, 5> ENABLE_FOG_PATCH_BYTES = { 0xE8, 0x02, 0x4B, 0x46, 0x00 }; //original
 	HANDLE pHandle = GetCurrentProcess();
@@ -85,13 +95,13 @@ void CustomCommands::changeMap(const std::string& mapname) {
 }
 
 void CustomCommands::fastRestart() {
-	int* sv_map_restart = (int*)(base + 0xBD44240);
+	int* sv_map_restart = (int*)(base + 0xCE740E0);//updated
 	*sv_map_restart = 1;
 }
 
 void CustomCommands::mapRestart() {
-	int* sv_loadScripts = (int*)(base + 0xBD44244);
+	int* sv_loadScripts = (int*)(base + 0xCE740E4);//updated
 	*sv_loadScripts = 1;
-	int* sv_map_restart = (int*)(base + 0xBD44240);
+	int* sv_map_restart = (int*)(base + 0xCE740E0);//updated
 	*sv_map_restart = 1;
 }

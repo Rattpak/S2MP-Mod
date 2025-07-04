@@ -48,6 +48,34 @@ union DvarLimits
     DvarLimits_value floats;
 };
 
+//temp
+struct material_t {
+    const char* name;
+};
+
+//temp
+struct glyph_t {
+    unsigned short letter;
+    char x0;
+    char y0;
+    char dx;
+    char pixelWidth;
+    char pixelHeight;
+    float s0;
+    float t0;
+    float s1;
+    float t1;
+};
+
+//temp
+struct font_t{
+    const char* fontName;
+    int pixelHeight;
+    int glyphCount;
+    material_t* material;
+    material_t* glowMaterial;
+    glyph_t* glyphs;
+};
 
 enum dvarType_t : __int32
 {

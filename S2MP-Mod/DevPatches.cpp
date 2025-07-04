@@ -11,6 +11,7 @@
 #include <winternl.h>
 #include <psapi.h>
 #include <algorithm>
+#include "GameUtil.hpp"
 uintptr_t DevPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 
 typedef NTSTATUS(WINAPI* NtCreateUserProcess_t)(PHANDLE ProcessHandle, PHANDLE ThreadHandle, ACCESS_MASK ProcessDesiredAccess, ACCESS_MASK ThreadDesiredAccess, POBJECT_ATTRIBUTES ProcessObjectAttributes,
@@ -71,7 +72,32 @@ void HookNtCreateUserProcess() {
 }
 
 
+typedef void(__fastcall* LUI_OpenMenu_t)(int client, const char* menu, int a, uint32_t is_exclusive);
+static LUI_OpenMenu_t _LUI_OpenMenu = nullptr;
+
+void __fastcall hk_LUI_OpenMenu(int client, const char* menu, int a, uint32_t is_exclusive) {
+    if (menu) {
+        Console::devPrint("LUI_OpenMenu: " + std::string(menu));
+    }
+        
+    _LUI_OpenMenu(client, menu, a, is_exclusive);
+}
+
+void Hook_LUI_OpenMenu() {
+    void* target = (void*)(GameUtil::base + 0x740A30);
+
+    if (MH_Initialize() != MH_OK)
+        return;
+
+    if (MH_CreateHook(target, &hk_LUI_OpenMenu, reinterpret_cast<void**>(&_LUI_OpenMenu)) != MH_OK)
+        return;
+
+    if (MH_EnableHook(target) != MH_OK)
+        return;
+}
+
 void DevPatches::init() {
     Console::initPrint("DevPatches::init()");
     HookNtCreateUserProcess();
+    Hook_LUI_OpenMenu();
 }

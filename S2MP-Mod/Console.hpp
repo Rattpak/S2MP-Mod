@@ -11,3 +11,8 @@ public:
 	static void initPrint(std::string text);
 	static std::vector<std::string> parseCmdToVec(const std::string& cmd);
 };
+
+class InternalConsole {
+public:
+	static void init();
+};

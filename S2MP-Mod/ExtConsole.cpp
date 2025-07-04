@@ -19,6 +19,7 @@
 #include "PrintPatches.hpp"
 #include "DebugPatches.hpp"
 #include "DvarInterface.hpp"
+#include "GameUtil.hpp"
 
 #pragma comment(lib, "libMinHook.x64.lib")
 
@@ -61,6 +62,7 @@ void infoPrintOffsets() {
 	Console::infoPrint("s2_mp64_ship BaseOff at: " + addressStr2);
 }
 
+
 //0 - CLI, 1 - GUI, 2 - BOTH
 void ExtConsole::extConInit(int extConsoleMode) {
 	hProcess = GetCurrentProcess();
@@ -79,6 +81,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 		std::cout << "extConsoleMode:" << extConsoleMode << "; CLI will be used" << std::endl;
 	}
 
+
 	infoPrintOffsets();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
 
@@ -93,6 +96,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	//PrintPatches::init();
 	DevPatches::init();
 	DvarInterface::init();
+	InternalConsole::init();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

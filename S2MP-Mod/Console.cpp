@@ -118,6 +118,36 @@ bool execCustomCmd(std::string& cmd) {
 		}
 		return true;
 	}
+	
+	if (p[0] == "uicmd") {
+		if (p.size() == 2) {
+			if (Functions::_SV_Loaded()) {
+				const char* args = p[1].c_str();
+				Functions::_UI_RunMenuScript(0, &args);
+			}
+			else {
+				Console::print("cmd failed: Server not loaded");
+			}
+		}
+		return true;
+	}
+	
+	if (p[0] == "isload") {
+		if (Functions::_SV_Loaded()) {
+			Console::print("Server is loaded");
+		}
+		else {
+			Console::print("Server not loaded");
+		}
+		return true;
+	}
+	
+	if (p[0] == "windim") {
+		int winX = *(int*)(GameUtil::base + 0x1CFF748); //this isnt actually window size i think its bink player size
+		int winY = *(int*)(GameUtil::base + 0x1CFF74C);
+		Console::devPrint(std::to_string(winX) + "x" + std::to_string(winY));
+		return true;
+	}
 	//--------------------------------------------
 
 	if (p[0] == "noclip") {

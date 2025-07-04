@@ -102,7 +102,6 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
 void DvarInterface::addAllMappings() {
     addMapping("nextmap", "4059");
     //from R_RegisterDvars
-    addMapping("r_disable_clutter", "1841");
     addMapping("r_texFilterDisable", "91");
     addMapping("r_texFilterMipMode", "4107");
     addMapping("r_texShowMipMode", "2416");
@@ -424,6 +423,33 @@ void DvarInterface::addAllMappings() {
     addMapping("lfg_enabled", "2195");
     addMapping("lfg_playlist_search_offset", "4609");
     addMapping("lfg_freeslot_advertise_cutoff", "3008");
+
+    //some lui and hub jawns
+    //also a bunch of E3 stuff
+    addMapping("lui_menuFlowEnabled", "4436");
+    addMapping("lui_xboxlive_menu", "3547");
+    addMapping("lui_systemlink_menu", "1572");
+    addMapping("lui_splitscreenupscaling", "659");
+    addMapping("lui_draw_hints", "5270");
+    addMapping("e3demo", "2803");
+    addMapping("e3demo_host", "4605");
+    addMapping("e3demo_client", "1303");
+    addMapping("e3demo_show_client_title_screen", "871");
+    addMapping("lui_hud_motion_enabled", "42");
+    addMapping("lui_hud_motion_perspective", "5345");
+    addMapping("lui_hud_motion_translation_scale", "381");
+    addMapping("lui_hud_motion_translation_max", "4686");
+    addMapping("lui_hud_motion_rotation_scale", "386");
+    addMapping("lui_hud_motion_rotation_max", "1033");
+    addMapping("lui_hud_motion_bob_scale", "5406");
+    addMapping("lui_hud_motion_angle_ease_speed", "2690");
+    addMapping("lui_hud_motion_trans_ease_speed", "397");
+    addMapping("hub_vendor_overhead_min_distance", "1647");
+    addMapping("hub_vendor_overhead_max_distance", "3924");
+    addMapping("hub_supply_drop_max_distance", "4143");
+    addMapping("hub_leaderboard_max_distance", "3296");
+
+    //3708 1 skips the title screen
 }
 
 void DvarInterface::init() {

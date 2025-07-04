@@ -37,4 +37,16 @@ public:
 	
 	typedef void (__cdecl* SV_MapRestart_f)();
 	static SV_MapRestart_f _SV_MapRestart_f;
+
+	typedef void (__cdecl* R_AddCmdDrawText)(const char* text, int max_chars, font_t* font, int unk0, int unk1, int pixel_h, float pos_x, float pos_y, float scale_x, float scale_y, float rotation, float* color, long long style);
+	static R_AddCmdDrawText _R_AddCmdDrawText;
+
+	typedef font_t* (__cdecl* R_RegisterFont)(const char* name, int size);
+	static R_RegisterFont _R_RegisterFont;
+
+	typedef void (__cdecl* UI_RunMenuScript)(int client, const char** args);
+	static UI_RunMenuScript _UI_RunMenuScript;
+	
+	typedef bool (__cdecl* SV_Loaded)();
+	static SV_Loaded _SV_Loaded;
 };

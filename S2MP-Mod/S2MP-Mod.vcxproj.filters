@@ -84,6 +84,9 @@
     <ClInclude Include="DebugPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
+    <ClInclude Include="DevDef.h">
+      <Filter>Source Files\dev</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -130,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="DebugPatches.cpp">
       <Filter>Source Files\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalConsole.cpp">
+      <Filter>Source Files\Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
