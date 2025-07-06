@@ -13,7 +13,12 @@ typedef void(*CM_LoadMap)(const char* name, int* checksum);
 CM_LoadMap _CM_LoadMap = nullptr;
 
 void hook_CM_LoadMap(const char* name, int* checksum) {
-    Console::infoPrint("Loading Map: " + std::string(name));
+    if (name) {
+        Console::infoPrint("Loading Map: " + std::string(name));
+    }
+    else {
+        Console::infoPrint("Invalid name passed into CM_LoadMap");
+    }
     _CM_LoadMap(name, checksum);
 }
 

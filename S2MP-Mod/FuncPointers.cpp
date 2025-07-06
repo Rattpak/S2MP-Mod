@@ -19,3 +19,11 @@ Functions::SEH_StringEd_GetString Functions::_SEH_StringEd_GetString = (Function
 Functions::Sys_Quit Functions::_Sys_Quit = (Functions::Sys_Quit)(base + 0x7F0400);
 Functions::GetAvailableCommandBufferIndex Functions::_GetAvailableCommandBufferIndex = (Functions::GetAvailableCommandBufferIndex)(base + 0x503030);
 Functions::SV_MapRestart_f Functions::_SV_MapRestart_f = (Functions::SV_MapRestart_f)(base + 0x73E800);
+
+Functions::R_AddCmdDrawText Functions::_R_AddCmdDrawText = (Functions::R_AddCmdDrawText)(base + 0x92CDE0);
+Functions::R_RegisterFont Functions::_R_RegisterFont = (Functions::R_RegisterFont)(base + 0x906F50);
+Functions::UI_RunMenuScript Functions::_UI_RunMenuScript = (Functions::UI_RunMenuScript)(base + 0x7ADA80);
+Functions::SV_Loaded Functions::_SV_Loaded = (Functions::SV_Loaded)(base + 0x7438D0);
+Functions::R_AddCmdDrawStretchPic Functions::_R_AddCmdDrawStretchPic = (Functions::R_AddCmdDrawStretchPic)(base + 0x92C460);
+Functions::R_AddCmdDrawTextWithCursor Functions::_R_AddCmdDrawTextWithCursor = (Functions::R_AddCmdDrawTextWithCursor)(base + 0x92D670);
+Functions::LUI_OpenMenu Functions::_LUI_OpenMenu = (Functions::LUI_OpenMenu)(base + 0x7AC7A0);

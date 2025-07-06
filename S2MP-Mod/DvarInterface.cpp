@@ -10,6 +10,7 @@
 #include "GameUtil.hpp"
 #include "FuncPointers.h"
 #include <algorithm>
+#include "DevDef.h"
 
 std::unordered_map<std::string, std::string> DvarInterface::userToEngineMap;
 std::unordered_map<std::string, std::string> DvarInterface::engineToUserMap;
@@ -101,8 +102,8 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
 
 void DvarInterface::addAllMappings() {
     addMapping("nextmap", "4059");
+    addMapping("mapname", "1673");
     //from R_RegisterDvars
-    addMapping("r_disable_clutter", "1841");
     addMapping("r_texFilterDisable", "91");
     addMapping("r_texFilterMipMode", "4107");
     addMapping("r_texShowMipMode", "2416");
@@ -321,7 +322,7 @@ void DvarInterface::addAllMappings() {
     addMapping("motionTrackerPingPitchBase", "679");
     addMapping("motionTrackerPingPitchNearby", "5435");
     addMapping("motionTrackerPingPitchAddPerEnemy", "5477");
-    
+
     //from SocialConfig_Init
     addMapping("theater_active", "616");
     addMapping("facebook_active", "4761");
@@ -424,10 +425,70 @@ void DvarInterface::addAllMappings() {
     addMapping("lfg_enabled", "2195");
     addMapping("lfg_playlist_search_offset", "4609");
     addMapping("lfg_freeslot_advertise_cutoff", "3008");
+
+    //some lui and hub jawns
+    //also a bunch of E3 stuff
+    addMapping("lui_menuFlowEnabled", "4436");
+    addMapping("lui_xboxlive_menu", "3547");
+    addMapping("lui_systemlink_menu", "1572");
+    addMapping("lui_splitscreenupscaling", "659");
+    addMapping("lui_draw_hints", "5270");
+    addMapping("e3demo", "2803");
+    addMapping("e3demo_host", "4605");
+    addMapping("e3demo_client", "1303");
+    addMapping("e3demo_show_client_title_screen", "871");
+    addMapping("lui_hud_motion_enabled", "42");
+    addMapping("lui_hud_motion_perspective", "5345");
+    addMapping("lui_hud_motion_translation_scale", "381");
+    addMapping("lui_hud_motion_translation_max", "4686");
+    addMapping("lui_hud_motion_rotation_scale", "386");
+    addMapping("lui_hud_motion_rotation_max", "1033");
+    addMapping("lui_hud_motion_bob_scale", "5406");
+    addMapping("lui_hud_motion_angle_ease_speed", "2690");
+    addMapping("lui_hud_motion_trans_ease_speed", "397");
+    addMapping("hub_vendor_overhead_min_distance", "1647");
+    addMapping("hub_vendor_overhead_max_distance", "3924");
+    addMapping("hub_supply_drop_max_distance", "4143");
+    addMapping("hub_leaderboard_max_distance", "3296");
+
+    addMapping("cg_foliagesnd_alias", "4011");
+    addMapping("cg_broadcasterSkycamDistance", "3119");
+    addMapping("cg_subtitleForcedColor", "5004");
+    addMapping("cg_subtitleColor", "2191");
+    addMapping("cg_gunReticleTeamColor_EnemyTeam", "4426");
+    addMapping("cg_gunReticleTeamColor_MyTeam", "4893");
+    addMapping("cg_ScorestreakColor_Enemy", "2906");
+    addMapping("cg_weaponVisInterval", "412");
+    addMapping("cg_disableScreenShake", "3926");
+    addMapping("useRelativeTeamColors", "1244");
+    addMapping("cg_weapHitCullEnable", "5446");
+    addMapping("cg_weapHitCullAngle", "207");
+    addMapping("overrideNVGModelWithKnife", "5025");
+    addMapping("cg_viewZSmoothingTime", "957");
+    addMapping("cg_viewZSmoothingMax", "2391");
+    addMapping("cg_viewZSmoothingMin", "5640");
+    addMapping("cg_invalidCmdHintBlinkInterval", "811");
+    addMapping("cg_invalidCmdHintDuration", "641");
+    addMapping("cg_flashbangNameFadeOut", "3428");
+    addMapping("cg_flashbangNameFadeIn", "5860");
+    addMapping("cg_friendlyNameFadeOut", "5344");
+    addMapping("cg_friendlyNameFadeIn", "3768");
+    addMapping("cg_drawFriendlyNames", "1380");
+    addMapping("cg_overheadNamesFont", "731");
+    addMapping("cg_overheadNamesGlow", "257");
+    addMapping("cg_overheadNamesFarScale", "1900");
+    addMapping("cg_overheadNamesFarDist", "2393");
+    addMapping("cg_overheadNamesNearDist", "1733");
+
+    addMapping("com_errorResolveCommand", "4278");
+
+    //3708 1 skips the title screen
 }
 
 void DvarInterface::init() {
-    Console::initPrint("DvarInterface::init()");
+#ifdef DEVELOPMENT_BUILD
+    Console::initPrint(std::string(__FUNCTION__));
+#endif // DEVELOPMENT_BUILD
     DvarInterface::addAllMappings();
     Console::infoPrint("Mapped " + std::to_string(DvarInterface::userToEngineMap.size()) + " DVars");
 }

@@ -11,6 +11,7 @@
 #include <winternl.h>
 #include <psapi.h>
 #include <algorithm>
+#include "GameUtil.hpp"
 uintptr_t DevPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 
 typedef NTSTATUS(WINAPI* NtCreateUserProcess_t)(PHANDLE ProcessHandle, PHANDLE ThreadHandle, ACCESS_MASK ProcessDesiredAccess, ACCESS_MASK ThreadDesiredAccess, POBJECT_ATTRIBUTES ProcessObjectAttributes,
@@ -70,8 +71,35 @@ void HookNtCreateUserProcess() {
     MH_EnableHook(pFunc);
 }
 
+typedef void (*Cmd_AddCommandInternal_t)(const char* name, void* func, cmd_function_t* cmd);
+static Cmd_AddCommandInternal_t oCmd_AddCommandInternal = nullptr;
+
+void Cmd_AddCommandInternal_hookfunc(const char* name, void* func, cmd_function_t* cmd) {
+    if (name) {
+        Console::devPrint("Adding Cmd: " + std::string(name));
+    }
+
+    oCmd_AddCommandInternal(name, func, cmd);
+}
+
+void Hook_Cmd_AddCommandInternal() {
+    void* target = (void*)(GameUtil::base + 0x6AE0E0);
+
+    if (MH_CreateHook(target, &Cmd_AddCommandInternal_hookfunc, reinterpret_cast<void**>(&oCmd_AddCommandInternal)) != MH_OK) {
+        Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
+        return;
+    }
+
+    if (MH_EnableHook(target) != MH_OK) {
+        Console::devPrint("ERROR: MH_EnableHook failure in function " + std::string(__FUNCTION__));
+        return;
+    }
+
+}
+
 
 void DevPatches::init() {
     Console::initPrint("DevPatches::init()");
     HookNtCreateUserProcess();
+    //Hook_Cmd_AddCommandInternal();
 }

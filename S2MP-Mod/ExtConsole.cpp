@@ -17,7 +17,7 @@
 #include "FuncPointers.h"
 #include "DevPatches.hpp"
 #include "PrintPatches.hpp"
-#include "DebugPatches.hpp"
+#include "Arxan.hpp"
 #include "DvarInterface.hpp"
 
 #pragma comment(lib, "libMinHook.x64.lib")
@@ -88,9 +88,13 @@ void ExtConsole::extConInit(int extConsoleMode) {
 		Console::print("Minhook init failed");
 		//TODO: Add some like error handling here or a global var
 	}
+	
+	//i guess init all out components here for now
 
+	ArxanPatches::init();
 	DebugPatches::init();
-	//PrintPatches::init();
+	InternalConsole::init();
+	PrintPatches::init();
 	DevPatches::init();
 	DvarInterface::init();
 
