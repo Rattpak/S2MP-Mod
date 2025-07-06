@@ -55,4 +55,7 @@ public:
 	
 	typedef bool (__cdecl* R_AddCmdDrawTextWithCursor)(const char* text, int max_chars, font_t* font, int unk0, int unk1, int pixel_h, float pos_x, float pos_y, float scale_x, float scale_y, float rotation, const float* color, long long style, int cursorPos, char cursor);
 	static R_AddCmdDrawTextWithCursor _R_AddCmdDrawTextWithCursor;
+	
+	typedef bool (__cdecl* LUI_OpenMenu)(int client, const char* menu, int a, unsigned int is_exclusive);
+	static LUI_OpenMenu _LUI_OpenMenu;
 };

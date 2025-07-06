@@ -6,6 +6,7 @@
 #include "Console.hpp"
 #include "PrintPatches.hpp"
 #include <MinHook.h>
+#include "DevDef.h"
 
 uintptr_t PrintPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 
@@ -18,7 +19,9 @@ void hook_CM_LoadMap(const char* name, int* checksum) {
 }
 
 void PrintPatches::init() {
-	Console::infoPrint("PrintPatches::init()");
+#ifdef DEVELOPMENT_BUILD
+    Console::initPrint(std::string(__FUNCTION__));
+#endif // DEVELOPMENT_BUILD
 	MH_CreateHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
     MH_EnableHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050));
 }

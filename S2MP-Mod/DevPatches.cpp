@@ -12,6 +12,8 @@
 #include <psapi.h>
 #include <algorithm>
 #include "GameUtil.hpp"
+#include "DevDef.h"
+
 uintptr_t DevPatches::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 
 typedef NTSTATUS(WINAPI* NtCreateUserProcess_t)(PHANDLE ProcessHandle, PHANDLE ThreadHandle, ACCESS_MASK ProcessDesiredAccess, ACCESS_MASK ThreadDesiredAccess, POBJECT_ATTRIBUTES ProcessObjectAttributes,
@@ -73,20 +75,26 @@ void HookNtCreateUserProcess() {
 
 
 typedef void(__fastcall* LUI_OpenMenu_t)(int client, const char* menu, int a, uint32_t is_exclusive);
-static LUI_OpenMenu_t _LUI_OpenMenu = nullptr;
+static LUI_OpenMenu_t oLUI_OpenMenu = nullptr;
 
 void __fastcall hk_LUI_OpenMenu(int client, const char* menu, int a, uint32_t is_exclusive) {
     if (menu) {
-        Console::devPrint("LUI_OpenMenu: " + std::string(menu));
+        if (a == 0) {
+            Console::devPrint("LUI_OpenMenu: " + std::string(menu));
+        }
+        else {
+            Console::devPrint("LUI_OpenMenu (popup): " + std::string(menu));
+        }
+        
     }
         
-    _LUI_OpenMenu(client, menu, a, is_exclusive);
+    oLUI_OpenMenu(client, menu, a, is_exclusive);
 }
 
 void Hook_LUI_OpenMenu() {
     void* target = (void*)(GameUtil::base + 0x740A30);
 
-    if (MH_CreateHook(target, &hk_LUI_OpenMenu, reinterpret_cast<void**>(&_LUI_OpenMenu)) != MH_OK) {
+    if (MH_CreateHook(target, &hk_LUI_OpenMenu, reinterpret_cast<void**>(&oLUI_OpenMenu)) != MH_OK) {
         Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
         return;
     }
@@ -110,9 +118,7 @@ void Cmd_AddCommandInternal_hookfunc(const char* name, void* func, cmd_function_
 
 void Hook_Cmd_AddCommandInternal() {
     void* target = (void*)(GameUtil::base + 0x646100);
-
-
-        
+    
     if (MH_CreateHook(target, &Cmd_AddCommandInternal_hookfunc, reinterpret_cast<void**>(&oCmd_AddCommandInternal)) != MH_OK) {
         Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
         return;
@@ -125,8 +131,10 @@ void Hook_Cmd_AddCommandInternal() {
 
 }
 void DevPatches::init() {
-    Console::initPrint("DevPatches::init()");
+#ifdef DEVELOPMENT_BUILD
+    Console::initPrint(std::string(__FUNCTION__));
+#endif // DEVELOPMENT_BUILD
     HookNtCreateUserProcess();
     Hook_LUI_OpenMenu();
-    Hook_Cmd_AddCommandInternal();
+    //Hook_Cmd_AddCommandInternal();
 }

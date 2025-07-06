@@ -8,12 +8,15 @@
 #include "Hook.hpp"
 #include "FuncPointers.h"
 #include <array>
+#include "DevDef.h"
 
 uintptr_t Noclip::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 bool Noclip::isActive = false;
 
 void Noclip::init() {
-	Console::infoPrint("Noclip::init()");
+#ifdef DEVELOPMENT_BUILD
+	Console::initPrint(std::string(__FUNCTION__));
+#endif // DEVELOPMENT_BUILD
 }
 
 //This works for now

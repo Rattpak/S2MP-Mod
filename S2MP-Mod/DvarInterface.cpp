@@ -10,6 +10,7 @@
 #include "GameUtil.hpp"
 #include "FuncPointers.h"
 #include <algorithm>
+#include "DevDef.h"
 
 std::unordered_map<std::string, std::string> DvarInterface::userToEngineMap;
 std::unordered_map<std::string, std::string> DvarInterface::engineToUserMap;
@@ -101,6 +102,7 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
 
 void DvarInterface::addAllMappings() {
     addMapping("nextmap", "4059");
+    addMapping("mapname", "1673");
     //from R_RegisterDvars
     addMapping("r_texFilterDisable", "91");
     addMapping("r_texFilterMipMode", "4107");
@@ -449,7 +451,6 @@ void DvarInterface::addAllMappings() {
     addMapping("hub_supply_drop_max_distance", "4143");
     addMapping("hub_leaderboard_max_distance", "3296");
 
-
     addMapping("cg_foliagesnd_alias", "4011");
     addMapping("cg_broadcasterSkycamDistance", "3119");
     addMapping("cg_subtitleForcedColor", "5004");
@@ -479,11 +480,15 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_overheadNamesFarDist", "2393");
     addMapping("cg_overheadNamesNearDist", "1733");
 
+    addMapping("com_errorResolveCommand", "4278");
+
     //3708 1 skips the title screen
 }
 
 void DvarInterface::init() {
-    Console::initPrint("DvarInterface::init()");
+#ifdef DEVELOPMENT_BUILD
+    Console::initPrint(std::string(__FUNCTION__));
+#endif // DEVELOPMENT_BUILD
     DvarInterface::addAllMappings();
     Console::infoPrint("Mapped " + std::to_string(DvarInterface::userToEngineMap.size()) + " DVars");
 }

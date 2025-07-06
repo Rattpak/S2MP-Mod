@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Code\Movement">
       <UniqueIdentifier>{0b53c889-46fc-46e6-a01f-592ad299e27b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Arxan">
+      <UniqueIdentifier>{dd7fce43-14ab-4ae0-b998-4aa79ae29726}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,11 +84,11 @@
     <ClInclude Include="PrintPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
-    <ClInclude Include="DebugPatches.hpp">
-      <Filter>Source Files\Code</Filter>
-    </ClInclude>
     <ClInclude Include="DevDef.h">
       <Filter>Source Files\dev</Filter>
+    </ClInclude>
+    <ClInclude Include="Arxan.hpp">
+      <Filter>Source Files\Arxan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -131,11 +134,14 @@
     <ClCompile Include="PrintPatches.cpp">
       <Filter>Source Files\Code</Filter>
     </ClCompile>
-    <ClCompile Include="DebugPatches.cpp">
-      <Filter>Source Files\Code</Filter>
-    </ClCompile>
     <ClCompile Include="InternalConsole.cpp">
       <Filter>Source Files\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugPatches.cpp">
+      <Filter>Source Files\Arxan</Filter>
+    </ClCompile>
+    <ClCompile Include="ArxanPatches.cpp">
+      <Filter>Source Files\Arxan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

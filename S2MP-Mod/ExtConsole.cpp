@@ -17,7 +17,7 @@
 #include "FuncPointers.h"
 #include "DevPatches.hpp"
 #include "PrintPatches.hpp"
-#include "DebugPatches.hpp"
+#include "Arxan.hpp"
 #include "DvarInterface.hpp"
 #include "GameUtil.hpp"
 
@@ -92,6 +92,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 		//TODO: Add some like error handling here or a global var
 	}
 
+	ArxanPatches::init();
 	DebugPatches::init();
 	//PrintPatches::init();
 	DevPatches::init();

@@ -132,6 +132,7 @@ bool execCustomCmd(std::string& cmd) {
 		return true;
 	}
 	
+	
 	if (p[0] == "isload") {
 		if (Functions::_SV_Loaded()) {
 			Console::print("Server is loaded");

@@ -91,7 +91,19 @@ void CustomCommands::toggleFog(bool b) {
 }
 
 void CustomCommands::changeMap(const std::string& mapname) {
-	//TODO
+	dvar_t* var = Functions::_Dvar_FindVar("1673");
+	var->current.string = mapname.c_str();
+
+	int* sv_map_restart = (int*)(base + 0xCE740E0);//updated
+	*sv_map_restart = 1;
+
+	int* sv_loadScripts = (int*)(base + 0xCE740E4);//updated
+	*sv_loadScripts = 1;
+
+	int* sv_migrate = (int*)(base + 0xCE740E8);
+	*sv_migrate = 0;
+
+
 }
 
 void CustomCommands::fastRestart() {
