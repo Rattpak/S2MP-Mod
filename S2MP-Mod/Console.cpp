@@ -6,9 +6,7 @@
 #include "Console.hpp"
 #include <string>
 #include <algorithm>
-#include "ExtConsole.hpp"
 #include <iostream>
-#include "ExtConsoleGui.hpp"
 #include <sstream>
 #include <array>
 #include "FuncPointers.h"
@@ -118,6 +116,12 @@ bool execCustomCmd(std::string& cmd) {
 		}
 		return true;
 	}
+	
+	if (p[0] == "up") {
+		Functions::_LiveStorage_UploadStats(0);
+		return true;
+	}
+	
 	//--------------------------------------------
 
 	if (p[0] == "noclip") {

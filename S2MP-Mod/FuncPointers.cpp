@@ -27,3 +27,4 @@ Functions::SV_Loaded Functions::_SV_Loaded = (Functions::SV_Loaded)(base + 0x743
 Functions::R_AddCmdDrawStretchPic Functions::_R_AddCmdDrawStretchPic = (Functions::R_AddCmdDrawStretchPic)(base + 0x92C460);
 Functions::R_AddCmdDrawTextWithCursor Functions::_R_AddCmdDrawTextWithCursor = (Functions::R_AddCmdDrawTextWithCursor)(base + 0x92D670);
 Functions::LUI_OpenMenu Functions::_LUI_OpenMenu = (Functions::LUI_OpenMenu)(base + 0x7AC7A0);
+Functions::LiveStorage_UploadStats Functions::_LiveStorage_UploadStats = (Functions::LiveStorage_UploadStats)(base + 0x6C38A0);

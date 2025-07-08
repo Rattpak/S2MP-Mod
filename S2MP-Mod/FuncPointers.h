@@ -59,4 +59,7 @@ public:
 
 	typedef bool(__cdecl* LUI_OpenMenu)(int client, const char* menu, int a, unsigned int is_exclusive);
 	static LUI_OpenMenu _LUI_OpenMenu;
+	
+	typedef void(__cdecl* LiveStorage_UploadStats)(int clientNum);
+	static LiveStorage_UploadStats _LiveStorage_UploadStats;
 };

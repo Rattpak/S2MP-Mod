@@ -152,8 +152,6 @@
     <ClInclude Include="DevDef.h" />
     <ClInclude Include="DevPatches.hpp" />
     <ClInclude Include="DvarInterface.hpp" />
-    <ClInclude Include="ExtConsole.hpp" />
-    <ClInclude Include="ExtConsoleGui.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FuncPointers.h" />
     <ClInclude Include="GameUtil.hpp" />

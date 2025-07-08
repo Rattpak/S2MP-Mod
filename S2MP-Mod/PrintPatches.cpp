@@ -24,6 +24,6 @@ void hook_CM_LoadMap(const char* name, int* checksum) {
 
 void PrintPatches::init() {
 	Console::infoPrint("PrintPatches::init()");
-	MH_CreateHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
-    MH_EnableHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050));
+	//MH_CreateHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
+   // MH_EnableHook(reinterpret_cast<void*>(PrintPatches::base + 0x6A1050));
 }

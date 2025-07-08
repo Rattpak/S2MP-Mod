@@ -10,7 +10,6 @@
 #include <locale>
 #include <thread>
 #include <chrono>
-#include "ExtConsoleGui.hpp"
 #include "Console.hpp"
 #include "ConfigManager.h"
 //#include <iostream> //for debugging

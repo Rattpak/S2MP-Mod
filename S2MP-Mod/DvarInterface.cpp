@@ -481,6 +481,161 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_overheadNamesNearDist", "1733");
 
     addMapping("com_errorResolveCommand", "4278");
+    
+    addMapping("r_portalMinClipArea", "634");
+    addMapping("r_portalMinRecurseDepth", "3100");
+    addMapping("r_sunshadowmap_cmdbuf_worker", "5260");
+    addMapping("r_animatedVertsUseNoCacheLimit", "2274");
+    addMapping("r_animatedVertsNoCacheScale", "3220");
+    addMapping("r_screenSpaceShadows", "4712");
+    addMapping("r_maxScreenSpaceShadowsSamplesTotal", "4241");
+    addMapping("r_minScreenSpaceShadowsSamplesPerLight", "4941");
+    addMapping("r_volumeLightScatter", "2696");
+    addMapping("r_useLightGridDefaultModelLightingLookup", "2706");
+    addMapping("r_lightGridDefaultModelLightingLookup", "3460");
+    addMapping("r_useLightGridDefaultFXLightingLookup", "1074");
+    addMapping("r_lightGridDefaultFXLightingLookup", "1307");
+    addMapping("r_blurdstGaussianBlurRadius", "190");
+    addMapping("r_blurdstGaussianBlurLevel", "3261");
+    addMapping("r_uiBlurDstMode", "1175");
+    addMapping("sm_spotLightScoreModelScale", "4230");
+    addMapping("sm_minSpotLightScore", "5176");
+    addMapping("sm_spotShadowFadeTime", "3286");
+    addMapping("r_useShadowGeomOpt", "4163");
+    addMapping("r_fog_depthhack_scale", "645");
+    addMapping("r_materialWind", "1520");
+    addMapping("r_mpRimDiffuseTint", "817");
+    addMapping("r_mpRimStrength", "2634");
+    addMapping("r_mpRimColor", "2013");
+
+    addMapping("cg_drawCrosshair", "1874");
+    addMapping("cg_drawCrosshairNames", "1979");
+    addMapping("cg_hudGrenadeIconMaxRangeFrag", "787");
+    addMapping("cg_drawFriendlyNamesAlways", "4934");
+    addMapping("cg_drawFriendlyHUDGrenades", "4466");
+
+    addMapping("camera_thirdPerson", "311");
+
+    addMapping("r_warningRepeatDelay", "1371");
+
+    addMapping("r_lockPvs", "1897");
+    addMapping("r_skipPvs", "2745");
+    addMapping("r_portalBevels", "5317");
+    addMapping("r_portalBevelsOnly", "3948");
+    addMapping("r_portalWalkLimit", "2909");
+    addMapping("r_materialLodOverride", "5148");
+    addMapping("r_materialLodMin", "3389");
+    addMapping("r_materialLod0SizeThreshold", "1099");
+    addMapping("r_dynamicSpotLightShadows", "4739");
+
+    //BG_RegisterDvars
+    addMapping("bg_shock_soundLoop", "1270");
+    addMapping("bg_shock_soundLoopSilent", "753");
+    addMapping("bg_shock_soundEnd", "2839");
+    addMapping("bg_shock_soundEndAbort", "1455");
+    addMapping("bg_shock_screenType", "2748");
+    addMapping("bg_shock_screenBlurBlendTime", "4103");
+    addMapping("bg_shock_screenBlurBlendFadeTime", "5644");
+    addMapping("bg_shock_screenFlashWhiteFadeTime", "5375");
+    addMapping("bg_shock_screenFlashShotFadeTime", "4531");
+    addMapping("bg_shock_viewKickPeriod", "3856");
+    addMapping("bg_shock_viewKickRadius", "3850");
+    addMapping("bg_shock_viewKickFadeTime", "1407");
+    addMapping("bg_shock_fadeOverride", "3712");
+    addMapping("bg_shock_sound", "4269");
+    addMapping("bg_shock_soundFadeInTime", "304");
+    addMapping("bg_shock_soundFadeOutTime", "2931");
+    addMapping("bg_shock_soundLoopFadeTime", "954");
+    addMapping("bg_shock_soundLoopEndDelay", "3375");
+    addMapping("bg_shock_soundRoomType", "3620");
+    addMapping("bg_shock_soundDryLevel", "1262");
+    addMapping("bg_shock_soundWetLevel", "1397");
+    addMapping("bg_shock_soundModEndDelay", "2010");
+    addMapping("bg_shock_soundSubmix", "3744");
+    addMapping("bg_shock_lookControl", "1607");
+    addMapping("bg_shock_lookControl_maxpitchspeed", "2670");
+    addMapping("bg_shock_lookControl_maxyawspeed", "667");
+    addMapping("bg_shock_lookControl_mousesensitivityscale", "1378");
+    addMapping("bg_shock_lookControl_fadeTime", "1824");
+    addMapping("bg_shock_movement", "4216");
+    addMapping("hudOutlineDuringADS", "2260");
+    addMapping("combatRolesEnabled", "1936");
+    addMapping("clientSideEffects", "3508");
+    addMapping("cg_debugRootMotionLog", "3343");
+
+    addMapping("riotshield_deployed_health", "650");
+    addMapping("riotshield_deploy_trace_parallel", "4101");
+
+    //CG_MissileRegisterDvars
+    addMapping("cameraShakeRemoteMissile_Angles", "4141");
+    addMapping("cameraShakeRemoteMissile_Freqs", "4275");
+    addMapping("cameraShakeRemoteMissile_SpeedRange", "5243"); //vec2
+    addMapping("cameraShakeRemoteHelo_Angles", "3086");
+    addMapping("cameraShakeRemoteHelo_Freqs", "4780");
+    addMapping("cameraShakeRemoteHelo_SpeedRange", "1157"); //vec2
+    addMapping("missileRemoteFOV", "2727");
+    addMapping("missileGlideBombRotationFallingRate", "4644");
+    addMapping("missileGlideBombRotationFallingDelay", "2447");
+
+    //CG_HudElemRegisterDvars
+    addMapping("waypointDebugDraw", "4610");
+   // addMapping("waypointIconWidth", "2427"); //typo
+    //addMapping("waypointIconHeight", "2785");
+    addMapping("waypointOffscreenPointerWidth", "4819");
+    addMapping("waypointOffscreenPointerHeight", "1737");
+    addMapping("waypointOffscreenPointerDistance", "5113");
+    addMapping("waypointOffscreenDistanceThresholdAlpha", "964");
+    addMapping("waypointOffscreenPadLeft", "2463");
+    addMapping("waypointOffscreenPadRight", "833");
+    addMapping("waypointOffscreenPadTop", "1039");
+    addMapping("waypointOffscreenPadBottom", "1040");
+    addMapping("waypointOffscreenRoundedCorners", "998");
+    addMapping("waypointOffscreenCornerRadius", "1684");
+    addMapping("waypointOffscreenScaleLength", "4579");
+    addMapping("waypointOffscreenScaleSmallest", "5102");
+    addMapping("waypointDistScaleRangeMin", "4204");
+    addMapping("waypointDistScaleRangeMax", "1739");
+    addMapping("waypointDistScaleSmallest", "5561");
+    addMapping("waypointDistFadeRangeMin", "5209");
+    addMapping("waypointDistFadeRangeMax", "5649");
+    addMapping("waypointSplitscreenScale", "2865");
+    addMapping("waypointScreenCenterFadeRadius", "2587");
+    addMapping("waypointScreenCenterFadeAdsMin", "3253");
+    addMapping("waypointScreenCenterFadeHipMin", "3935");
+    addMapping("waypointTweakY", "4867");
+    addMapping("hudElemPausedBrightness", "4520");
+    addMapping("waypointPlayerOffsetProne", "3928");
+    addMapping("waypointPlayerOffsetCrouch", "3463");
+    addMapping("waypointPlayerOffsetStand", "3848");
+    addMapping("objectiveFontSize", "5129");
+    addMapping("objectiveTextOffsetY", "599");
+    addMapping("genericIconAlpha", "4783");
+    addMapping("enericIconAlphaFadeTime", "3630");
+    addMapping("objectiveHide", "432");
+    addMapping("waypointAerialIconScale", "3096");
+    addMapping("waypointAerialIconMinSize", "3441");
+    addMapping("waypointAerialIconMaxSize", "1254");
+    addMapping("cg_foliagesnd_alias", "4011");
+
+    //CG_RegisterVisionSetsDvars
+    addMapping("nightVisionFadeInOutTime", "4625");
+    addMapping("nightVisionPowerOnTime", "4842");
+    addMapping("nightVisionDisableEffects", "3628");
+
+    //CG_AmmoCounterRegisterDvars
+    addMapping("lowAmmoWarningColor1", "646");
+    addMapping("lowAmmoWarningColor2", "5124");
+    addMapping("lowAmmoWarningPulseFreq", "5703");
+    addMapping("lowAmmoWarningPulseMax", "11");
+    addMapping("lowAmmoWarningPulseMin", "1036");
+    addMapping("lowAmmoWarningNoReloadColor1", "3535");
+    addMapping("lowAmmoWarningNoReloadColor2", "173");
+    addMapping("lowAmmoWarningNoAmmoColor1", "5600");
+    addMapping("lowAmmoWarningNoAmmoColor2", "5490");
+
+    //CG_VectorField_RegisterDvars
+    addMapping("cg_vectorFieldsForceUniform", "2895");
+
 
     //3708 1 skips the title screen
 }

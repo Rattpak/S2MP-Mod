@@ -41,8 +41,9 @@ void drawDevelopmentInfo(int windowW, int windowH) {
 }
 
 void R_EndFrame_hookfunc() {
-    int winWidth = *(int*)(GameUtil::base + 0x1DA11E8); //this isnt actually window size i think its bink player size
-    int winHeight = *(int*)(GameUtil::base + 0x1DA11EC);
+    
+   int winWidth = *(int*)(GameUtil::base + 0x1DA11E8); //this isnt actually window size i think its bink player size
+   int winHeight = *(int*)(GameUtil::base + 0x1DA11EC);
 
 #ifdef DEVELOPMENT_BUILD
     drawDevelopmentInfo(winWidth, winHeight);

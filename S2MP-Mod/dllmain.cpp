@@ -1,7 +1,6 @@
 #include "pch.h"
 #include <Windows.h>
-#include "ExtConsole.hpp"
-#include "ExtConsoleGui.hpp"
+#include "Console.hpp"
 #include <thread>
 
 HMODULE hm;

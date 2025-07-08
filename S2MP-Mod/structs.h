@@ -84,6 +84,11 @@ struct cmd_function_t {
     void(__cdecl* func)(void);
 };
 
+enum XAssetType {
+
+    ASSET_TYPE_STRINGTABLE = 0x3B,
+};
+
 enum dvarType_t : __int32
 {
     DVAR_TYPE_BOOL = 0x0,
