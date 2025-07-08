@@ -1,0 +1,10 @@
+{
+  "name": "s2mp-mod",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "minhook",
+    "asmjit"
+  ],
+  "overrides": [],
+  "builtin-baseline": "latest"
+}
