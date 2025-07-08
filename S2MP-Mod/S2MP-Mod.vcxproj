@@ -74,6 +74,9 @@
     <ExternalIncludePath>$(SolutionDir)include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)lib\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -148,7 +151,6 @@
     <ClInclude Include="Arxan.hpp" />
     <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Console.hpp" />
-    <ClInclude Include="CustomCommands.hpp" />
     <ClInclude Include="DevDef.h" />
     <ClInclude Include="DevPatches.hpp" />
     <ClInclude Include="DvarInterface.hpp" />

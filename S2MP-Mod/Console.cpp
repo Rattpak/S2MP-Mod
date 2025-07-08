@@ -14,7 +14,6 @@
 #include <regex>
 #include "GameUtil.hpp"
 #include "Noclip.hpp"
-#include "CustomCommands.hpp"
 #include "DvarInterface.hpp"
 
 //Output to all consoles without label
@@ -96,6 +95,10 @@ std::string toHex(uint32_t value) {
 	return ss.str();
 }
 
+void __stdcall helloTest() {
+	Console::devPrint("Hello");
+}
+
 //Gonna have to run the commands externally like this for now
 bool execCustomCmd(std::string& cmd) {
 	std::transform(cmd.begin(), cmd.end(), cmd.begin(), GameUtil::asciiToLower);
@@ -119,6 +122,17 @@ bool execCustomCmd(std::string& cmd) {
 	
 	if (p[0] == "up") {
 		Functions::_LiveStorage_UploadStats(0);
+		return true;
+	}
+	
+	if (p[0] == "ftest") {
+		Functions::_R_RegisterFont("testfakefont.ttf", 16);
+		return true;
+	}
+	
+	if (p[0] == "cmdtest") {
+		//t = new cmd_function_s;
+		//Functions::_Cmd_AddCommandInternal("hello", &helloTest, t);
 		return true;
 	}
 	
@@ -152,7 +166,7 @@ bool execCustomCmd(std::string& cmd) {
 	}
 	
 	if (p[0] == "quit") {
-		Functions::_Sys_Quit();
+		Functions::_Com_Quit_f();
 		return true;
 	}
 

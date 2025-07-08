@@ -29,8 +29,8 @@ public:
 	typedef char* (__cdecl* SEH_StringEd_GetString)(const char* pszReference);
 	static SEH_StringEd_GetString _SEH_StringEd_GetString;
 	
-	typedef void (__cdecl* Sys_Quit)();
-	static Sys_Quit _Sys_Quit;
+	typedef void (__cdecl* Com_Quit_f)();
+	static Com_Quit_f _Com_Quit_f;
 	
 	typedef __int64 (__cdecl* GetAvailableCommandBufferIndex)();
 	static GetAvailableCommandBufferIndex _GetAvailableCommandBufferIndex;
@@ -62,4 +62,7 @@ public:
 	
 	typedef void(__cdecl* LiveStorage_UploadStats)(int clientNum);
 	static LiveStorage_UploadStats _LiveStorage_UploadStats;
+	
+	typedef void(__cdecl* Cmd_AddCommandInternal)(char const*, void (*)(), cmd_function_s*);
+	static Cmd_AddCommandInternal _Cmd_AddCommandInternal;
 };

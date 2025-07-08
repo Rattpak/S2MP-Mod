@@ -39,9 +39,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExtConsoleGui.hpp">
-      <Filter>Source Files\Console</Filter>
-    </ClInclude>
     <ClInclude Include="ConfigManager.h">
       <Filter>Source Files\Common</Filter>
     </ClInclude>
@@ -49,9 +46,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Console.hpp">
-      <Filter>Source Files\Console</Filter>
-    </ClInclude>
-    <ClInclude Include="ExtConsole.hpp">
       <Filter>Source Files\Console</Filter>
     </ClInclude>
     <ClInclude Include="FuncPointers.h">
@@ -75,14 +69,17 @@
     <ClInclude Include="Noclip.hpp">
       <Filter>Source Files\Code\Movement</Filter>
     </ClInclude>
-    <ClInclude Include="CustomCommands.hpp">
-      <Filter>Source Files\Console</Filter>
-    </ClInclude>
     <ClInclude Include="PrintPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
-    <ClInclude Include="DebugPatches.hpp">
-      <Filter>Source Files\Code</Filter>
+    <ClInclude Include="Arxan.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DevDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooking.Patterns.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +127,15 @@
     </ClCompile>
     <ClCompile Include="DebugPatches.cpp">
       <Filter>Source Files\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="ArxanPatches.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooking.Patterns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InternalConsole.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,8 @@
 //////////////////////////////////////
 //       Custom Commands
-//	Logic for custom commands
+//	Functions for custom commands
 //////////////////////////////////////
 #include "pch.h"
-#include "CustomCommands.hpp"
 #include "Console.hpp"
 #include "FuncPointers.h"
 #include <array>

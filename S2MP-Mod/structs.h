@@ -89,6 +89,14 @@ enum XAssetType {
     ASSET_TYPE_STRINGTABLE = 0x3B,
 };
 
+struct cmd_function_s
+{
+    cmd_function_s* next;
+    const char* name;
+    void(__fastcall* function)();
+};
+
+
 enum dvarType_t : __int32
 {
     DVAR_TYPE_BOOL = 0x0,

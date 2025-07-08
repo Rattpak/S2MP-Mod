@@ -16,7 +16,7 @@ Functions::Sys_Cwd Functions::_Sys_Cwd = (Functions::Sys_Cwd)(base + 0x7D6980);
 Functions::Dvar_FindVar Functions::_Dvar_FindVar = (Functions::Dvar_FindVar)(base + 0x108C30);
 Functions::SEH_SafeTranslateString Functions::_SEH_SafeTranslateString = (Functions::SEH_SafeTranslateString)(base + 0x7934D0);
 Functions::SEH_StringEd_GetString Functions::_SEH_StringEd_GetString = (Functions::SEH_StringEd_GetString)(base + 0x793520);
-Functions::Sys_Quit Functions::_Sys_Quit = (Functions::Sys_Quit)(base + 0x7F0400);
+Functions::Com_Quit_f Functions::_Com_Quit_f = (Functions::Com_Quit_f)(base + 0xF4430);
 Functions::GetAvailableCommandBufferIndex Functions::_GetAvailableCommandBufferIndex = (Functions::GetAvailableCommandBufferIndex)(base + 0x503030);
 Functions::SV_MapRestart_f Functions::_SV_MapRestart_f = (Functions::SV_MapRestart_f)(base + 0x73E800);
 
@@ -28,3 +28,4 @@ Functions::R_AddCmdDrawStretchPic Functions::_R_AddCmdDrawStretchPic = (Function
 Functions::R_AddCmdDrawTextWithCursor Functions::_R_AddCmdDrawTextWithCursor = (Functions::R_AddCmdDrawTextWithCursor)(base + 0x92D670);
 Functions::LUI_OpenMenu Functions::_LUI_OpenMenu = (Functions::LUI_OpenMenu)(base + 0x7AC7A0);
 Functions::LiveStorage_UploadStats Functions::_LiveStorage_UploadStats = (Functions::LiveStorage_UploadStats)(base + 0x6C38A0);
+Functions::Cmd_AddCommandInternal Functions::_Cmd_AddCommandInternal = (Functions::Cmd_AddCommandInternal)(base + 0x6AE0E0);
