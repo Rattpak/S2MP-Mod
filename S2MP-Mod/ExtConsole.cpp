@@ -18,8 +18,6 @@
 #include "Arxan.hpp"
 #include "DvarInterface.hpp"
 
-#pragma comment(lib, "libMinHook.x64.lib")
-
 HANDLE hProcess;
 HINSTANCE hInst;
 
