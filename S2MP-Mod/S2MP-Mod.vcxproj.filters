@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Code\Movement">
       <UniqueIdentifier>{0b53c889-46fc-46e6-a01f-592ad299e27b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Arxan">
+      <UniqueIdentifier>{1d2ae905-eee2-4542-a8d9-2efa3e8336a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -63,23 +66,23 @@
     <ClInclude Include="DevPatches.hpp">
       <Filter>Source Files\dev</Filter>
     </ClInclude>
-    <ClInclude Include="Hook.hpp">
-      <Filter>Source Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Noclip.hpp">
       <Filter>Source Files\Code\Movement</Filter>
     </ClInclude>
     <ClInclude Include="PrintPatches.hpp">
       <Filter>Source Files\Code</Filter>
     </ClInclude>
+    <ClInclude Include="Hook.hpp">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
     <ClInclude Include="Arxan.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Arxan</Filter>
     </ClInclude>
     <ClInclude Include="DevDef.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\dev</Filter>
     </ClInclude>
     <ClInclude Include="Hooking.Patterns.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Arxan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,9 +116,6 @@
     <ClCompile Include="DevPatches.cpp">
       <Filter>Source Files\dev</Filter>
     </ClCompile>
-    <ClCompile Include="Hook.cpp">
-      <Filter>Source Files\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Noclip.cpp">
       <Filter>Source Files\Code\Movement</Filter>
     </ClCompile>
@@ -128,14 +128,17 @@
     <ClCompile Include="DebugPatches.cpp">
       <Filter>Source Files\Code</Filter>
     </ClCompile>
+    <ClCompile Include="Hook.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
     <ClCompile Include="ArxanPatches.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Arxan</Filter>
     </ClCompile>
     <ClCompile Include="Hooking.Patterns.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Arxan</Filter>
     </ClCompile>
     <ClCompile Include="InternalConsole.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
