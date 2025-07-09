@@ -53,9 +53,10 @@ configurations {"Debug", "Release"}
 
 files {
     "src/**.cpp",
-    "src/**.h"
+    "src/**.h",
+    "src/**.rc",
+    "src/**.bmp"
 }
-
 includedirs {
     "src"
 }
