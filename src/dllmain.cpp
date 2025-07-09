@@ -1,7 +1,6 @@
 #include "pch.h"
-#include <Windows.h>
 #include "Console.hpp"
-#include <thread>
+#include "structs.h"
 
 HMODULE hm;
 //0 - CLI, 1 - GUI, 2 - BOTH

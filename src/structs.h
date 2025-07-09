@@ -92,17 +92,29 @@ struct LuaFile
     const unsigned __int8* buffer;
 };
 
-
+struct ScriptFile
+{
+    const char* name;
+    int compressedLen;
+    int len;
+    int bytecodeLen;
+    const char* buffer;
+    unsigned __int8* bytecode;
+};
 enum XAssetType {
     ASSET_TYPE_XMODEL = 0xA,
 
     ASSET_TYPE_MATERIAL = 0xD,
-
-    ASSET_TYPE_GLASSES = 0x21,
-
+    ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
 
     ASSET_TYPE_LUA_FILE = 0x45,
+};
+
+union XAssetHeader
+{
+    void* data;
+    struct ScriptFile* script;
 };
 
 struct cmd_function_s
