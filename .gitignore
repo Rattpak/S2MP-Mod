@@ -364,3 +364,5 @@ FodyWeavers.xsd
 *.bat
 /S2MP-Mod/build_user.txt
 /vcpkg_installed/x64-windows
+*.vcxproj
+*.filters

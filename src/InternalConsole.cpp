@@ -8,12 +8,10 @@
 
 std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::string(__TIME__);
 
-#ifdef USE_BUILD_USER
 //add USE_BUILD_USER to your preprocessor definitions to use this feature
 //create a "build_user.txt" with the rest of the .cpp/.h files with #define BUILD_USER "username here" inside
-#include "build_user.txt"
-std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
-#endif
+std::string compiledBy = "COMPILED BY: Andrew";
+
 typedef void (*R_EndFrame_t)(void);
 R_EndFrame_t _EndFrame = nullptr;
 
