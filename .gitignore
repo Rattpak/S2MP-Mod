@@ -367,3 +367,4 @@ FodyWeavers.xsd
 *.vcxproj
 *.filters
 /build
+/src/build_user.txt
