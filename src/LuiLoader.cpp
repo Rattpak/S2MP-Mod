@@ -33,7 +33,7 @@ static Load_LuaFileAsset_t oLoad_LuaFileAsset = nullptr;
 
 void __fastcall Load_LuaFileAsset_hookfunc(LuaFile** luaFile) {
     if (luaFile && *luaFile) {
-       // Console::devPrint("Loaded LUA File: " + std::string((*luaFile)->name));
+        // Console::devPrint("Loaded LUA File: " + std::string((*luaFile)->name));
         //dumpLuaFile(*luaFile);
     }
 

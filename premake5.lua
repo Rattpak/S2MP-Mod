@@ -52,12 +52,77 @@ cppdialect "C++20"
 configurations {"Debug", "Release"}
 
 files {
-    "src/**.cpp",
+	"src/**.cpp",
     "src/**.h",
     "src/**.hpp",
     "src/**.rc",
     "src/**.bmp"
 }
+
+vpaths {
+    ["src/Arxan"] = {
+        "src/Arxan.hpp",
+        "src/ArxanPatches.cpp",
+        "src/DebugPatches.cpp",
+    },
+    ["src/Code"] = {
+        "src/Noclip.cpp",
+        "src/Noclip.hpp",
+        "src/PrintPatches.cpp",
+        "src/PrintPatches.hpp",
+    },
+    ["src/Common"] = {
+        "src/FuncPointers.cpp",
+        "src/FuncPointers.h",
+        "src/memory.cpp",
+        "src/memory.h",
+        "src/structs.h",
+    },
+    ["src/Console"] = {
+        "src/Console.cpp",
+        "src/Console.hpp",
+        "src/CustomCommands.cpp",
+        "src/ExtConsole.cpp",
+        "src/ExtConsoleGui.cpp",
+        "src/InternalConsole.cpp",
+    },
+    ["src/Loaders"] = {
+        "src/FontLoader.cpp",
+        "src/Loaders.cpp",
+        "src/Loaders.hpp",
+        "src/LuiLoader.cpp",
+    },
+    ["src/Util"] = {
+        "src/ConfigManager.cpp",
+        "src/ConfigManager.h",
+        "src/DvarInterface.cpp",
+        "src/DvarInterface.hpp",
+        "src/GameUtil.cpp",
+        "src/GameUtil.hpp",
+    },
+    ["src/Util/Hook"] = {
+        "src/Hook.cpp",
+        "src/Hook.hpp",
+        "src/Hooking.Patterns.cpp",
+        "src/Hooking.Patterns.h",
+    },
+    ["src/dev"] = {
+        "src/DevDef.h",
+        "src/DevDraw.cpp",
+        "src/DevPatches.cpp",
+        "src/DevPatches.hpp",
+    },
+    ["src/dll"] = {
+        "src/dllmain.cpp",
+        "src/framework.h",
+        "src/pch.cpp",
+        "src/pch.h",
+        "src/resource.h",
+        "src/s2mp-mod.rc",
+        "src/s2mp_con.bmp",
+    },
+}
+
 includedirs {
     "src"
 }
