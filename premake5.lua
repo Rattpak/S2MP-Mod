@@ -54,6 +54,7 @@ configurations {"Debug", "Release"}
 files {
     "src/**.cpp",
     "src/**.h",
+    "src/**.hpp",
     "src/**.rc",
     "src/**.bmp"
 }
