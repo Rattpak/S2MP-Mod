@@ -84,9 +84,26 @@ struct cmd_function_t {
     void(__cdecl* func)(void);
 };
 
+struct ScriptFile
+{
+    const char* name;
+    int compressedLen;
+    int len;
+    int bytecodeLen;
+    const char* buffer;
+    unsigned __int8* bytecode;
+};
+
 enum XAssetType {
 
+    ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
+};
+
+union XAssetHeader
+{
+    void* data;
+    struct ScriptFile* script;
 };
 
 struct cmd_function_s
