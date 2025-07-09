@@ -103,12 +103,11 @@ struct ScriptFile
 };
 enum XAssetType {
     ASSET_TYPE_XMODEL = 0xA,
-
     ASSET_TYPE_MATERIAL = 0xD,
     ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
-
     ASSET_TYPE_LUA_FILE = 0x45,
+    ASSET_TYPE_FONT = 0x4E,
 };
 
 union XAssetHeader

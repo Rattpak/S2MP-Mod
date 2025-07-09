@@ -29,6 +29,10 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
     }
 
     std::string dvarCmd = "set " + engineString;
+    for (int i = 1; i < cmd.size(); ++i) { //skip 0 cuz thats dvarname
+        dvarCmd += " " + cmd[i];
+    }
+
     GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, dvarCmd.c_str());
     return true;
 }

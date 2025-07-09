@@ -13,3 +13,8 @@ class LuiLoader {
 public:
 	static void init();
 };
+
+class FontLoader {
+public:
+	static void init();
+};
