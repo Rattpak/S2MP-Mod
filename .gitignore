@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /vcpkg_installed/x64-windows
 *.vcxproj
 *.filters
+/build
