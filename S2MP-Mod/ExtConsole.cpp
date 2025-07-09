@@ -13,10 +13,11 @@
 #include "Console.hpp"
 #include <thread>
 #include "FuncPointers.h"
-#include "DevPatches.hpp"
 #include "PrintPatches.hpp"
 #include "Arxan.hpp"
 #include "DvarInterface.hpp"
+#include "DevDef.h"
+#include "Loaders.hpp"
 
 HANDLE hProcess;
 HINSTANCE hInst;
@@ -92,7 +93,9 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	InternalConsole::init();
 	PrintPatches::init();
 	DevPatches::init();
+	Console::registerCustomCommands();
 	DvarInterface::init();
+	Loaders::initAssetLoaders();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

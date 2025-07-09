@@ -63,6 +63,18 @@ public:
 	typedef void(__cdecl* LiveStorage_UploadStats)(int clientNum);
 	static LiveStorage_UploadStats _LiveStorage_UploadStats;
 	
-	typedef void(__cdecl* Cmd_AddCommandInternal)(char const*, void (*)(), cmd_function_s*);
+	typedef void(__cdecl* Cmd_AddCommandInternal)(char const* name, void (*func)(), cmd_function_s* cmd);
 	static Cmd_AddCommandInternal _Cmd_AddCommandInternal;
+	
+	typedef int(__cdecl* LUI_CoD_GetMaxMemory)();
+	static LUI_CoD_GetMaxMemory _LUI_CoD_GetMaxMemory;
+	
+	typedef int(__cdecl* LUI_CoD_GetFreeMemoryBytes)();
+	static LUI_CoD_GetFreeMemoryBytes _LUI_CoD_GetFreeMemoryBytes;
+	
+	typedef int(__cdecl* hks_HashTable_contiguousArraySize)();
+	static hks_HashTable_contiguousArraySize _hks_HashTable_contiguousArraySize;
+	
+	typedef material_t* (__cdecl* Material_RegisterHandle)(const char* name);
+	static Material_RegisterHandle _Material_RegisterHandle;
 };

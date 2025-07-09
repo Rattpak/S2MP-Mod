@@ -84,9 +84,25 @@ struct cmd_function_t {
     void(__cdecl* func)(void);
 };
 
+struct LuaFile
+{
+    const char* name;
+    int len;
+    unsigned __int8 strippingType;
+    const unsigned __int8* buffer;
+};
+
+
 enum XAssetType {
+    ASSET_TYPE_XMODEL = 0xA,
+
+    ASSET_TYPE_MATERIAL = 0xD,
+
+    ASSET_TYPE_GLASSES = 0x21,
 
     ASSET_TYPE_STRINGTABLE = 0x3B,
+
+    ASSET_TYPE_LUA_FILE = 0x45,
 };
 
 struct cmd_function_s
@@ -96,6 +112,14 @@ struct cmd_function_s
     void(__fastcall* function)();
 };
 
+struct CmdArgs
+{
+    int nesting;
+    int localClientNum[8];
+    int controllerIndex[8];
+    int argc[8];
+    const char** argv[8];
+};
 
 enum dvarType_t : __int32
 {

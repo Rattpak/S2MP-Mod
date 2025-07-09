@@ -15,6 +15,7 @@
 #include "GameUtil.hpp"
 #include "Noclip.hpp"
 #include "DvarInterface.hpp"
+#include "DevDef.h"
 
 //Output to all consoles without label
 void Console::print(std::string text) {
@@ -95,12 +96,17 @@ std::string toHex(uint32_t value) {
 	return ss.str();
 }
 
-void __stdcall helloTest() {
-	Console::devPrint("Hello");
+void Console::registerCustomCommands() {
+	GameUtil::addCommand("noclip", &Noclip::toggle);
+	GameUtil::addCommand("map_restart", &CustomCommands::mapRestart);
+	GameUtil::addCommand("fast_restart", &CustomCommands::fastRestart);
+	GameUtil::addCommand("god", &CustomCommands::toggleGodmode);
+	GameUtil::addCommand("trans", &CustomCommands::translateString);
+	GameUtil::addCommand("luidbg", &DevDraw::toggleLuaDebugGui);
 }
 
-//Gonna have to run the commands externally like this for now
-bool execCustomCmd(std::string& cmd) {
+//useful for testing commands and handling non-cmd/non-dvar stuff
+bool execCustomDevCmd(std::string& cmd) {
 	std::transform(cmd.begin(), cmd.end(), cmd.begin(), GameUtil::asciiToLower);
 	std::vector<std::string> p = Console::parseCmdToVec(cmd);
 
@@ -129,29 +135,8 @@ bool execCustomCmd(std::string& cmd) {
 		Functions::_R_RegisterFont("testfakefont.ttf", 16);
 		return true;
 	}
-	
-	if (p[0] == "cmdtest") {
-		//t = new cmd_function_s;
-		//Functions::_Cmd_AddCommandInternal("hello", &helloTest, t);
-		return true;
-	}
-	
 	//--------------------------------------------
 
-	if (p[0] == "noclip") {
-		Noclip::toggle();
-		return true;
-	}
-	
-	if (p[0] == "map_restart") {
-		CustomCommands::mapRestart();
-		return true;
-	}
-	
-	if (p[0] == "fast_restart") {
-		CustomCommands::fastRestart();
-		return true;
-	}
 	
 	if (p[0] == "map") {
 		if (p.size() >= 2) {
@@ -160,13 +145,9 @@ bool execCustomCmd(std::string& cmd) {
 		return true;
 	}
 
-	if (p[0] == "god") {
-		CustomCommands::toggleGodmode();
-		return true;
-	}
 	
 	if (p[0] == "quit") {
-		Functions::_Com_Quit_f();
+		exit(0);
 		return true;
 	}
 
@@ -184,6 +165,7 @@ bool execCustomCmd(std::string& cmd) {
 		return true;
 	}
 	
+	//TODO: register these as dvar?
 	if (p[0] == "r_fog") {
 		if (p.size() >= 2) {
 			CustomCommands::toggleFog(GameUtil::stringToBool(p[1]));
@@ -211,7 +193,7 @@ void Console::execCmd(std::string cmd) {
 	if (cmd.length() == 0) {
 		return;
 	}
-	if (!execCustomCmd(cmd) && !setEngineDvar(cmd)) {
+	if (!execCustomDevCmd(cmd) && !setEngineDvar(cmd)) {
 		//Console::devPrint("Passing cmd to command buffer");
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}

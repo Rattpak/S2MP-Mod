@@ -17,60 +17,20 @@ std::unordered_map<std::string, std::string> DvarInterface::engineToUserMap;
 
 //Sets a Dvar in engine using the Dvar Interface
 //Takes the name of the dvar, and the cmd vector
-//Returns true if dvar was found and changed
+//Returns true if dvar was found and attempted to change
 bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd) {
     std::string dvarLower = dvarname;
     std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);
 
-    dvar_t* var = Functions::_Dvar_FindVar(DvarInterface::toEngineString(dvarLower).c_str());
-    //TODO: Add more dvar types support
-    if (var != nullptr) {
-        switch (var->type) {
-        case DVAR_TYPE_BOOL:
-            if (cmd.size() >= 2) {
-                var->current.enabled = GameUtil::stringToBool(cmd[1]);
-            }
-            break;
-        case DVAR_TYPE_FLOAT:
-            if (cmd.size() >= 2) {
-                var->current.value = GameUtil::safeStringToFloat(cmd[1]);
-            }
-            break;
-        case 261:
-        case DVAR_TYPE_INT:
-            if (cmd.size() >= 2) {
-                var->current.integer = GameUtil::safeStringToInt(cmd[1]);
-            }
-            break;
-        case DVAR_TYPE_ENUM:
-            if (cmd.size() >= 2) {
-                var->current.integer = GameUtil::safeStringToInt(cmd[1]);
-            }
-            break;
-        case 263:
-        case DVAR_TYPE_STRING:
-            if (cmd.size() >= 2) {
-                var->current.string = _strdup(cmd[1].c_str());
-            }
-            break;
-        case DVAR_TYPE_COLOR:
-            if (cmd.size() >= 5) {
-                var->current.color[0] = GameUtil::safeStringToFloat(cmd[1]);
-                var->current.color[1] = GameUtil::safeStringToFloat(cmd[2]);
-                var->current.color[2] = GameUtil::safeStringToFloat(cmd[3]);
-                var->current.color[3] = GameUtil::safeStringToFloat(cmd[4]);
-            }
-            break;
-        default:
-            Console::print("Unsupported dvar type: " + std::to_string(var->type));
-            break;
-        }
-        return true;
-    }
-    else {
-        //Console::print("no dvar \"" + dvarname + "\"");
+    std::string engineString = DvarInterface::toEngineString(dvarLower);
+    dvar_t* var = Functions::_Dvar_FindVar(engineString.c_str());
+    if (!var) {
         return false;
     }
+
+    std::string dvarCmd = "set " + engineString;
+    GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, dvarCmd.c_str());
+    return true;
 }
 
 //Add a dvar mapping to the map
@@ -636,6 +596,20 @@ void DvarInterface::addAllMappings() {
     //CG_VectorField_RegisterDvars
     addMapping("cg_vectorFieldsForceUniform", "2895");
 
+    //phys
+    addMapping("phys_autoDisableTime", "5130");
+    addMapping("phys_bulletUpBias", "2295");
+    addMapping("phys_bulletSpinScale", "4747");
+    addMapping("phys_dragAngular", "100");
+    addMapping("phys_dragLinear", "1522");
+    addMapping("phys_gravity", "4290");
+    addMapping("physVeh_jump", "713");
+
+    //LUI
+    addMapping("LUI_WorkerCmdGC", "3886");
+
+    //ComScore_Init
+    addMapping("comscore_backoff", "3219");
 
     //3708 1 skips the title screen
 }

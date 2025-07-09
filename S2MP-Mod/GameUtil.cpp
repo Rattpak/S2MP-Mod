@@ -8,9 +8,21 @@
 #include "Console.hpp"
 #include <sstream>
 #include <algorithm>
+#include <list>
+
 typedef unsigned int uint32;
 uintptr_t GameUtil::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 char** commandTextBuffers = reinterpret_cast<char**>(GameUtil::base + 0xAC664B8);
+
+std::string GameUtil::sanitizeFileName(const std::string& name) {
+    std::string safe = name;
+    for (char& c : safe) {
+        if (c == '/' || c == '\\' || c == ':' || c == '*' || c == '?' || c == '"' || c == '<' || c == '>' || c == '|') {
+            c = '_';
+        }
+    }
+    return safe;
+}
 
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();
@@ -82,4 +94,13 @@ bool GameUtil::stringToBool(const std::string& str) {
     std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), GameUtil::asciiToLower);
 
     return (lowerStr == "1" || lowerStr == "true");
+}
+
+
+std::list<cmd_function_s> cmdHeap;
+
+void GameUtil::addCommand(char const* name, void (*func)()) {
+    cmdHeap.emplace_back();
+    auto it = std::prev(cmdHeap.end());
+    Functions::_Cmd_AddCommandInternal(name, func, &(*it));
 }

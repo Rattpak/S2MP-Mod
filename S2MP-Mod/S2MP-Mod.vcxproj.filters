@@ -16,9 +16,6 @@
     <Filter Include="Source Files\Console">
       <UniqueIdentifier>{aca4a247-d313-43b8-8c7e-9fa6a987967f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Common">
-      <UniqueIdentifier>{e29cdbcf-d22c-4887-8ebc-9bda656073d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Util">
       <UniqueIdentifier>{1a9de94b-57c1-4b8b-9f42-1624c2ffba74}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,12 @@
     </Filter>
     <Filter Include="Source Files\Arxan">
       <UniqueIdentifier>{1d2ae905-eee2-4542-a8d9-2efa3e8336a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{e29cdbcf-d22c-4887-8ebc-9bda656073d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Loaders">
+      <UniqueIdentifier>{6a39e990-a110-4b8d-b5fa-87c965579fb9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +66,6 @@
     <ClInclude Include="DvarInterface.hpp">
       <Filter>Source Files\Util</Filter>
     </ClInclude>
-    <ClInclude Include="DevPatches.hpp">
-      <Filter>Source Files\dev</Filter>
-    </ClInclude>
     <ClInclude Include="Noclip.hpp">
       <Filter>Source Files\Code\Movement</Filter>
     </ClInclude>
@@ -83,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="Hooking.Patterns.h">
       <Filter>Source Files\Arxan</Filter>
+    </ClInclude>
+    <ClInclude Include="Loaders.hpp">
+      <Filter>Source Files\Loaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +142,15 @@
     </ClCompile>
     <ClCompile Include="InternalConsole.cpp">
       <Filter>Source Files\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="DevDraw.cpp">
+      <Filter>Source Files\dev</Filter>
+    </ClCompile>
+    <ClCompile Include="LuiLoader.cpp">
+      <Filter>Source Files\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Loaders.cpp">
+      <Filter>Source Files\Loaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

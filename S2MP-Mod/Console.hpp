@@ -12,6 +12,7 @@ public:
 	static void devPrint(std::string text);
 	static void initPrint(std::string text);
 	static std::vector<std::string> parseCmdToVec(const std::string& cmd);
+	static void registerCustomCommands();
 };
 
 class InternalConsole {
@@ -45,6 +46,7 @@ public:
 	static void toggleHudBlood(bool b);
 	static void toggleGun(bool b);
 	static void toggleFog(bool b);
+	static void translateString();
 	static void changeMap(const std::string& mapname);
 	static void fastRestart();
 	static void mapRestart();

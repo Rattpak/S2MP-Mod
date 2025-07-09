@@ -919,6 +919,30 @@ void createInlineAsmStub() {
 #endif // ARXAN_DEBUG_INFO
 }
 
+void suspendAllOtherThreads() {
+    DWORD current_process_id = GetCurrentProcessId();
+    DWORD current_thread_id = GetCurrentThreadId();
+
+    HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+    if (snapshot == INVALID_HANDLE_VALUE) return;
+
+    THREADENTRY32 te = { 0 };
+    te.dwSize = sizeof(te);
+
+    if (Thread32First(snapshot, &te)) {
+        do {
+            if (te.th32OwnerProcessID == current_process_id && te.th32ThreadID != current_thread_id) {
+                HANDLE thread = OpenThread(THREAD_SUSPEND_RESUME, FALSE, te.th32ThreadID);
+                if (thread) {
+                    SuspendThread(thread);
+                    CloseHandle(thread);
+                }
+            }
+        } while (Thread32Next(snapshot, &te));
+    }
+
+    CloseHandle(snapshot);
+}
 
 void ArxanPatches::init() {
 #ifdef DEVELOPMENT_BUILD
@@ -926,4 +950,7 @@ void ArxanPatches::init() {
 #endif // DEVELOPMENT_BUILD
     createInlineAsmStub();
     CreateChecksumHealingStub();
+
+
+    //suspendAllOtherThreads();
 }

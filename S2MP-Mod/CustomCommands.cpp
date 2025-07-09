@@ -79,6 +79,10 @@ void CustomCommands::toggleFog(bool b) {
 	}
 }
 
+void CustomCommands::translateString() {
+
+}
+
 void CustomCommands::changeMap(const std::string& mapname) {
 	//TODO
 }

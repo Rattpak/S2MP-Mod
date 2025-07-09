@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////
 //         Development Patches
-// Temporary patches for testing stuff
+//    Temporary patches for testing stuff
 /////////////////////////////////////////////////
 
 #include "pch.h"
-#include "DevPatches.hpp"
+#include "DevDef.h"
 #include "Console.hpp"
 #include <MinHook.h>
 #include "FuncPointers.h"
@@ -96,7 +96,6 @@ void Hook_Cmd_AddCommandInternal() {
     }
 
 }
-
 
 void DevPatches::init() {
     Console::initPrint("DevPatches::init()");

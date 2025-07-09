@@ -152,13 +152,13 @@
     <ClInclude Include="ConfigManager.h" />
     <ClInclude Include="Console.hpp" />
     <ClInclude Include="DevDef.h" />
-    <ClInclude Include="DevPatches.hpp" />
     <ClInclude Include="DvarInterface.hpp" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="FuncPointers.h" />
     <ClInclude Include="GameUtil.hpp" />
     <ClInclude Include="Hook.hpp" />
     <ClInclude Include="Hooking.Patterns.h" />
+    <ClInclude Include="Loaders.hpp" />
     <ClInclude Include="Noclip.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PrintPatches.hpp" />
@@ -171,6 +171,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="CustomCommands.cpp" />
     <ClCompile Include="DebugPatches.cpp" />
+    <ClCompile Include="DevDraw.cpp" />
     <ClCompile Include="DevPatches.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="DvarInterface.cpp" />
@@ -183,6 +184,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="InternalConsole.cpp" />
+    <ClCompile Include="Loaders.cpp" />
+    <ClCompile Include="LuiLoader.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

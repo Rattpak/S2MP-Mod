@@ -29,3 +29,8 @@ Functions::R_AddCmdDrawTextWithCursor Functions::_R_AddCmdDrawTextWithCursor = (
 Functions::LUI_OpenMenu Functions::_LUI_OpenMenu = (Functions::LUI_OpenMenu)(base + 0x7AC7A0);
 Functions::LiveStorage_UploadStats Functions::_LiveStorage_UploadStats = (Functions::LiveStorage_UploadStats)(base + 0x6C38A0);
 Functions::Cmd_AddCommandInternal Functions::_Cmd_AddCommandInternal = (Functions::Cmd_AddCommandInternal)(base + 0x6AE0E0);
+
+Functions::LUI_CoD_GetMaxMemory Functions::_LUI_CoD_GetMaxMemory = (Functions::LUI_CoD_GetMaxMemory)(base + 0x1E4CD0);
+Functions::LUI_CoD_GetFreeMemoryBytes Functions::_LUI_CoD_GetFreeMemoryBytes = (Functions::LUI_CoD_GetFreeMemoryBytes)(base + 0x1E4CC0);
+Functions::hks_HashTable_contiguousArraySize Functions::_hks_HashTable_contiguousArraySize = (Functions::hks_HashTable_contiguousArraySize)(base + 0x32BFA0);
+Functions::Material_RegisterHandle Functions::_Material_RegisterHandle = (Functions::Material_RegisterHandle)(base + 0x91F430);
