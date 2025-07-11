@@ -471,6 +471,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_mpRimDiffuseTint", "817");
     addMapping("r_mpRimStrength", "2634");
     addMapping("r_mpRimColor", "2013");
+    addMapping("fx_enable", "3917");
 
     addMapping("cg_drawCrosshair", "1874");
     addMapping("cg_drawCrosshairNames", "1979");
@@ -616,6 +617,10 @@ void DvarInterface::addAllMappings() {
     addMapping("comscore_backoff", "3219");
 
     //3708 1 skips the title screen
+    //4835 disabled game start button
+    //4670 0 removes microtransaction deals from qm menu
+
+    //4660 some render bool
 }
 
 void DvarInterface::init() {
