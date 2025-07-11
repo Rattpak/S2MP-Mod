@@ -17,6 +17,39 @@
 #include "DvarInterface.hpp"
 #include "DevDef.h"
 
+
+void Console::Print(printType type, const char* fmt, ...)
+{
+	va_list argList;
+	va_start(argList, fmt);
+
+	char temp[500];
+
+	vsnprintf(temp, sizeof(temp), fmt, argList);
+	va_end(argList);
+
+	char* buffer = (char*)malloc(strlen(temp) + 1);
+	if (buffer) {
+		strcpy(buffer, temp);
+	}
+
+	switch (type)
+	{
+	case info:
+		Console::labelPrint("INFO", buffer);
+		break;
+	case error:
+		Console::labelPrint("ERROR", buffer);
+		break;
+	case dev:
+		Console::labelPrint("DEV", buffer);
+		break;
+	default:
+		Console::labelPrint("", buffer);
+	}
+}
+
+
 //Output to all consoles without label
 void Console::print(std::string text) {
 	//External CLI

@@ -11,6 +11,8 @@
 
 ///////////////////////////////////////
 
+
+
 class DevPatches {
 public:
 	static uintptr_t base;
