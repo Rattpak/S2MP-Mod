@@ -258,7 +258,7 @@ void utils::hook::detour::create(void* place, void* target)
 		throw std::runtime_error(string::va("Unable to create hook at location: %p", this->place_));
 	}
 
-	this->queue_enable();
+	this->enable();
 }
 
 void utils::hook::detour::create(const size_t place, void* target)

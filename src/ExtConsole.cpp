@@ -19,6 +19,8 @@
 #include "DevDef.h"
 #include "Loaders.hpp"
 
+#include "client/src/Scripting.h"
+
 HANDLE hProcess;
 HINSTANCE hInst;
 
@@ -87,6 +89,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	Console::registerCustomCommands();
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
+	Script::init();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();
