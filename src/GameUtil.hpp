@@ -5,6 +5,7 @@
 class GameUtil {
 public:
 	static uintptr_t base;
+
 	static std::string sanitizeFileName(const std::string& name);
 	//static void Cbuf_AddText(LocalClientNum_t localClientNum, std::string text);
 	static void Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command);
@@ -15,3 +16,6 @@ public:
 	static bool stringToBool(const std::string& str);
 	static void addCommand(char const* name, void (*func)());
 };
+
+size_t _b(size_t val);
+size_t operator"" _b(size_t val);

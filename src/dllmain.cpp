@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Console.hpp"
 #include "structs.h"
+#include <Hook.hpp>
 
 HMODULE hm;
 //0 - CLI, 1 - GUI, 2 - BOTH
@@ -17,7 +18,10 @@ void ExternalConsoleGuiInitWrapper() {
 
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
 	hm = hModule;
-	if (dwReason == DLL_PROCESS_ATTACH) {
+	if (dwReason == DLL_PROCESS_ATTACH) 
+	{
+		utils::hook::detour::detour(); // initialize minhook
+
 		if (EXTERNAL_CONSOLE_MODE == 0 || EXTERNAL_CONSOLE_MODE == 2) {
 			AllocConsole();
 			FILE* pFile = nullptr;

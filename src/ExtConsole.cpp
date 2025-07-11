@@ -19,6 +19,8 @@
 #include "DevDef.h"
 #include "Loaders.hpp"
 
+#include "client/src/Scripting.h"
+
 HANDLE hProcess;
 HINSTANCE hInst;
 
@@ -79,15 +81,6 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	infoPrintOffsets();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
 
-	MH_STATUS status = MH_Initialize();
-	if (status != MH_OK) {
-		std::string sStatus = MH_StatusToString(status);
-		Console::print("Minhook init failed");
-		//TODO: Add some like error handling here or a global var
-	}
-	
-	//i guess init all out components here for now
-
 	ArxanPatches::init();
 	DebugPatches::init();
 	InternalConsole::init();
@@ -96,6 +89,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	Console::registerCustomCommands();
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
+	Script::init();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

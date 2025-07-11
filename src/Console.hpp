@@ -5,6 +5,14 @@
 
 class Console {
 public:
+	enum printType
+	{
+		info,
+		error,
+		dev,
+	};
+
+	static void Print(printType type, const char* fmt, ...);
 	static void execCmd(std::string cmd);
 	static void print(std::string text);
 	static void labelPrint(std::string label, std::string text);

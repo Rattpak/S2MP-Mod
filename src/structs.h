@@ -99,11 +99,21 @@ struct ScriptFile
     int len;
     int bytecodeLen;
     const char* buffer;
-    unsigned __int8* bytecode;
+    char* bytecode;
 };
+
+struct RawFile
+{
+    const char* name;
+    int compressedLen;
+    int len;
+    const char* buffer;
+};
+
 enum XAssetType {
     ASSET_TYPE_XMODEL = 0xA,
     ASSET_TYPE_MATERIAL = 0xD,
+    ASSET_TYPE_RAWFILE = 0x39,
     ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
     ASSET_TYPE_LUA_FILE = 0x45,
@@ -114,6 +124,7 @@ union XAssetHeader
 {
     void* data;
     struct ScriptFile* script;
+    struct RawFile* rawfile;
 };
 
 struct cmd_function_s
