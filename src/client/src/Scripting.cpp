@@ -2,7 +2,7 @@
 
 #include "Scripting.h"
 
-#include <structs.h>
+#include "client/game/structs.h"
 #include <GameUtil.hpp>
 #include <Console.hpp>
 #include <Hook.hpp>
@@ -12,13 +12,7 @@
 
 #include <memory.h>
 #include <xsk/gsc/engine/s2.hpp>
-
-typedef XAssetHeader(*DB_FindXAssetHeader_t)(XAssetType type, const char* name, int allowCreateDefault);
-static DB_FindXAssetHeader_t DB_FindXAssetHeader = DB_FindXAssetHeader_t(0xFAB20_b);
-
-typedef void(*ProcessScript_t)(const char* name);
-static ProcessScript_t ProcessScript = ProcessScript_t(0x6F6740_b);
-
+#include "dvar.h"
 
 void dumpScript(std::string name, ScriptFile* buffer, int len) {
     std::string filePath = "s2mp-mod/dump/" + name;
@@ -203,7 +197,7 @@ bool read_raw_script_file(const std::string& name, std::string* data)
     if (DB_XAssetExists(ASSET_TYPE_RAWFILE, name_str) &&
         !DB_IsXAssetDefault(ASSET_TYPE_RAWFILE, name_str))
     {
-        const auto asset = DB_FindXAssetHeader(ASSET_TYPE_RAWFILE, name_str, false);
+        const auto asset = game::DB_FindXAssetHeader(ASSET_TYPE_RAWFILE, name_str, false);
         const auto len = DB_GetRawFileLen(asset.rawfile);
         data->resize(len);
         DB_GetRawBuffer(asset.rawfile, data->data(), len);
@@ -227,7 +221,7 @@ ScriptFile* load_custom_script(const char* file_name, const std::string& real_na
 
     if (!patch)
     {
-        return DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, file_name, false).script;
+        return game::DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, file_name, false).script;
     }
 
     std::string source_buffer{};
@@ -245,7 +239,7 @@ ScriptFile* load_custom_script(const char* file_name, const std::string& real_na
             && (real_name.ends_with("_fx") || real_name.ends_with("_sound")))
         {
             Console::Print(Console::info, "Refusing to compile rawfile '%s'\n", real_name.data());
-            return DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, file_name, false).script;
+            return game::DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, file_name, false).script;
         }
     }
 
@@ -307,7 +301,7 @@ std::string get_script_file_name(const std::string& name)
 
 std::pair<xsk::gsc::buffer, std::vector<std::uint8_t>> read_compiled_script_file(const std::string& name, const std::string& real_name)
 {
-    const auto* script_file = DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, name.data(), false).script;
+    const auto* script_file = game::DB_FindXAssetHeader(ASSET_TYPE_SCRIPTFILE, name.data(), false).script;
     if (script_file == nullptr)
     {
         throw std::runtime_error(std::format("Could not load scriptfile '{}'", real_name));
@@ -369,7 +363,7 @@ ScriptFile* find_script(XAssetType type, const char* name, int allow_create_defa
         }
     }
 
-    return DB_FindXAssetHeader(type, name, allow_create_default).script;
+    return game::DB_FindXAssetHeader(type, name, allow_create_default).script;
 }
 
 utils::hook::detour Scr_BeginLoadScripts;
@@ -532,22 +526,25 @@ void scr_load_level_stub()
     scr_load_level_hook.invoke<void>();
 }
 
+game::dvar g_dumpscripts;
 utils::hook::detour Load_scriptFileAsset;
 void ScriptFileAsset(ScriptFile** scriptfile)
 {
     auto script = *scriptfile;
-#ifdef DUMP_SCRIPTS
-    dumpScript(script->name + std::string(".gscbin"), script, script->compressedLen);
-#endif
+    if(g_dumpscripts.get_raw()->current.enabled)
+    {
+        dumpScript(script->name + std::string(".gscbin"), script, script->compressedLen);
+    }
+
     Load_scriptFileAsset.invoke<void>(scriptfile);
 }
 
 void Script::init()
 {
     // Dump Scripts
+    g_dumpscripts.Register("g_dumpscripts", false, DVAR_FLAG_SAVED); // save it so early load scripts will dump?
     Load_scriptFileAsset.create(0x13CC70_b, ScriptFileAsset);
 
-    // TODO: FIX THIS STUPID BULLSHIT AND MAKE IT WORK
     // Allocate Script Memory
     // DB_AllocXZoneMemoryInternal.create(0x53AE30_b, db_alloc_x_zone_memory_internal_stub);
 

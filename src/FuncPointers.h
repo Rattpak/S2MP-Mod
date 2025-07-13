@@ -1,5 +1,5 @@
 #pragma once
-#include "structs.h"
+#include "client/game/structs.h"
 class Functions {
 public:
 	typedef void(__cdecl* SV_SendServerCommand)(__int64 client, int type, const char* fmt, ...);

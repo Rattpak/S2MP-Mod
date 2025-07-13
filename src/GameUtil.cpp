@@ -11,11 +11,7 @@
 #include <list>
 
 typedef unsigned int uint32;
-uintptr_t GameUtil::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
-char** commandTextBuffers = reinterpret_cast<char**>(GameUtil::base + 0xAC664B8);
-
-size_t _b(const size_t val) { return GameUtil::base + val; }
-size_t operator"" _b(const size_t val) { return _b(val); }
+char** commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
 
 std::string GameUtil::sanitizeFileName(const std::string& name) {
     std::string safe = name;

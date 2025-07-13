@@ -5,7 +5,6 @@
 #include "pch.h"
 #include "FuncPointers.h"
 
-uintptr_t base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 
 Functions::SV_SendServerCommand Functions::_SV_SendServerCommand = (Functions::SV_SendServerCommand)(base + 0x7485E0);
 Functions::Com_Error Functions::_Com_Error = (Functions::Com_Error)(base + 0xAA1E0);
