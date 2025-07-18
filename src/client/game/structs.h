@@ -3,6 +3,15 @@
 //	Engine Structs
 ///////////////////////////
 #pragma once
+
+enum DvarFlags : std::uint32_t
+{
+    DVAR_FLAG_NONE = 0,
+    DVAR_FLAG_SAVED = 0x1,
+    DVAR_FLAG_LATCHED = 0x2,
+    DVAR_FLAG_CHEAT = 0x4,
+};
+
 struct CmdText
 {
     unsigned __int8* data;
@@ -160,6 +169,25 @@ enum dvarType_t : __int32
     DVAR_TYPE_COUNT = 0xC,
 };
 
+struct DvarValueBool
+{
+    bool enabled;
+    char pad[3];
+    int hashedValue;
+};
+
+struct DvarValueInt
+{
+    int integer;
+    int hashedValue;
+};
+
+struct DvarValueEnum
+{
+    int defaultIndex;
+    int hashedValue;
+};
+
 union DvarValue
 {
     bool enabled;
@@ -169,10 +197,15 @@ union DvarValue
     float vector[4];
     const char* string;
     unsigned __int8 color[4];
+
+    DvarValueBool boolean_;
+    DvarValueInt integer_;
+    DvarValueEnum enumeration_;
 };
 
-struct dvar_t {
-    char* name;
+struct dvar_t 
+{
+    const char* name;
     int flags;
     dvarType_t type;
     DvarValue current;

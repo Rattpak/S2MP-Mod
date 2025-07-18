@@ -90,6 +90,8 @@
 #include <asmjit/core/jitruntime.h>
 #include <asmjit/x86/x86assembler.h>
 
+#include "client/game/symbols.h"
+
 using namespace std::literals;
 
 #endif //PCH_H

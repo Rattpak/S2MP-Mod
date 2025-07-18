@@ -647,7 +647,7 @@ void createInlineAsmStub() {
     }
 
     for (int i = 0; i < integIntactCount; i++) {
-        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integrityIntact[i] + GameUtil::base);
+        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integrityIntact[i] + base);
         inlineStubs[stubCounter].type = intactSmall;
         inlineStubs[stubCounter].bufferSize = 7;
         stubCounter++;
@@ -658,7 +658,7 @@ void createInlineAsmStub() {
 #endif // ARXAN_DEBUG_INFO
 
     for (int i = 0; i < integIntactBigCount; i++) {
-        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integrityIntactBig[i] + GameUtil::base);
+        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integrityIntactBig[i] + base);
         inlineStubs[stubCounter].type = intactBig;
         inlineStubs[stubCounter].bufferSize = 10;
         stubCounter++;
@@ -669,7 +669,7 @@ void createInlineAsmStub() {
 #endif // ARXAN_DEBUG_INFO
 
     for (int i = 0; i < integSplitCount; i++) {
-        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integritySplit[i] + GameUtil::base);
+        inlineStubs[stubCounter].functionAddress = reinterpret_cast<void*>(integritySplit[i] + base);
         inlineStubs[stubCounter].type = split;
         inlineStubs[stubCounter].bufferSize = 8;
         stubCounter++;

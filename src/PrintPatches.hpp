@@ -1,5 +1,5 @@
 #pragma once
-#include "structs.h"
+#include "client/game/structs.h"
 class PrintPatches {
 public:
 	static void init();

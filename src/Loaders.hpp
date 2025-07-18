@@ -1,6 +1,6 @@
 #pragma once
 #include "Console.hpp"
-#include "structs.h"
+#include "client/game/structs.h"
 #include "GameUtil.hpp"
 #include "MinHook.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <string>
-#include "structs.h"
+#include "client/game/structs.h"
 #include <vector>
 
 class DvarInterface {

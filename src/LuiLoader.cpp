@@ -41,7 +41,7 @@ void __fastcall Load_LuaFileAsset_hookfunc(LuaFile** luaFile) {
 }
 
 void Hook_Load_LuaFileAsset() {
-    void* target = (void*)(GameUtil::base + 0x13BB70);
+    void* target = (void*)(0x13BB70_b);
 
     if (MH_CreateHook(target, &Load_LuaFileAsset_hookfunc, reinterpret_cast<void**>(&oLoad_LuaFileAsset)) != MH_OK) {
         Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));

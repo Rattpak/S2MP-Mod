@@ -9,6 +9,7 @@ std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::st
 #include "build_user.txt"
 std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
 #endif
+
 #include <MinHook.h>
 
 float watermarkCol[4] = { 1.0f, 1.0f, 1.0f, 0.35f };
