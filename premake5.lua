@@ -32,117 +32,118 @@ end
 dependencies.load()
 
 workspace "s2mp-mod"
-architecture "x86_64"
-configurations { "Debug", "Release" }
-startproject "s2mp-mod"
+    startproject "s2mp-mod"
+    location "./build"
 
--- === Main Mod Project ===
-project "s2mp-mod"
-kind "SharedLib"
+    architecture "x86_64"
+    configurations { "Debug", "Release" }
 
-runtime "Release"
+    -- === Main Mod Project ===
+    project "s2mp-mod"
+        kind "SharedLib"
 
-location "./build"
-objdir "%{wks.location}/obj"
-targetdir "%{wks.location}/bin/%{cfg.platform}/%{cfg.buildcfg}"
+        runtime "Release"
 
-language "C++"
-cppdialect "C++20"
+        objdir "%{wks.location}/obj"
+        targetdir "%{wks.location}/bin/%{cfg.platform}/%{cfg.buildcfg}"
 
-configurations {"Debug", "Release"}
+        language "C++"
+        cppdialect "C++20"
 
-files {
-	"src/**.cpp",
-    "src/**.h",
-    "src/**.hpp",
-    "src/**.rc",
-    "src/**.bmp"
-}
+        configurations {"Debug", "Release"}
 
-vpaths {
-    ["src/Arxan"] = {
-        "src/Arxan.hpp",
-        "src/ArxanPatches.cpp",
-        "src/DebugPatches.cpp",
-    },
-    ["src/Code"] = {
-        "src/Noclip.cpp",
-        "src/Noclip.hpp",
-        "src/PrintPatches.cpp",
-        "src/PrintPatches.hpp",
-    },
-    ["src/Common"] = {
-        "src/FuncPointers.cpp",
-        "src/FuncPointers.h",
-        "src/memory.cpp",
-        "src/memory.h",
-        "src/structs.h",
-    },
-    ["src/Console"] = {
-        "src/Console.cpp",
-        "src/Console.hpp",
-        "src/CustomCommands.cpp",
-        "src/ExtConsole.cpp",
-        "src/ExtConsoleGui.cpp",
-        "src/InternalConsole.cpp",
-    },
-    ["src/Loaders"] = {
-        "src/FontLoader.cpp",
-        "src/Loaders.cpp",
-        "src/Loaders.hpp",
-        "src/LuiLoader.cpp",
-    },
-    ["src/Util"] = {
-        "src/ConfigManager.cpp",
-        "src/ConfigManager.h",
-        "src/DvarInterface.cpp",
-        "src/DvarInterface.hpp",
-        "src/GameUtil.cpp",
-        "src/GameUtil.hpp",
-    },
-    ["src/Util/Hook"] = {
-        "src/Hook.cpp",
-        "src/Hook.hpp",
-        "src/Hooking.Patterns.cpp",
-        "src/Hooking.Patterns.h",
-    },
-    ["src/dev"] = {
-        "src/DevDef.h",
-        "src/DevDraw.cpp",
-        "src/DevPatches.cpp",
-        "src/DevPatches.hpp",
-    },
-    ["src/dll"] = {
-        "src/dllmain.cpp",
-        "src/framework.h",
-        "src/pch.cpp",
-        "src/pch.h",
-        "src/resource.h",
-        "src/s2mp-mod.rc",
-        "src/s2mp_con.bmp",
-    },
-}
+        files {
+            "src/**.cpp",
+            "src/**.h",
+            "src/**.hpp",
+            "src/**.rc",
+            "src/**.bmp"
+        }
 
-includedirs {
-    "src"
-}
+        vpaths {
+            ["src/Arxan"] = {
+                "src/Arxan.hpp",
+                "src/ArxanPatches.cpp",
+                "src/DebugPatches.cpp",
+            },
+            ["src/Code"] = {
+                "src/Noclip.cpp",
+                "src/Noclip.hpp",
+                "src/PrintPatches.cpp",
+                "src/PrintPatches.hpp",
+            },
+            ["src/Common"] = {
+                "src/FuncPointers.cpp",
+                "src/FuncPointers.h",
+                "src/memory.cpp",
+                "src/memory.h",
+                "src/structs.h",
+            },
+            ["src/Console"] = {
+                "src/Console.cpp",
+                "src/Console.hpp",
+                "src/CustomCommands.cpp",
+                "src/ExtConsole.cpp",
+                "src/ExtConsoleGui.cpp",
+                "src/InternalConsole.cpp",
+            },
+            ["src/Loaders"] = {
+                "src/FontLoader.cpp",
+                "src/Loaders.cpp",
+                "src/Loaders.hpp",
+                "src/LuiLoader.cpp",
+            },
+            ["src/Util"] = {
+                "src/ConfigManager.cpp",
+                "src/ConfigManager.h",
+                "src/DvarInterface.cpp",
+                "src/DvarInterface.hpp",
+                "src/GameUtil.cpp",
+                "src/GameUtil.hpp",
+            },
+            ["src/Util/Hook"] = {
+                "src/Hook.cpp",
+                "src/Hook.hpp",
+                "src/Hooking.Patterns.cpp",
+                "src/Hooking.Patterns.h",
+            },
+            ["src/dev"] = {
+                "src/DevDef.h",
+                "src/DevDraw.cpp",
+                "src/DevPatches.cpp",
+                "src/DevPatches.hpp",
+            },
+            ["src/dll"] = {
+                "src/dllmain.cpp",
+                "src/framework.h",
+                "src/pch.cpp",
+                "src/pch.h",
+                "src/resource.h",
+                "src/s2mp-mod.rc",
+                "src/s2mp_con.bmp",
+            },
+        }
 
-libdirs {
-    "bin/%{cfg.buildcfg}"
-}	
+        includedirs {
+            "src"
+        }
 
-dependencies.imports()
+        libdirs {
+            "bin/%{cfg.buildcfg}"
+        }	
 
-filter "system:windows"
-    systemversion "latest"
+        dependencies.imports()
 
-filter "configurations:Debug"
-    runtime "Debug"
-    symbols "On"
+        filter "system:windows"
+            systemversion "latest"
 
-filter "configurations:Release"
-    runtime "Release"
-    optimize "On"
+        filter "configurations:Debug"
+            runtime "Debug"
+            symbols "On"
+
+        filter "configurations:Release"
+            runtime "Release"
+            optimize "On"
 
 group "Dependencies"
 dependencies.projects()

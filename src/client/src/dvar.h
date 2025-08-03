@@ -1,18 +1,15 @@
 #pragma once
 
-#include <unordered_map>
-#include <string>
-#include <type_traits>
+#include "Console.hpp"
 
 namespace game
 {
     class dvar
     {
     public:
-
         dvar() {}
         ~dvar() {}
-        
+
         void Register(const char* name, int default_value, int min, int max, unsigned int flags)
         {
             _raw = game::Dvar_RegisterInt(name, default_value, min, max, flags);
