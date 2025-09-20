@@ -10,7 +10,7 @@
 #include <sstream>
 #include <array>
 #include "FuncPointers.h"
-#include "structs.h"
+#include "client/game/structs.h"
 #include <regex>
 #include "GameUtil.hpp"
 #include "Noclip.hpp"

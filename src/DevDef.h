@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "structs.h"
+#include "client/game/structs.h"
 #include "FuncPointers.h"
 #include <vector>
 
@@ -15,7 +15,6 @@
 
 class DevPatches {
 public:
-	static uintptr_t base;
 	static void init();
 };
 

@@ -79,6 +79,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	}
 
 	infoPrintOffsets();
+	Functions::init();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
 
 	ArxanPatches::init();

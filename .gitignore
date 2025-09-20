@@ -362,9 +362,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/S2MP-Mod/build_user.txt
+
 /vcpkg_installed/x64-windows
-*.vcxproj
-*.filters
 /build
 /src/build_user.txt
+/S2MP-Mod/build_user.txt
+
+# IDE
+.idea/*
+.vscode/*
