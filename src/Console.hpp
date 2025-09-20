@@ -15,6 +15,7 @@ public:
 	static void Print(printType type, const char* fmt, ...);
 	static void execCmd(std::string cmd);
 	static void print(std::string text);
+	static void printf(const char* fmt, ...);
 	static void labelPrint(std::string label, std::string text);
 	static void infoPrint(std::string text);
 	static void devPrint(std::string text);

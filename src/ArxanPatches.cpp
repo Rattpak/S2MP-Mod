@@ -916,6 +916,9 @@ void createInlineAsmStub() {
 
 #ifdef ARXAN_DEBUG_INFO
     Console::labelPrint(ArxanPatches::conLabel, std::string(__FUNCTION__) + " complete");
+    Console::labelPrint(ArxanPatches::conLabel, "integSplitCount: " + std::to_string(integSplitCount));
+    Console::labelPrint(ArxanPatches::conLabel, "integIntactBigCount: " + std::to_string(integIntactBigCount));
+    Console::labelPrint(ArxanPatches::conLabel, "integIntactCount: " + std::to_string(integIntactCount));
 #endif // ARXAN_DEBUG_INFO
 }
 
@@ -944,13 +947,12 @@ void suspendAllOtherThreads() {
     CloseHandle(snapshot);
 }
 
+bool o = false;
 void ArxanPatches::init() {
 #ifdef DEVELOPMENT_BUILD
     Console::initPrint(std::string(__FUNCTION__));
 #endif // DEVELOPMENT_BUILD
     createInlineAsmStub();
-    CreateChecksumHealingStub();
-
-
+    //CreateChecksumHealingStub();
     //suspendAllOtherThreads();
 }

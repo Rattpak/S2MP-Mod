@@ -611,7 +611,7 @@ void DebugPatches::init() {
     Console::initPrint(std::string(__FUNCTION__));
 #endif // DEVELOPMENT_BUILD
     bypassHwndChecks();
-    antiDebuggerSyscalls();
+   // antiDebuggerSyscalls();
     bypassHiddenThreadCreation();
     bypassThreadHideFromDebugger();
     bypassThreadQueryHideFromDebugger();
@@ -619,14 +619,14 @@ void DebugPatches::init() {
     hookAddVEH();
     DumpKnownAPIs();
 #endif
-    restoreAllPatchedFunctions();
-    startHideDebugLoop();
+    //restoreAllPatchedFunctions();
+    //startHideDebugLoop();
     hookNtQueryInformationProcess();
     hookNtClose();
     clearHWBP();
-
-#ifdef ARXAN_DEBUG_INFO
-    Console::labelPrint(DebugPatches::conLabel, "Adding VEH");
-#endif // ARXAN_DEBUG_INFO
-    AddVectoredExceptionHandler(1, interrupt2dFilter); //https://unprotect.it/technique/int-0x2d/
+//
+//#ifdef ARXAN_DEBUG_INFO
+//    Console::labelPrint(DebugPatches::conLabel, "Adding VEH");
+//#endif // ARXAN_DEBUG_INFO
+    //AddVectoredExceptionHandler(1, interrupt2dFilter); //https://unprotect.it/technique/int-0x2d/
 }

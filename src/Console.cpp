@@ -16,6 +16,7 @@
 #include "Noclip.hpp"
 #include "DvarInterface.hpp"
 #include "DevDef.h"
+#include <Arxan.hpp>
 
 
 void Console::Print(printType type, const char* fmt, ...)
@@ -58,6 +59,19 @@ void Console::print(std::string text) {
 	ExternalConsoleGui::print(text);
 	//Internal Console
 	//.....
+}
+
+void Console::printf(const char* fmt, ...) {
+	va_list args;
+	va_start(args, fmt);
+
+	std::vector<char> msgBuf(1024);
+	vsnprintf(msgBuf.data(), msgBuf.size(), fmt, args);
+
+	va_end(args);
+	std::string finalMsg = msgBuf.data();
+
+	Console::print(finalMsg);
 }
 
 //Output to all consoles with a label
@@ -136,6 +150,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("god", &CustomCommands::toggleGodmode);
 	GameUtil::addCommand("trans", &CustomCommands::translateString);
 	GameUtil::addCommand("luidbg", &DevDraw::toggleLuaDebugGui);
+	GameUtil::addCommand("entdbg", &DevDraw::toggleEntityDebugGui);
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff

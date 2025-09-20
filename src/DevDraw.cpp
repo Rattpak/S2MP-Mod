@@ -10,10 +10,12 @@ std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::st
 std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
 #endif
 #include <MinHook.h>
+#include <GameUtil.hpp>
 
 float watermarkCol[4] = { 1.0f, 1.0f, 1.0f, 0.35f };
 float devBuildInfoColor[4] = { 1.0f, 0.0f, 0.0f, 0.55f };
 float luiDebugGuiColor[4] = {0.54f, 0.32f, 0.2f, 1.0f };
+float entDebugGuiColor[4] = { 0.17f, 0.75f, 0.27f, 1.0f };
 float devCrosshairColor[4] = {1.0f, 1.0f, 1.0f, 0.8f };
 
 void drawDevelopmentInfo(int windowW, int windowH) {
@@ -72,6 +74,38 @@ void DevDraw::toggleLuaDebugGui() {
     debugLuaGui = !debugLuaGui;
 }
 
+bool debugEntGui = false;
+int entityHighWatermark = 0;
+void renderEntDebugGui(int windowWidth, int windowHeight) {
+    if (!debugEntGui) {
+        return;
+    }
+    std::vector<std::string> guiTextList;
+    font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
+
+    int entCount = *(int*)(GameUtil::base + 0xA2D6DD0);
+
+
+    if (entCount <= 0) {
+        guiTextList.push_back("S2MP-MOD ENTITY DEBUGGER [NOT READY]");
+        DevDraw::renderDevGui(guiTextList, 15, 105, windowWidth, windowHeight, entDebugGuiColor, conFont);
+        return;
+    }
+
+    if (entCount > entityHighWatermark) {
+        entityHighWatermark = entCount;
+    }
+    guiTextList.push_back("S2MP-MOD ENTITY DEBUGGER (G_Spawn)");
+    guiTextList.push_back("Entities used: " + std::to_string(entCount) + " / 2046");
+    guiTextList.push_back("Entity count high watermark: " + std::to_string(entityHighWatermark));
+
+    DevDraw::renderDevGui(guiTextList, 15, 105, windowWidth, windowHeight, entDebugGuiColor, conFont);
+}
+
+void DevDraw::toggleEntityDebugGui() {
+    debugEntGui = !debugEntGui;
+}
+
 /*
     Function runs at end of every frame.
     Not everything in here needs to be for DEVELOPMENT_BUILD
@@ -82,5 +116,6 @@ void DevDraw::render(int windowWidth, int windowHeight) {
 #endif // DEVELOPMENT_BUILD
 
     renderLuaDebugGui(windowWidth, windowHeight);
+    renderEntDebugGui(windowWidth, windowHeight);
 }
 
