@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk">
+      <UniqueIdentifier>{8E1FC131-FAD4-3927-83C9-33FEEF7D302B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk\utils">
+      <UniqueIdentifier>{8E23D334-FA39-D1CA-43B1-5CECAF06A252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{6DAA42B6-D914-F72C-2253-A8D28EFCD481}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deps\gsc-tool\include\xsk\utils\file.hpp">
+      <Filter>include\xsk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\utils\reader.hpp">
+      <Filter>include\xsk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\utils\string.hpp">
+      <Filter>include\xsk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\utils\writer.hpp">
+      <Filter>include\xsk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\utils\zlib.hpp">
+      <Filter>include\xsk\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="deps\gsc-tool\src\utils\file.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\utils\reader.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\utils\string.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\utils\writer.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\utils\zlib.cpp">
+      <Filter>src\utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

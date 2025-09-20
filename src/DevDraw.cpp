@@ -84,12 +84,11 @@ void renderEntDebugGui(int windowWidth, int windowHeight) {
     std::vector<std::string> guiTextList;
     font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
 
-    int entCount = *(int*)(GameUtil::base + 0xA2D6DD0);
-
+    int entCount = *(int*)(0xA2D6DD0_b);
 
     if (entCount <= 0) {
         guiTextList.push_back("S2MP-MOD ENTITY DEBUGGER [NOT READY]");
-        DevDraw::renderDevGui(guiTextList, 15, 105, windowWidth, windowHeight, entDebugGuiColor, conFont);
+        DevDraw::renderDevGui(guiTextList, 300, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
         return;
     }
 
@@ -100,7 +99,7 @@ void renderEntDebugGui(int windowWidth, int windowHeight) {
     guiTextList.push_back("Entities used: " + std::to_string(entCount) + " / 2046");
     guiTextList.push_back("Entity count high watermark: " + std::to_string(entityHighWatermark));
 
-    DevDraw::renderDevGui(guiTextList, 15, 105, windowWidth, windowHeight, entDebugGuiColor, conFont);
+    DevDraw::renderDevGui(guiTextList, 300, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
 }
 
 void DevDraw::toggleEntityDebugGui() {

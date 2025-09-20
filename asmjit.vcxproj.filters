@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="arm">
+      <UniqueIdentifier>{A55E880B-1168-887C-9AE3-9E7C06EC937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="x86">
+      <UniqueIdentifier>{CBB8880B-37C2-887C-C03D-9F7C2C46947C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64assembler.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64builder.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64compiler.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64emithelper.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64formatter.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64func.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64instapi.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64instdb.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64operand.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\a64rapass.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\arm\armformatter.cpp">
+      <Filter>arm</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\archtraits.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\assembler.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\builder.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\codeholder.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\codewriter.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\compiler.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\constpool.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\cpuinfo.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\emithelper.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\emitter.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\emitterutils.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\environment.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\errorhandler.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\formatter.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\func.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\funcargscontext.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\globals.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\inst.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\instdb.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\jitallocator.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\jitruntime.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\logger.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\operand.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\osutils.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\ralocal.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\rapass.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\rastack.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\string.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\support.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\target.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\type.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\virtmem.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zone.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zonehash.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zonelist.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zonestack.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zonetree.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\core\zonevector.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86assembler.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86builder.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86compiler.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86emithelper.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86formatter.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86func.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86instapi.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86instdb.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86operand.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\asmjit\src\asmjit\x86\x86rapass.cpp">
+      <Filter>x86</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

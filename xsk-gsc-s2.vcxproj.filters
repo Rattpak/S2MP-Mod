@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk">
+      <UniqueIdentifier>{8E1FC131-FAD4-3927-83C9-33FEEF7D302B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk\gsc">
+      <UniqueIdentifier>{BAC15D65-264D-CB29-2F5E-4E1E9B68272A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk\gsc\common">
+      <UniqueIdentifier>{D26D0575-BE67-2EC7-A7D4-C4D7936D9433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\xsk\gsc\engine">
+      <UniqueIdentifier>{1F4B9A79-0B45-C3CB-F4B1-59DCE04A2938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gsc">
+      <UniqueIdentifier>{D90430A9-45E4-AE44-4EFC-391BBA5A15A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gsc\common">
+      <UniqueIdentifier>{111847CF-FDE5-3AD5-E679-ABFBD2E6163A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gsc\engine">
+      <UniqueIdentifier>{5EF5DBD3-4AC3-CFD9-3357-40001FC4AB3E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\assembly.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\asset.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\ast.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\buffer.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\define.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\directive.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\exception.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\location.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\lookahead.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\scope.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\space.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\token.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\common\types.hpp">
+      <Filter>include\xsk\gsc\common</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\gsc\engine\s2.hpp">
+      <Filter>include\xsk\gsc\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="deps\gsc-tool\include\xsk\stdinc.hpp">
+      <Filter>include\xsk</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="deps\gsc-tool\src\gsc\assembler.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\asset.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\ast.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\exception.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\lookahead.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\scope.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\common\token.cpp">
+      <Filter>src\gsc\common</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\compiler.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\context.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\decompiler.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\disassembler.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\engine\s2.cpp">
+      <Filter>src\gsc\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\engine\s2_code.cpp">
+      <Filter>src\gsc\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\engine\s2_func.cpp">
+      <Filter>src\gsc\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\engine\s2_meth.cpp">
+      <Filter>src\gsc\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\engine\s2_token.cpp">
+      <Filter>src\gsc\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\lexer.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\parser.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\preprocessor.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+    <ClCompile Include="deps\gsc-tool\src\gsc\source.cpp">
+      <Filter>src\gsc</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
