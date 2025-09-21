@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Console.hpp"
-#include "client/game/structs.h"
+#include "structs.h"
 #include <Hook.hpp>
 
 HMODULE hm;

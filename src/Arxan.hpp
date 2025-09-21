@@ -1,5 +1,5 @@
 #pragma once
-#include "client/game/structs.h"
+#include "structs.h"
 #include <string>
 #include "Console.hpp"
 #include "GameUtil.hpp"

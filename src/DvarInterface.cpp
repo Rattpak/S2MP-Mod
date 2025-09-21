@@ -36,6 +36,9 @@ bool DvarInterface::setDvar(std::string& dvarname, std::vector<std::string> cmd)
     GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, dvarCmd.c_str());
     return true;
 }
+unsigned int DvarInterface::getDvarListSize() {
+    return DvarInterface::userToEngineMap.size();
+}
 
 //Add a dvar mapping to the map
 void DvarInterface::addMapping(const std::string& userString, const std::string& engineString) {
@@ -50,7 +53,7 @@ std::string DvarInterface::toEngineString(const std::string& userString) {
     std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);
     auto it = userToEngineMap.find(dvarLower);
     if (it != userToEngineMap.end()) {
-        Console::devPrint(userString + " ----> " + it->second);
+       // Console::devPrint(userString + " ----> " + it->second);
         return it->second;
     }
     return userString; //couldnt find

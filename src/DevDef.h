@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "client/game/structs.h"
+#include "structs.h"
 #include "FuncPointers.h"
 #include <vector>
 
@@ -10,8 +10,6 @@
 //#define ARXAN_LOG_VEH
 
 ///////////////////////////////////////
-
-
 
 class DevPatches {
 public:

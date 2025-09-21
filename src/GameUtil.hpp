@@ -1,10 +1,17 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "client/game/structs.h"
+#include "structs.h"
 class GameUtil {
 public:
 	static std::string sanitizeFileName(const std::string& name);
+	static void blockGameInput(bool b);
+	static std::string colorToString(const unsigned __int8 color[4]);
+	static std::string dvarValueToString(const dvar_t* dvar, bool showQuotesAroundStrings, bool truncateFloats);
+	static std::string toLower(const std::string& str);
+	static std::string toUpper(const std::string& input);
+	static bool isOnlyWhitespace(const std::string& str);
+	static std::string getStringFromClipboard();
 	//static void Cbuf_AddText(LocalClientNum_t localClientNum, std::string text);
 	static void Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command);
 	static float safeStringToFloat(const std::string& str);

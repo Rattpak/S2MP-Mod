@@ -3,6 +3,7 @@
 //	Engine Structs
 ///////////////////////////
 #pragma once
+#include <cstdint>
 
 enum DvarFlags : std::uint32_t
 {
@@ -38,7 +39,12 @@ enum errorParm_t
     ERR_LOCALIZATION = 0x6,
     ERR_MAPLOADERRORSUMMARY = 0x7,
 };
-
+struct XZoneInfo
+{
+    const char* name;
+    int allocFlags;
+    int freeFlags;
+};
 struct DvarLimits_integer
 {
     int min;

@@ -26,7 +26,14 @@ public:
 
 class InternalConsole {
 public:
+	static void clearConsole();
+	static void closeConsole();
+	static void addToOutputStack(std::string s, int level);
+	static void toggleConsole();
+	static void toggleFullConsole();
 	static void init();
+
+	static font_t* consoleFont;
 };
 
 class ExtConsole {

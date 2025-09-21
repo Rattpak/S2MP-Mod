@@ -7,6 +7,7 @@
 #include "PrintPatches.hpp"
 #include <MinHook.h>
 #include <FuncPointers.h>
+#include "structs.h"
 
 typedef void(*CM_LoadMap)(const char* name, int* checksum);
 CM_LoadMap _CM_LoadMap = nullptr;
@@ -28,6 +29,12 @@ LUI_Init _LUI_Init = nullptr;
 
 typedef void(*DB_TryLoadXFileInternal)(const char* zoneName, int zoneFlags, int isBaseMap);
 DB_TryLoadXFileInternal _DB_TryLoadXFileInternal = nullptr;
+
+typedef void(*DB_LoadXZone)(XZoneInfo* zoneInfo, __int64 zoneCount, __int64 waitAlloc, __int64 skipReadAlwaysLoadedAssets);
+DB_LoadXZone _DB_LoadXZone = nullptr;
+
+typedef void(*G_InitGame)(int levelTime, unsigned int randomSeed, int restart, int registerDvars, int savegame);
+G_InitGame _G_InitGame = nullptr;
 
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
@@ -71,6 +78,18 @@ void hook_DB_TryLoadXFileInternal(const char* zoneName, int zoneFlags, int isBas
     _DB_TryLoadXFileInternal(zoneName, zoneFlags, isBaseMap);
 }
 
+void hook_DB_LoadXZone(XZoneInfo* zoneInfo, __int64 zoneCount, __int64 waitAlloc, __int64 skipReadAlwaysLoadedAssets) {
+    Console::printf("Adding fastfile '%s' to queue", zoneInfo->name);
+    _DB_LoadXZone(zoneInfo, zoneCount, waitAlloc, skipReadAlwaysLoadedAssets);
+}
+
+void hook_G_InitGame(int levelTime, unsigned int randomSeed, int restart, int registerDvars, int savegame) {
+    Console::print("------- Game Initialization -------");
+    Console::print("gamename: S2");
+    Console::print("gamedate: Nov 24 2019");
+    _G_InitGame(levelTime, randomSeed, restart, registerDvars, savegame);
+}
+
 void PrintPatches::init() {
 	Console::infoPrint(__FUNCTION__);
 
@@ -101,6 +120,14 @@ void PrintPatches::init() {
     //Loading Zone: 
     MH_CreateHook(reinterpret_cast<void*>(0x105DA0_b), &hook_DB_TryLoadXFileInternal, reinterpret_cast<void**>(&_DB_TryLoadXFileInternal));
     MH_EnableHook(reinterpret_cast<void*>(0x105DA0_b));
+
+    //Adding fastfile '%s' to queue
+    MH_CreateHook(reinterpret_cast<void*>(0xFF510_b), &hook_DB_LoadXZone, reinterpret_cast<void**>(&_DB_LoadXZone));
+    MH_EnableHook(reinterpret_cast<void*>(0xFF510_b));
+
+    //------- Game Initialization -------
+    MH_CreateHook(reinterpret_cast<void*>(0x5C3C60_b), &hook_G_InitGame, reinterpret_cast<void**>(&_G_InitGame));
+    MH_EnableHook(reinterpret_cast<void*>(0x5C3C60_b));
 
 
 }

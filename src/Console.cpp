@@ -10,7 +10,7 @@
 #include <sstream>
 #include <array>
 #include "FuncPointers.h"
-#include "client/game/structs.h"
+#include "structs.h"
 #include <regex>
 #include "GameUtil.hpp"
 #include "Noclip.hpp"
@@ -58,7 +58,7 @@ void Console::print(std::string text) {
 	//External Console Window
 	ExternalConsoleGui::print(text);
 	//Internal Console
-	//.....
+	InternalConsole::addToOutputStack(text, 0);
 }
 
 void Console::printf(const char* fmt, ...) {
@@ -82,7 +82,7 @@ void Console::labelPrint(std::string label, std::string text) {
 	//External Console Window
 	ExternalConsoleGui::print(s);
 	//Internal Console
-	//.....
+	InternalConsole::addToOutputStack(s, 0);
 }
 
 //Output to all consoles as info print
@@ -93,7 +93,7 @@ void Console::infoPrint(std::string text) {
 	//External Console Window
 	ExternalConsoleGui::print(s);
 	//Internal Console
-	//.....
+	InternalConsole::addToOutputStack(s, 0);
 }
 
 //TODO: add preprocessor directive for developer like in t6sp-mod
@@ -105,7 +105,7 @@ void Console::devPrint(std::string text) {
 	//External Console Window
 	ExternalConsoleGui::print(s);
 	//Internal Console
-	//.....
+	InternalConsole::addToOutputStack(s, 0);
 }
 
 //Output to all consoles as initialization print
@@ -116,7 +116,7 @@ void Console::initPrint(std::string text) {
 	//External Console Window
 	ExternalConsoleGui::print(s);
 	//Internal Console
-	//.....
+	InternalConsole::addToOutputStack(s, 0);
 }
 
 //Parse command string into a vector of strings. Anything inside of quotes will be a single string
@@ -243,6 +243,7 @@ void Console::execCmd(std::string cmd) {
 	}
 	if (!execCustomDevCmd(cmd) && !setEngineDvar(cmd)) {
 		//Console::devPrint("Passing cmd to command buffer");
+		Console::print(cmd);
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
 

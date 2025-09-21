@@ -23,6 +23,164 @@ std::string GameUtil::sanitizeFileName(const std::string& name) {
     return safe;
 }
 
+/*
+    Enable/Disable keycatching for the game. Used for internal console
+*/
+void GameUtil::blockGameInput(bool b) {
+    if (b) {
+        int* pKeyCatchers = (int*)0x1C65F20_b;
+        *pKeyCatchers |= 1;
+    }
+    else {
+        int* pKeyCatchers = (int*)0x1C65F20_b;
+        *pKeyCatchers &= ~1;
+    }
+}
+
+std::string GameUtil::colorToString(const unsigned __int8 color[4]) {
+    std::ostringstream oss;
+    for (int i = 0; i < 4; ++i) {
+        oss << std::fixed << std::setprecision(2) << (color[i] * (1.0f / 255.0f));
+        if (i < 3) {
+            oss << " ";
+        }
+    }
+    return oss.str();
+}
+
+std::string GameUtil::dvarValueToString(const dvar_t* dvar, bool showQuotesAroundStrings, bool truncateFloats) {
+    if (dvar->type == DVAR_TYPE_BOOL) {
+        return dvar->current.enabled ? "1" : "0";
+    }
+    if (dvar->type == DVAR_TYPE_FLOAT) {
+        if (truncateFloats) {
+            std::ostringstream stream;
+            stream << std::fixed << std::setprecision(1) << dvar->current.value;
+            std::string result = stream.str();
+            return result;
+        }
+        return std::to_string(dvar->current.value);
+    }
+    if (dvar->type == DVAR_TYPE_FLOAT_2) {
+        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]);
+    }
+    if (dvar->type == DVAR_TYPE_FLOAT_3) {
+        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
+    }
+    if (dvar->type == DVAR_TYPE_FLOAT_4) {
+        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]) + " " + std::to_string(dvar->current.vector[3]);
+    }
+    if (dvar->type == DVAR_TYPE_INT) {
+        return std::to_string(dvar->current.integer);
+    }
+    //if (dvar->type == DVAR_TYPE_ENUM) {
+    //    if (!dvar->domain.enumeration.stringCount) {
+    //        return "PLACEHOLDER: ENUM";
+    //    }
+    //    else {
+    //        //for (int i = 0; i < dvar->domain.enumeration.stringCount; i++) {
+    //        //	possible += dvar->domain.enumeration.strings[i];
+    //        //	if (i + 1 != dvar->domain.enumeration.stringCount) {
+    //        //		possible += ", ";
+    //        //	}
+    //        //}
+    //        return *(const char**)(dvar->domain.integer.max + 4 * dvar->current.integer);
+    //    }
+    //}
+    if (dvar->type == DVAR_TYPE_STRING) {
+        if (showQuotesAroundStrings) {
+            return "\"" + std::string(dvar->current.string) + "\"";
+        }
+        return dvar->current.string;
+
+    }
+    if (dvar->type == DVAR_TYPE_COLOR) {
+        return colorToString(dvar->current.color);
+    }
+    if (dvar->type == DVAR_TYPE_INT64) { //I dont think bo2 uses this
+        return "?";
+    }
+    if (dvar->type == DVAR_TYPE_LINEAR_COLOR_RGB) {
+        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
+    }
+    if (dvar->type == DVAR_TYPE_COLOR_XYZ) {
+        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
+    }
+    if (dvar->type == DVAR_TYPE_COUNT) { //I dont think bo2 uses this
+        return "COUNT";
+    }
+    return "Unsupported";
+}
+
+std::string GameUtil::toLower(const std::string& str) {
+    std::string lowerStr = str;
+    std::transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), ::tolower);
+    return lowerStr;
+}
+
+std::string GameUtil::toUpper(const std::string& input) {
+    std::string result = input;
+    std::transform(result.begin(), result.end(), result.begin(),
+        [](unsigned char c) { return std::toupper(c); });
+    return result;
+}
+
+bool GameUtil::isOnlyWhitespace(const std::string& str) {
+    std::string noSpaces;
+    noSpaces.reserve(str.size()); //avoid reallocs
+
+    std::remove_copy_if(
+        str.begin(), str.end(),
+        std::back_inserter(noSpaces),
+        [](unsigned char c) { return std::isspace(c); }
+    );
+
+    return noSpaces.empty();
+}
+
+std::string GameUtil::getStringFromClipboard() {
+    //open clipboard
+    if (!OpenClipboard(nullptr)) {
+        Console::print("Cannot open the clipboard");
+        return "";
+    }
+
+    //make sure clipboard has text
+    if (!IsClipboardFormatAvailable(CF_TEXT)) {
+        Console::print("Clipboard does not contain text data");
+        CloseClipboard();
+        return "";
+    }
+
+    //get handle to clipboard data based text format
+    HANDLE hData = GetClipboardData(CF_TEXT);
+    if (hData == nullptr) {
+        Console::print("Cannot get clipboard data");
+        CloseClipboard();
+        return "";
+    }
+
+    //lock handle to get actual text ptr
+    char* pszText = static_cast<char*>(GlobalLock(hData));
+    if (pszText == nullptr) {
+        Console::print("Cannot lock global handle");
+        CloseClipboard();
+        return "";
+    }
+    std::string text = pszText;
+    GlobalUnlock(hData);
+    CloseClipboard();
+
+    //only paste upto newline
+    size_t newlinePos = text.find('\n');
+    if (newlinePos != std::string::npos) {
+        text = text.substr(0, newlinePos);
+    }
+    //Console::print(text);
+
+    return text;
+}
+
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();
     if (bufferIndex == -1) {
