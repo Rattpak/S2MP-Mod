@@ -11,7 +11,6 @@ R_EndFrame_t _EndFrame = nullptr;
 
 float colorWhite[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-
 void R_EndFrame_hookfunc() {
    int winWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
    int winHeight = *(int*)(0x1DA11EC_b);

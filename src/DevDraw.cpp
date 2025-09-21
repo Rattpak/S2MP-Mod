@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DevDef.h"
 
+
 std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::string(__TIME__);
 
 #ifdef USE_BUILD_USER
