@@ -209,6 +209,7 @@ union DvarValue
     DvarValueEnum enumeration_;
 };
 
+//TODO: find proper dvar structure
 struct dvar_t 
 {
     const char* name;

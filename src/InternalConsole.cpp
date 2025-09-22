@@ -386,6 +386,7 @@ void findMatchingDvars(const dvar_t* dvar) {
 	}
 }
 
+
 void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 	size_t spacePos = textBuffer.find(' ');
 	std::string cmdNoSpace = textBuffer.substr(0, spacePos);
@@ -414,10 +415,13 @@ void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 		resultCount = 0;
 		searchResults.clear();
 
+		//all dvars from dvar interface
 		for (const auto& pair : DvarInterface::userToEngineMap) {
 			const std::string& value = pair.first;
 			findMatchingDvars(Functions::_Dvar_FindVar(DvarInterface::toEngineString(value).c_str()));
 		}
+	
+		//TODO: parse commands from in-engine
 
 		lastSearchLength = textBuffer.length();
 		if (searchResults.size() == 0) {

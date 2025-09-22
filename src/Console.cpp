@@ -199,12 +199,12 @@ bool execCustomDevCmd(std::string& cmd) {
 		return true;
 	}
 
-	if (p[0] == "cg_drawlui") {
-		if (p.size() >= 2) {
-			CustomCommands::toggleHud(GameUtil::stringToBool(p[1]));
-		}
-		return true;
-	}
+	//if (p[0] == "cg_drawlui") {
+	//	if (p.size() >= 2) {
+	//		CustomCommands::toggleHud(GameUtil::stringToBool(p[1]));
+	//	}
+	//	return true;
+	//}
 	
 	if (p[0] == "cg_hudblood") {
 		if (p.size() >= 2) {
@@ -221,12 +221,12 @@ bool execCustomDevCmd(std::string& cmd) {
 		return true;
 	}
 	
-	if (p[0] == "cg_drawgun") {
-		if (p.size() >= 2) {
-			CustomCommands::toggleGun(GameUtil::stringToBool(p[1]));
-		}
-		return true;
-	}
+	//if (p[0] == "cg_drawgun") {
+	//	if (p.size() >= 2) {
+	//		CustomCommands::toggleGun(GameUtil::stringToBool(p[1]));
+	//	}
+	//	return true;
+	//}
 	return false;
 }
 

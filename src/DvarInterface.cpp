@@ -619,6 +619,81 @@ void DvarInterface::addAllMappings() {
     //ComScore_Init
     addMapping("comscore_backoff", "3219");
 
+    addMapping("dive_exhaustion_window", "4075");
+    addMapping("bg_shieldHitEncodeWidthWorld", "3901");
+    addMapping("bg_shieldHitEncodeHeightWorld", "1612");
+    addMapping("bg_shieldHitEncodeWidthVM", "4078");
+    addMapping("bg_shieldHitEncodeHeightVM", "1140");
+
+    addMapping("cg_killCamTurretLerpTime", "5831");
+    addMapping("cg_killCamDefaultLerpTime", "2254");
+    addMapping("cg_descriptiveText", "4666");
+    addMapping("cg_hearVictimTime", "408");
+    addMapping("cg_hearVictimEnabled", "3452");
+    addMapping("cg_gameBoldMessageWidth", "4916");
+    addMapping("cg_gameMessageWidth", "5279");
+    addMapping("cg_subtitleWidthWidescreen", "1003");
+    addMapping("cg_subtitleWidthStandard", "4834");
+    addMapping("cg_subtitleMinTime", "2986");
+    addMapping("cg_drawpaused", "3496");
+    addMapping("cl_paused", "183");
+    addMapping("cg_teamChatsOnly", "1127");
+    addMapping("cg_chatHeight", "2662");
+    addMapping("cg_chatTime", "804");
+    addMapping("tracer_stoppingPowerWidth", "2824");
+    addMapping("tracer_stoppingPowerColor1", "3726");
+    addMapping("tracer_stoppingPowerColor2", "2658");
+    addMapping("tracer_stoppingPowerColor3", "2410");
+    addMapping("tracer_stoppingPowerColor4", "5169");
+    addMapping("tracer_stoppingPowerColor5", "3870");
+    addMapping("tracer_stoppingPowerOverride", "4844");
+    addMapping("tracer_firstPersonMaxWidth", "886");
+    addMapping("tracer_thermalWidthMult", "4930");
+    addMapping("cg_marks_ents_player_only", "4775");
+    addMapping("cg_landingSounds", "4440");
+    addMapping("cg_footsteps", "4291");
+    addMapping("cg_errordecay", "4391");
+    addMapping("cg_processImmediateEvents", "2921");
+    addMapping("cg_tweenExtrapolationPeriodMs", "5173");
+    addMapping("cg_tweenOverrideThresholdMs", "4088");
+    addMapping("cg_tweenOverridePeriodSlowMs", "2778");
+    addMapping("cg_tweenOverridePeriodMs", "1906");
+    addMapping("cg_brass", "3385");
+    addMapping("cg_crosshairEnemyColor", "3165");
+    addMapping("cg_crosshairDynamic", "2700");
+    addMapping("cg_crosshairAlphaMin", "4967");
+    addMapping("cg_crosshairAlpha", "2105");
+    addMapping("cg_weaponCycleDelay", "3891");
+    addMapping("cg_hudSplitscreenCompassElementScale", "4041");
+    addMapping("cg_hudSplitscreenCompassScale", "1888");
+    addMapping("cg_mapLocationSelectionCursorSpeed", "281");
+    addMapping("cg_hudSayPosition", "2815");
+    addMapping("cg_hudChatIntermissionPosition", "4228");
+    addMapping("cg_hudChatPosition", "2563");
+    addMapping("cg_hudGrenadeIconEnabledFlash", "4876");
+    addMapping("cg_hudGrenadeIconInScope", "5259");
+    addMapping("cg_hudGrenadeIconMaxRangeFlash", "4356");
+    addMapping("cg_hudDamageIconInScope", "4366");
+    addMapping("cg_hudDamageIconTime", "4869");
+    addMapping("cg_hudDamageIconHeight", "4434");
+    addMapping("cg_hudDamageIconWidth", "2858");
+    addMapping("painVisionLerpOutRate", "84");
+    addMapping("painVisionTriggerHealth", "2349");
+    addMapping("cg_drawDamageDirection", "883");
+    addMapping("cg_drawDamageFlash", "221");
+    addMapping("cg_drawTurretCrosshair", "5771");
+    addMapping("cg_drawMantleHint", "2104");
+    addMapping("cg_drawDoubleTapDetonateHint", "1784");
+    addMapping("cg_drawBreathHUD", "1668");
+    addMapping("cg_drawBreathHint", "863");
+    addMapping("cg_draw2D", "2562");
+    addMapping("cg_viewVehicleInfluence", "3019");
+    addMapping("cg_fovMin", "361");
+    addMapping("cg_hintFadeTime", "310");
+    addMapping("cg_weaponHintsCoD1Style", "629");
+    addMapping("cg_cursorHints", "4521");
+    addMapping("cg_drawGun", "1762");
+
     //3708 1 skips the title screen
     //4835 disabled game start button
     //4670 0 removes microtransaction deals from qm menu

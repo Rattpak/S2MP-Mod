@@ -254,7 +254,7 @@ bool GameUtil::stringToBool(const std::string& str) {
 }
 
 
-std::list<cmd_function_s> cmdHeap;
+std::list<cmd_function_s> GameUtil::cmdHeap;
 
 void GameUtil::addCommand(char const* name, void (*func)()) {
     cmdHeap.emplace_back();

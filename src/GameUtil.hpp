@@ -20,4 +20,6 @@ public:
 	static char asciiToLower(char in);
 	static bool stringToBool(const std::string& str);
 	static void addCommand(char const* name, void (*func)());
+
+	static std::list<cmd_function_s> cmdHeap;
 };
