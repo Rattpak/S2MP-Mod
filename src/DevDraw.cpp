@@ -38,7 +38,6 @@ void drawDevelopmentInfo(int windowW, int windowH) {
     }
 }
 
-
 void DevDraw::renderDevGui(std::vector<std::string>& list, int xPos, int yPos, int wWid, int wHei, float* color, font_t* font) {
     for (int i = 0; i < list.size(); i++) {
         Functions::_R_AddCmdDrawText(list[i].c_str(), 0x7fffffff, font, 0, 0, font->pixelHeight, xPos, yPos + (i*font->pixelHeight) + 2, 1.0f, 1.0f, 0.0f, color, 0);

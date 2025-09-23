@@ -693,6 +693,7 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_weaponHintsCoD1Style", "629");
     addMapping("cg_cursorHints", "4521");
     addMapping("cg_drawGun", "1762");
+    addMapping("cg_fovScale", "3078");
 
     //3708 1 skips the title screen
     //4835 disabled game start button

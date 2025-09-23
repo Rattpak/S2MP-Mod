@@ -828,10 +828,14 @@ void hook_CL_KeyEvent(int client, int key, int down) {
     _CL_KeyEvent(client, key, down);
 }
 
+int frameThreshold = 0;
+
 void R_EndFrame_hookfunc() {
 	int winWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
 	int winHeight = *(int*)(0x1DA11EC_b);
-
+	if (frameThreshold < 10) {
+		frameThreshold++;
+	}
 	drawConsole();
 	_EndFrame();
 }
@@ -852,7 +856,11 @@ void renderHookInit() {
 
 void InternalConsole::init() {
     renderHookInit();
-	//TODO: add a wait until these assets are loaded
+
+	Console::print("Waiting for renderer to initialize...");
+	while (frameThreshold < 10) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
 	Console::printf("Registering font: %s", "fonts/consolefont");
 	InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
 	Console::printf("Registering material: %s", "white");

@@ -18,6 +18,7 @@
 #include "DvarInterface.hpp"
 #include "DevDef.h"
 #include "Loaders.hpp"
+#include "Errors.hpp"
 
 //#include "client/src/Scripting.h"
 
@@ -90,6 +91,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	Console::registerCustomCommands();
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
+	Errors::init();
 	//Script::init();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
