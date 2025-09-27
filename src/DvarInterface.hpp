@@ -8,7 +8,7 @@ class DvarInterface {
 private:
     //static std::unordered_map<std::string, std::string> userToEngineMap;
     static std::unordered_map<std::string, std::string> engineToUserMap;
-
+    static void addDvarsWithName(const char* name);
     static void addAllMappings();
     static void addMapping(const std::string& userString, const std::string& engineString);
 
@@ -21,4 +21,5 @@ public:
     static unsigned int getDvarListSize();
     static std::string toEngineString(const std::string& userString);
     static std::string toUserString(const std::string& engineString);
+    
 };

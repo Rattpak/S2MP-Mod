@@ -67,7 +67,90 @@ std::string DvarInterface::toUserString(const std::string& engineString) {
     return engineString; //couldnt find
 }
 
+void DvarInterface::addDvarsWithName(const char* name) {
+    addMapping(name, name);
+}
+
 void DvarInterface::addAllMappings() {
+    //taking these from the generated user_config_mp.cfg
+    //doing this since console pulls directly from dvar mapping
+    addDvarsWithName("win_useWmInput");
+    addDvarsWithName("com_maxfps");
+    addDvarsWithName("com_graphicsTier");
+    addDvarsWithName("com_setRecommendedPass");
+    addDvarsWithName("ragdoll_enable");
+    addDvarsWithName("r_lodScaleSkinned");
+    addDvarsWithName("r_lodBiasSkinned");
+    addDvarsWithName("r_lodScaleRigid");
+    addDvarsWithName("r_lodBiasRigid");
+    addDvarsWithName("r_drawWater");
+    addDvarsWithName("ragdoll_mp_limit");
+    addDvarsWithName("r_elevatedPriority");
+    addDvarsWithName("r_preloadShaders");
+    addDvarsWithName("r_preloadShadersELL");
+    addDvarsWithName("r_preloadShadersELLMSPT");
+    addDvarsWithName("r_preloadShadersWNDTOO");
+    addDvarsWithName("r_smaaTemporalUpsamplePercent");
+    addDvarsWithName("r_postAAMode");
+    addDvarsWithName("sm_enable");
+    addDvarsWithName("r_screenSpaceShadowsForce");
+    addDvarsWithName("r_dof_limit");
+    addDvarsWithName("r_mbLimit");
+    addDvarsWithName("r_ssaoLimit");
+    addDvarsWithName("r_mdaoLimit");
+    addDvarsWithName("r_sssLimit");
+    addDvarsWithName("r_texFilterAnisoMin");
+    addDvarsWithName("r_videoMemoryScale");
+    addDvarsWithName("vid_xpos");
+    addDvarsWithName("vid_ypos");
+    addDvarsWithName("vid_width");
+    addDvarsWithName("vid_height");
+    addDvarsWithName("r_fullscreen");
+    addDvarsWithName("r_fullscreenWindow");
+    addDvarsWithName("r_fullscreenWindowExtend");
+    addDvarsWithName("r_fullscreenWindowExtendMode");
+    addDvarsWithName("r_windowExtendFit");
+    addDvarsWithName("r_vramOverheadFraction");
+    addDvarsWithName("r_blacklevel");
+    addDvarsWithName("r_hdrWhitePointLevel");
+    addDvarsWithName("r_hdrBlackPointLevel");
+    addDvarsWithName("r_hdrGammaCurveLevel");
+    addDvarsWithName("r_texFilterAnisoMax");
+    addDvarsWithName("r_picmip");
+    addDvarsWithName("r_picmip_bump");
+    addDvarsWithName("r_picmip_spec");
+    addDvarsWithName("r_imageQuality");
+    addDvarsWithName("r_vsync");
+    addDvarsWithName("sm_cacheSpotShadows");
+    addDvarsWithName("sm_cacheSunShadow");
+    addDvarsWithName("sm_tileResolution");
+    addDvarsWithName("r_skyResolution");
+    addDvarsWithName("sm_sunShadowBitDepth");
+    addDvarsWithName("sm_spotShadowBitDepth");
+    addDvarsWithName("r_daltonizeMode");
+    addDvarsWithName("r_daltonizeIntensity");
+    addDvarsWithName("r_aspectRatio");
+    addDvarsWithName("r_adapter");
+    addDvarsWithName("r_monitor");
+    addDvarsWithName("r_mode");
+    addDvarsWithName("r_refreshRate");
+    addDvarsWithName("r_ssrQualityLevel");
+    addDvarsWithName("r_allowHDR");
+    addDvarsWithName("r_ssrEnabled");
+    addDvarsWithName("splitscreenMode");
+    addDvarsWithName("cg_blood");
+    addDvarsWithName("cg_clientViewAspect0");
+    addDvarsWithName("cg_clientViewAspect1");
+    addDvarsWithName("cg_fov");
+    addDvarsWithName("cg_fov1");
+    addDvarsWithName("cg_fov_intermission");
+    addDvarsWithName("shadowplay_highlights_enabled");
+    addDvarsWithName("shadowplay_killcam_highlights_enabled");
+    addDvarsWithName("logitech_led");
+    addDvarsWithName("ui_drawCrosshair");
+    addDvarsWithName("ui_drawHitmarker");
+
+
     addMapping("nextmap", "4059");
     addMapping("mapname", "1673");
     //from R_RegisterDvars
