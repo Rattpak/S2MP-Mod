@@ -342,19 +342,19 @@ void drawSearchBoxResults(int windowWidth, int windowHeight) {
 		Functions::_R_AddCmdDrawStretchPic(margin - borderSize + searchBoxOffset, (margin - borderSize) + consoleHeight + fullConsoleGap, windowWidth - (margin * 2) + (borderSize * 2) - searchBoxOffset, (lineSpacing * searchResults.size()) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorSecondary, mtl_white);
 		Functions::_R_AddCmdDrawStretchPic(margin + searchBoxOffset, margin + consoleHeight + fullConsoleGap, windowWidth - (margin * 2) - searchBoxOffset, (lineSpacing * searchResults.size()) - (borderSize * 2) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorPrimary, mtl_white);
 		for (int i = 0; i < searchResults.size(); i++) {
-			if (searchResults.at(i)->type != DVAR_TYPE_INT64) { //is a dvar
+			//if (searchResults.at(i)->type != DVAR_TYPE_INT64) { //is a dvar
 				Functions::_R_AddCmdDrawText(DvarInterface::toUserString(searchResults.at(i)->name).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
 				Functions::_R_AddCmdDrawText(GameUtil::dvarValueToString(searchResults.at(i), true, false).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6 + valueDisplayOffsetX, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
-			}
-			else { //is a command
-				Functions::_R_AddCmdDrawText(searchResults.at(i)->name, 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, commandColor, 0.0f);
-			}
+			//}
+			//else { //is a command
+			//	Functions::_R_AddCmdDrawText(searchResults.at(i)->name, 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, commandColor, 0.0f);
+			//}
 		}
 	}
 	if (resultCount == 1) { //do the description draw now
-		if (searchResults.at(0)->type != DVAR_TYPE_INT64) {
+		//if (searchResults.at(0)->type != DVAR_TYPE_INT64) {
 			drawDescriptionBox(windowWidth, windowHeight, searchResults.at(0));
-		}
+		//}
 	}
 }
 

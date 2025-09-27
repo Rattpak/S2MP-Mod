@@ -64,9 +64,13 @@ void renderLuaDebugGui(int windowWidth, int windowHeight) {
     if (used > luaMemHighWatermark) {
         luaMemHighWatermark = used;
     }
+    int g_lui_lock_level = *(int*)(0x1C675F4_b);
+    bool g_virtualLobbyActive = *(bool*)(0x1C675F2_b);
     guiTextList.push_back("S2MP-MOD LUA DEBUGGER");
     guiTextList.push_back("Lua memory used: " + std::to_string(used) + " / " + std::to_string(max / 1024) + " KB");
     guiTextList.push_back("Lua memory high watermark: " + std::to_string(luaMemHighWatermark) + " KB");
+    guiTextList.push_back("Lua lock level: " + std::to_string(g_lui_lock_level));
+    guiTextList.push_back("Virtual lobby active: " + std::string(g_virtualLobbyActive ? "true" : "false"));
 
     DevDraw::renderDevGui(guiTextList, 15, 35, windowWidth, windowHeight, luiDebugGuiColor, conFont);
 }

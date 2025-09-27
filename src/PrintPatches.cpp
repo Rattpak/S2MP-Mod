@@ -8,6 +8,7 @@
 #include <MinHook.h>
 #include <FuncPointers.h>
 #include "structs.h"
+#include "GameUtil.hpp"
 
 typedef void(*CM_LoadMap)(const char* name, int* checksum);
 CM_LoadMap _CM_LoadMap = nullptr;
@@ -35,6 +36,12 @@ DB_LoadXZone _DB_LoadXZone = nullptr;
 
 typedef void(*G_InitGame)(int levelTime, unsigned int randomSeed, int restart, int registerDvars, int savegame);
 G_InitGame _G_InitGame = nullptr;
+
+typedef void(*Online_PatchStreamer_va)(const char* label, const char* fmt, ...);
+Online_PatchStreamer_va _Online_PatchStreamer_va = nullptr;
+
+typedef void(*Com_WriteConfig_f)(int localClientNum, const char* name);
+Com_WriteConfig_f _Com_WriteConfig_f = nullptr;
 
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
@@ -90,6 +97,34 @@ void hook_G_InitGame(int levelTime, unsigned int randomSeed, int restart, int re
     _G_InitGame(levelTime, randomSeed, restart, registerDvars, savegame);
 }
 
+void hook_Online_PatchStreamer_va(const char* label, const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+
+    char cleanFmt[1024];
+    size_t j = 0;
+    for (size_t i = 0; fmt[i] != '\0' && j < sizeof(cleanFmt) - 1; ++i) {
+        if (fmt[i] != '\n' && fmt[i] != '\r') {
+            cleanFmt[j++] = fmt[i];
+        }
+    }
+    cleanFmt[j] = '\0';
+
+    std::string cleanerFmt = GameUtil::sanitizeFormatWidths(cleanFmt); //it was looking awful in both consoles
+
+    char buffer[1024];
+    vsnprintf(buffer, sizeof(buffer), cleanerFmt.c_str(), args);
+    Console::printf("%s: %s\n", label, buffer);
+
+    va_end(args);
+}
+
+void hook_Com_WriteConfig_f(int localClientNum, const char* name) {
+    if (Functions::_Dvar_FindVar("1467")->current.integer) //fs_debug
+    Console::printf("Writing to config file '%s' for local client %d", name, localClientNum);
+    _Com_WriteConfig_f(localClientNum, name);
+}
+
 void PrintPatches::init() {
 	Console::infoPrint(__FUNCTION__);
 
@@ -129,7 +164,13 @@ void PrintPatches::init() {
     MH_CreateHook(reinterpret_cast<void*>(0x5C3C60_b), &hook_G_InitGame, reinterpret_cast<void**>(&_G_InitGame));
     MH_EnableHook(reinterpret_cast<void*>(0x5C3C60_b));
 
+    //Online_PatchStreamer printing
+    MH_CreateHook(reinterpret_cast<void*>(0x2F3F30_b), &hook_Online_PatchStreamer_va, reinterpret_cast<void**>(&_Online_PatchStreamer_va));
+    MH_EnableHook(reinterpret_cast<void*>(0x2F3F30_b));
 
-
+    //fs_debug required
+    //Writing to config file '%s' for local client %d
+    MH_CreateHook(reinterpret_cast<void*>(0xF7180_b), &hook_Com_WriteConfig_f, reinterpret_cast<void**>(&_Com_WriteConfig_f));
+    MH_EnableHook(reinterpret_cast<void*>(0xF7180_b));
 
 }

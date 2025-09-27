@@ -49,7 +49,7 @@ std::string GameUtil::colorToString(const unsigned __int8 color[4]) {
 }
 
 std::string GameUtil::dvarValueToString(const dvar_t* dvar, bool showQuotesAroundStrings, bool truncateFloats) {
-    if (dvar->type == DVAR_TYPE_BOOL) {
+    if (dvar->type == DVAR_TYPE_BOOL || dvar->type == DVAR_TYPE_BOOL_AGAIN) {
         return dvar->current.enabled ? "1" : "0";
     }
     if (dvar->type == DVAR_TYPE_FLOAT) {
@@ -70,7 +70,7 @@ std::string GameUtil::dvarValueToString(const dvar_t* dvar, bool showQuotesAroun
     if (dvar->type == DVAR_TYPE_FLOAT_4) {
         return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]) + " " + std::to_string(dvar->current.vector[3]);
     }
-    if (dvar->type == DVAR_TYPE_INT) {
+    if (dvar->type == DVAR_TYPE_INT || dvar->type == DVAR_TYPE_COUNT) {
         return std::to_string(dvar->current.integer);
     }
     //if (dvar->type == DVAR_TYPE_ENUM) {
@@ -94,22 +94,13 @@ std::string GameUtil::dvarValueToString(const dvar_t* dvar, bool showQuotesAroun
         return dvar->current.string;
 
     }
-    if (dvar->type == DVAR_TYPE_COLOR) {
+    if (dvar->type == DVAR_TYPE_COLOR || dvar->type == DVAR_TYPE_COLOR2) {
         return colorToString(dvar->current.color);
-    }
-    if (dvar->type == DVAR_TYPE_INT64) { //I dont think bo2 uses this
-        return "?";
-    }
-    if (dvar->type == DVAR_TYPE_LINEAR_COLOR_RGB) {
-        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
     }
     if (dvar->type == DVAR_TYPE_COLOR_XYZ) {
         return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
     }
-    if (dvar->type == DVAR_TYPE_COUNT) { //I dont think bo2 uses this
-        return "COUNT";
-    }
-    return "Unsupported";
+    return "Unsupported type: " + std::to_string(dvar->type);
 }
 
 std::string GameUtil::toLower(const std::string& str) {
@@ -260,4 +251,10 @@ void GameUtil::addCommand(char const* name, void (*func)()) {
     cmdHeap.emplace_back();
     auto it = std::prev(cmdHeap.end());
     Functions::_Cmd_AddCommandInternal(name, func, &(*it));
+}
+
+//remove field widths like %10d from fmt strings
+std::string GameUtil::sanitizeFormatWidths(const char* fmt) {
+    std::string s(fmt);
+    return std::regex_replace(s, std::regex("%(\\d+)([a-zA-Z])"), "%$2");
 }

@@ -16,7 +16,9 @@ static std::unordered_map<int, std::string> errorMap = {
     {845, "LUI ERROR: Failed to allocate from LUITween pool. Restarting the Lua VM"},
     {674, "G_Spawn: no free entities"},
     {560, "weapDef: No world model loaded for entity %i with model %s"},
-    {879, "CM_LoadMap: NULL name"}
+    {879, "CM_LoadMap: NULL name"},
+    {1274, "ERROR: Invalid server value '%s' for '%s'"},
+    {1260, "FS_BuildOSPath: os path length exceeded"},
     //if anyone finds more just add them here
 };
 

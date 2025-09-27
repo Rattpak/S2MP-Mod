@@ -158,7 +158,7 @@ struct CmdArgs
     const char** argv[8];
 };
 
-enum dvarType_t : __int32
+enum dvarType_t : int8_t
 {
     DVAR_TYPE_BOOL = 0x0,
     DVAR_TYPE_FLOAT = 0x1,
@@ -169,8 +169,8 @@ enum dvarType_t : __int32
     DVAR_TYPE_ENUM = 0x6,
     DVAR_TYPE_STRING = 0x7,
     DVAR_TYPE_COLOR = 0x8,
-    DVAR_TYPE_INT64 = 0x9,
-    DVAR_TYPE_LINEAR_COLOR_RGB = 0xA,
+    DVAR_TYPE_COLOR2 = 0x9,
+    DVAR_TYPE_BOOL_AGAIN = 0xA,
     DVAR_TYPE_COLOR_XYZ = 0xB,
     DVAR_TYPE_COUNT = 0xC,
 };
@@ -214,7 +214,8 @@ struct dvar_t
 {
     const char* name;
     int flags;
-    dvarType_t type;
+    dvarType_t type; //1 byte
+    bool modified;
     DvarValue current;
     //more stuff
 };

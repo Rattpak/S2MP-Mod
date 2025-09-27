@@ -149,12 +149,16 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("logitech_led");
     addDvarsWithName("ui_drawCrosshair");
     addDvarsWithName("ui_drawHitmarker");
+    //random ones i found
+    addDvarsWithName("vehCam_planeChaseOffset");
+    addDvarsWithName("vehCam_splitscreenPlaneChaseOffset");
 
 
     addMapping("nextmap", "4059");
     addMapping("mapname", "1673");
     //from R_RegisterDvars
     addMapping("r_texFilterDisable", "91");
+    addMapping("r_characterSceneEnable", "5475");
     addMapping("r_texFilterMipMode", "4107");
     addMapping("r_texShowMipMode", "2416");
     addMapping("r_texFilterMipBias", "3569");
@@ -314,6 +318,56 @@ void DvarInterface::addAllMappings() {
     addMapping("r_frustomLightUseZBinning", "2244");
     addMapping("r_lightDpvs", "3825");
     addMapping("r_forwardPlusMode", "5818");
+    addMapping("r_preBakedTndTweaks", "297");
+    addMapping("r_delayAddSceneModels", "3337");
+    addMapping("r_emblemBrightnessScale", "2735");
+    addMapping("r_balanceLightmapOpaqueLists", "2599");
+    addMapping("r_volumeLightScatterUseTweaks", "3889");
+    addMapping("r_volumeLightScatterLinearAtten", "2564");
+    addMapping("r_volumeLightScatterQuadraticAtten", "3758");
+    addMapping("r_volumeLightScatterAngularAtten", "750");
+    addMapping("r_volumeLightScatterDepthAttenNear", "3070");
+    addMapping("r_volumeLightScatterDepthAttenFar", "5444");
+    addMapping("r_volumeLightScatterBackgroundDistance", "4506");
+    addMapping("r_volumeLightScatterColor", "3200");
+    addMapping("r_volumeLightScatterEv", "4638");
+    //addMapping("r_surfaceHDRScalarUseTweaks", "5058");
+    addMapping("r_unlitSurfaceHDRScalar", "284");
+    addMapping("r_litSurfaceHDRScalar", "1097");
+    addMapping("r_ssaoUseTweaks", "4822");
+    addMapping("r_ssaoWidth", "919");
+    addMapping("r_ssaoDepthScale", "1870");
+    addMapping("r_ssaoDepthScaleViewModel", "2358");
+    addMapping("r_ssaoGapFalloff", "1869");
+    addMapping("r_ssaoGradientFalloff", "4816");
+    addMapping("r_ssaoFadeDepth", "3404");
+    addMapping("r_ssaoRejectDepth", "626");
+    addMapping("r_ssaoMinPixelWidth", "225");
+    addMapping("r_ssaoScriptScale", "212");
+    addMapping("r_ssaoStrength", "4361");
+    addMapping("r_ssaoPower", "3537");
+    addMapping("r_aoUseTweaks", "5618");
+    addMapping("r_aoStrength", "3697");
+    addMapping("r_aoPower", "3888");
+    addMapping("r_aoDiminish", "5848");
+    addMapping("r_aoBlurSharpness", "609");
+    addMapping("r_aoBlurStep", "3283");
+    addMapping("r_hemiAoMaxDepthDownsample", "2983");
+    addMapping("r_hemiAoQualityLevel", "1044");
+    addMapping("r_hemiAoNoiseFilterTolerance", "487");
+    addMapping("r_hemiAoBlurTolerance", "2117");
+    addMapping("r_hemiAoUpsampleTolerance", "2689");
+    addMapping("r_hemiAoRejectionFalloff", "4830");
+    addMapping("r_hemiAoCombineResolutionsBeforeBlur", "465");
+    addMapping("r_hemiAoCombineResolutionsWithMul", "3011");
+    addMapping("r_hemiAoHierarchyDepth", "5329");
+    addMapping("r_hemiAoDepthSquash", "2843");
+    addMapping("r_hemiAoStrength", "554");
+    addMapping("r_hemiAoPower", "3869");
+    addMapping("r_gtaoQualityLevel", "5156");
+    addMapping("r_cacheModelLighting", "4636");
+    addMapping("r_showModelLightingLowWaterMark", "3116");
+    addMapping("r_keepSunShadowCache", "1708");
 
     //from CG_CompassRegisterDvars
     addMapping("compassSize", "2692");
@@ -777,6 +831,36 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_cursorHints", "4521");
     addMapping("cg_drawGun", "1762");
     addMapping("cg_fovScale", "3078");
+
+    //filesystem
+    addMapping("fs_basepath", "4972");
+    addMapping("fs_basegame", "2796");
+    addMapping("fs_gameDirVar", "1751");
+    addMapping("fs_ignoreLocalized", "3139");
+    addMapping("fs_homepath", "4068");
+    addMapping("fs_debug", "1467"); //not used in engine but still exists. I will use it tho
+
+    //
+    addMapping("cg_remoteCameraZNear", "4317");
+    addMapping("radarjamDistMin", "5504");
+    addMapping("radarjamDistMax", "4545");
+    addMapping("radarjamSinCurve", "4632");
+    addMapping("thermalBlurFactorNoScope", "2346");
+    addMapping("cg_cameraShakesAffectVehicleCamera", "3268");
+    addMapping("cg_vehicleVMFovScaling", "2328");
+    addMapping("cg_viewAnglePitchScale", "4877");
+    addMapping("cg_hubTransitionLerpTime", "3993");
+    addMapping("cg_hubZoomDoFfStop", "652");
+    addMapping("cg_hubZoomDoFDist", "1108");
+    addMapping("cg_hubZoomLerpTime", "2596");
+    addMapping("cg_hubZoomFov", "4444");
+    addMapping("cg_hubZoomDist", "861");
+
+    addMapping("veh_boneControllerLodDist", "3878");
+    addMapping("vehCam_freeLook", "1293");
+    addMapping("vehAudio_inAirPitchUpLerp", "1120");
+    addMapping("vehAudio_inAirPitchDownLerp", "2350");
+    addMapping("vehAudio_spawnVolumeTime", "141");
 
     //3708 1 skips the title screen
     //4835 disabled game start button
