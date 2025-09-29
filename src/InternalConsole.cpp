@@ -108,7 +108,6 @@ bool checkForIgnoreKeys(int key) {
 	case 175:
 	case 176:
 	case 177:
-	case 194:
 	case 198: //num lock
 	case 27:
 	case 10://newline
@@ -439,6 +438,8 @@ void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 	}
 }
 
+int prevWindowWidth = -1;
+int prevWindowHeight = -1;
 void drawConsole() {
 	int windowWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
 	int windowHeight = *(int*)(0x1DA11EC_b);
@@ -446,6 +447,13 @@ void drawConsole() {
 		searchBoxOffset = 96 + borderSize;
 	}
 
+	//S2MP-Mod specific resize check
+	if (prevWindowWidth != windowWidth || prevWindowHeight != windowHeight) {
+		prevWindowWidth = windowWidth;
+		prevWindowHeight = windowHeight;
+		outputStackSeekPos = 0; //jump to top
+		Console::devPrint("IntCon Resize Event");
+	}
 
 	//CustomCommands::CG_DrawVersion(windowWidth, windowHeight);
 
@@ -501,6 +509,8 @@ void drawConsole() {
 	else {
 		DevDraw::render(windowWidth, windowHeight);
 	}
+
+	DevDraw::renderIntConDebugGui(windowWidth, windowHeight);
 }
 
 void InternalConsole::toggleConsole() {
@@ -529,15 +539,10 @@ void InternalConsole::toggleFullConsole() {
 	}
 }
 
-void handleKeys(int client, int key, int down) {
-	//Console::printf("Client %d hit key %d | down: %d", client, key, down);
-	//if (!consoleOpen && down == 1) { //check for keybind
-		//Binds::checkAndExecBind(key);
-	//}
-	//if (printKeystrokes) {
-	//	Console::printf("Client %d hit key %d | down: %d", client, key, down);
-	//}
 
+int mostRecentKeynum = -1;
+void handleKeys(int client, int key, int down) {
+	mostRecentKeynum = key;
 	//Noclip::sprintBindHandler(key, down);
 
 	if (key != 9) { //if not tab (for canceling autocomplete)
@@ -821,6 +826,21 @@ void handleKeys(int client, int key, int down) {
 			key = '+';
 		}
 
+		//numpad keys
+		switch (key) {
+			case 193: key = '0'; break;
+			case 189: key = '1'; break;
+			case 190: key = '2'; break;
+			case 191: key = '3'; break;
+			case 185: key = '4'; break;
+			case 186: key = '5'; break;
+			case 188: key = '6'; break;
+			case 182: key = '7'; break;
+			case 183: key = '8'; break;
+			case 184: key = '9'; break;
+			case 194: key = '.'; break;
+		}
+
 		if (cursorPos <= textBuffer.length()) {
 			textBuffer.insert(cursorPos, 1, static_cast<char>(key));
 			cursorPos += 1;
@@ -834,14 +854,15 @@ void hook_CL_KeyEvent(int client, int key, int down) {
 }
 
 int frameThreshold = 0;
-
+bool intConReady = false;
 void R_EndFrame_hookfunc() {
-	int winWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
-	int winHeight = *(int*)(0x1DA11EC_b);
 	if (frameThreshold < 10) {
 		frameThreshold++;
 	}
-	drawConsole();
+	if (intConReady) {
+		drawConsole();
+	}
+	
 	_EndFrame();
 }
 
@@ -858,16 +879,82 @@ void renderHookInit() {
     MH_EnableHook(reinterpret_cast<void*>(0x4C1A20_b));
 }
 
+bool InternalConsole::DEVONLY_isShift() {
+	return isShift;
+}
+bool InternalConsole::DEVONLY_isAlt() {
+	return isAlt;
+}
+bool InternalConsole::DEVONLY_isCtrl() {
+	return isCtrl;
+}
+bool InternalConsole::DEVONLY_fullConsole() {
+	return fullConsole;
+}
+bool InternalConsole::DEVONLY_consoleOpen() {
+	return consoleOpen;
+}
+int InternalConsole::DEVONLY_outputStackSeekPos() {
+	return outputStackSeekPos;
+}
+int InternalConsole::DEVONLY_maxLines() {
+	return maxLines;
+}
+int InternalConsole::DEVONLY_scrollbarBaseX() {
+	return scrollbarBaseX;
+}
+int InternalConsole::DEVONLY_scrollbarTrackHeight() {
+	return scrollbarTrackHeight;
+}
+int InternalConsole::DEVONLY_sliderHeight() {
+	return sliderHeight;
+}
+int InternalConsole::DEVONLY_outputStackSize() {
+	return outputStack.size();
+}
+int InternalConsole::DEVONLY_sliderOffsetY() {
+	return sliderOffsetY;
+}
+int InternalConsole::DEVONLY_cmdStackSize() {
+	return cmdStack.size();
+}
+int InternalConsole::DEVONLY_cmdStackSeekPos() {
+	return cmdStackSeekPos;
+}
+int InternalConsole::DEVONLY_recentKeynum() {
+	return mostRecentKeynum;
+}
 
 void InternalConsole::init() {
-    renderHookInit();
+	renderHookInit();
 
 	Console::print("Waiting for renderer to initialize...");
 	while (frameThreshold < 10) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
-	Console::printf("Registering font: %s", "fonts/consolefont");
+	bool printOnce = false;
+	//Font consoleFont
 	InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
-	Console::printf("Registering material: %s", "white");
+	while (!InternalConsole::consoleFont) {
+		if (!printOnce) {
+			Console::print("Waiting for font 'fonts/consolefont'...");
+			printOnce = true;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
+	}
+
+	//Material white
+	printOnce = false;
 	mtl_white = Functions::_Material_RegisterHandle("white");
+	while (!mtl_white) {
+		if (!printOnce) {
+			Console::print("Waiting for default materials...");
+			printOnce = true;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		mtl_white = Functions::_Material_RegisterHandle("white");
+	}
+
+	intConReady = true;
 }

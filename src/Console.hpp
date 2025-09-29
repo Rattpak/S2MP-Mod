@@ -34,6 +34,23 @@ public:
 	static void toggleFullConsole();
 	static void init();
 
+	//for dev intcon debugger
+	static bool DEVONLY_isShift();
+	static bool DEVONLY_isAlt();
+	static bool DEVONLY_isCtrl();
+	static bool DEVONLY_fullConsole();
+	static bool DEVONLY_consoleOpen();
+	static int DEVONLY_maxLines();
+	static int DEVONLY_outputStackSeekPos();
+	static int DEVONLY_scrollbarBaseX();
+	static int DEVONLY_scrollbarTrackHeight();
+	static int DEVONLY_sliderHeight();
+	static int DEVONLY_outputStackSize();
+	static int DEVONLY_sliderOffsetY();
+	static int DEVONLY_cmdStackSize();
+	static int DEVONLY_cmdStackSeekPos();
+	static int DEVONLY_recentKeynum();
+
 	static font_t* consoleFont;
 };
 

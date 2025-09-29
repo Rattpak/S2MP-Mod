@@ -152,6 +152,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("luidbg", &DevDraw::toggleLuaDebugGui);
 	GameUtil::addCommand("entdbg", &DevDraw::toggleEntityDebugGui);
 	GameUtil::addCommand("acdbg", &DevDraw::toggleAntiCheatDebugGui);
+	GameUtil::addCommand("intcondbg", &DevDraw::toggleIntConDebugGui);
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff
@@ -246,5 +247,4 @@ void Console::execCmd(std::string cmd) {
 		Console::print(cmd); //TODO: change this to only print to internal console
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
-
 }

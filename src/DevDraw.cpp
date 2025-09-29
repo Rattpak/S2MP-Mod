@@ -21,6 +21,7 @@ float luiDebugGuiColor[4] = {0.54f, 0.32f, 0.2f, 1.0f };
 float entDebugGuiColor[4] = { 0.27f, 0.75f, 0.27f, 1.0f };
 float devCrosshairColor[4] = {1.0f, 1.0f, 1.0f, 0.8f };
 float debuggerBgColor[4] = {0.0f, 0.0f, 0.0f, 0.7f };
+float intConDbgColor[4] = { 1.0f, 0.5f, 0.0f, 1.0f };
 
 void drawDevelopmentInfo(int windowW, int windowH) {
     font_t* font = Functions::_R_RegisterFont("fonts/fira_mono_regular.ttf", 16);
@@ -130,10 +131,42 @@ void rednerAntiCheatDebugGui(int windowWidth, int windowHeight) {
 
     DevDraw::renderDevGui(guiTextList, 615, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
 }
+
 void DevDraw::toggleAntiCheatDebugGui() {
     debugAntiCheatGui = !debugAntiCheatGui;
 }
 
+bool drawIntConDbg = false;
+void DevDraw::renderIntConDebugGui(int windowWidth, int windowHeight) {
+    if (!drawIntConDbg) {
+        return;
+    }
+    std::vector<std::string> guiTextList;
+    font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
+
+    guiTextList.push_back("S2MP-MOD INTERNAL CONSOLE DEBUGGER");
+    guiTextList.push_back("isShift: " + std::string(InternalConsole::DEVONLY_isShift() ? "true" : "false"));
+    guiTextList.push_back("isAlt: " + std::string(InternalConsole::DEVONLY_isAlt() ? "true" : "false"));
+    guiTextList.push_back("isCtrl: " + std::string(InternalConsole::DEVONLY_isCtrl() ? "true" : "false"));
+    guiTextList.push_back("fullConsole: " + std::string(InternalConsole::DEVONLY_fullConsole() ? "true" : "false"));
+    guiTextList.push_back("consoleOpen: " + std::string(InternalConsole::DEVONLY_consoleOpen() ? "true" : "false"));
+    guiTextList.push_back("outputStackSeekPos: " + std::to_string(InternalConsole::DEVONLY_outputStackSeekPos()));
+    guiTextList.push_back("maxLines at current res: " + std::to_string(InternalConsole::DEVONLY_maxLines()));
+    guiTextList.push_back("scrollbarTrackHeight: " + std::to_string(InternalConsole::DEVONLY_scrollbarTrackHeight()));
+    guiTextList.push_back("scrollbarBaseX: " + std::to_string(InternalConsole::DEVONLY_scrollbarBaseX()));
+    guiTextList.push_back("sliderHeight: " + std::to_string(InternalConsole::DEVONLY_sliderHeight()));
+    guiTextList.push_back("outputStackSize: " + std::to_string(InternalConsole::DEVONLY_outputStackSize()));
+    guiTextList.push_back("sliderOffsetY: " + std::to_string(InternalConsole::DEVONLY_sliderOffsetY()));
+    guiTextList.push_back("cmdStackSize: " + std::to_string(InternalConsole::DEVONLY_cmdStackSize()));
+    guiTextList.push_back("cmdStackSeekPos: " + std::to_string(InternalConsole::DEVONLY_cmdStackSeekPos()));
+    guiTextList.push_back("recentKeynum: " + std::to_string(InternalConsole::DEVONLY_recentKeynum()));
+
+    DevDraw::renderDevGui(guiTextList, 1575, 100, windowWidth, windowHeight, intConDbgColor, conFont);
+}
+
+void DevDraw::toggleIntConDebugGui() {
+    drawIntConDbg = !drawIntConDbg;
+}
 
 /*
     Function runs at end of every frame.
