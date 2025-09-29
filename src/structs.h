@@ -170,8 +170,8 @@ enum dvarType_t : int8_t
     DVAR_TYPE_STRING = 0x7,
     DVAR_TYPE_COLOR = 0x8,
     DVAR_TYPE_COLOR2 = 0x9,
-    DVAR_TYPE_BOOL_AGAIN = 0xA,
-    DVAR_TYPE_COLOR_XYZ = 0xB,
+    DVAR_TYPE_BOOL_AGAIN = 0xA, //
+    DVAR_TYPE_FLOAT_SPECIAL = 0xB, //
     DVAR_TYPE_COUNT = 0xC,
 };
 
@@ -194,6 +194,15 @@ struct DvarValueEnum
     int hashedValue;
 };
 
+struct DvarValueFloatSpecial
+{
+    float f1; //TODO: figure this out
+    float f2; //TODO: figure this out
+    float f3; //TODO: figure this out
+    float f4; //TODO: figure this out
+    float value;
+};
+
 union DvarValue
 {
     bool enabled;
@@ -207,6 +216,7 @@ union DvarValue
     DvarValueBool boolean_;
     DvarValueInt integer_;
     DvarValueEnum enumeration_;
+    DvarValueFloatSpecial floatSpecial;
 };
 
 //TODO: find proper dvar structure

@@ -13,12 +13,14 @@ std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
 
 #include <MinHook.h>
 #include <GameUtil.hpp>
+#include <Console.hpp>
 
 float watermarkCol[4] = { 1.0f, 1.0f, 1.0f, 0.35f };
 float devBuildInfoColor[4] = { 1.0f, 0.0f, 0.0f, 0.55f };
 float luiDebugGuiColor[4] = {0.54f, 0.32f, 0.2f, 1.0f };
-float entDebugGuiColor[4] = { 0.17f, 0.75f, 0.27f, 1.0f };
+float entDebugGuiColor[4] = { 0.27f, 0.75f, 0.27f, 1.0f };
 float devCrosshairColor[4] = {1.0f, 1.0f, 1.0f, 0.8f };
+float debuggerBgColor[4] = {0.0f, 0.0f, 0.0f, 0.7f };
 
 void drawDevelopmentInfo(int windowW, int windowH) {
     font_t* font = Functions::_R_RegisterFont("fonts/fira_mono_regular.ttf", 16);
@@ -39,6 +41,10 @@ void drawDevelopmentInfo(int windowW, int windowH) {
 }
 
 void DevDraw::renderDevGui(std::vector<std::string>& list, int xPos, int yPos, int wWid, int wHei, float* color, font_t* font) {
+    int bgOffset = 3;
+    int bgTempWidth = 275;
+    int bgRowSize = 15;
+    Functions::_R_AddCmdDrawStretchPic(xPos - bgOffset, yPos - bgOffset - bgRowSize, bgTempWidth + bgOffset, bgRowSize * list.size() + bgRowSize, 0.0f, 0.0f, 0.0f, 0.0f, debuggerBgColor, InternalConsole::getMaterialWhite());
     for (int i = 0; i < list.size(); i++) {
         Functions::_R_AddCmdDrawText(list[i].c_str(), 0x7fffffff, font, 0, 0, font->pixelHeight, xPos, yPos + (i*font->pixelHeight) + 2, 1.0f, 1.0f, 0.0f, color, 0);
     }
@@ -69,7 +75,7 @@ void renderLuaDebugGui(int windowWidth, int windowHeight) {
     guiTextList.push_back("S2MP-MOD LUA DEBUGGER");
     guiTextList.push_back("Lua memory used: " + std::to_string(used) + " / " + std::to_string(max / 1024) + " KB");
     guiTextList.push_back("Lua memory high watermark: " + std::to_string(luaMemHighWatermark) + " KB");
-    guiTextList.push_back("Lua lock level: " + std::to_string(g_lui_lock_level));
+    //guiTextList.push_back("Lua lock level: " + std::to_string(g_lui_lock_level));
     guiTextList.push_back("Virtual lobby active: " + std::string(g_virtualLobbyActive ? "true" : "false"));
 
     DevDraw::renderDevGui(guiTextList, 15, 35, windowWidth, windowHeight, luiDebugGuiColor, conFont);
@@ -91,24 +97,43 @@ void renderEntDebugGui(int windowWidth, int windowHeight) {
     int entCount = *(int*)(0xA2D6DD0_b);
 
     if (entCount <= 0) {
-        guiTextList.push_back("S2MP-MOD ENTITY DEBUGGER [NOT READY]");
-        DevDraw::renderDevGui(guiTextList, 300, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
+        guiTextList.push_back("S2MP-MOD ENT DEBUGGER [NOT READY]");
+        DevDraw::renderDevGui(guiTextList, 315, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
         return;
     }
 
     if (entCount > entityHighWatermark) {
         entityHighWatermark = entCount;
     }
-    guiTextList.push_back("S2MP-MOD ENTITY DEBUGGER (G_Spawn)");
-    guiTextList.push_back("Entities used: " + std::to_string(entCount) + " / 2046");
-    guiTextList.push_back("Entity count high watermark: " + std::to_string(entityHighWatermark));
+    guiTextList.push_back("S2MP-MOD ENT DEBUGGER");
+    guiTextList.push_back("G_Spawn Entities used: " + std::to_string(entCount) + " / 2046");
+    guiTextList.push_back("G_Spawn Ent high watermark: " + std::to_string(entityHighWatermark));
 
-    DevDraw::renderDevGui(guiTextList, 300, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
+    DevDraw::renderDevGui(guiTextList, 315, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
 }
-
 void DevDraw::toggleEntityDebugGui() {
     debugEntGui = !debugEntGui;
 }
+
+bool debugAntiCheatGui = false;
+void rednerAntiCheatDebugGui(int windowWidth, int windowHeight) {
+    if (!debugAntiCheatGui) {
+        return;
+    }
+    std::vector<std::string> guiTextList;
+    font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
+
+    int s_playerInfractionsNum = *(int*)(0xE463D98_b);
+
+    guiTextList.push_back("S2MP-MOD AC DEBUGGER");
+    guiTextList.push_back("s_playerInfractionsNum: " + std::to_string(s_playerInfractionsNum));
+
+    DevDraw::renderDevGui(guiTextList, 615, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
+}
+void DevDraw::toggleAntiCheatDebugGui() {
+    debugAntiCheatGui = !debugAntiCheatGui;
+}
+
 
 /*
     Function runs at end of every frame.
@@ -121,5 +146,6 @@ void DevDraw::render(int windowWidth, int windowHeight) {
 
     renderLuaDebugGui(windowWidth, windowHeight);
     renderEntDebugGui(windowWidth, windowHeight);
+    rednerAntiCheatDebugGui(windowWidth, windowHeight);
 }
 

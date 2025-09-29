@@ -151,6 +151,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("trans", &CustomCommands::translateString);
 	GameUtil::addCommand("luidbg", &DevDraw::toggleLuaDebugGui);
 	GameUtil::addCommand("entdbg", &DevDraw::toggleEntityDebugGui);
+	GameUtil::addCommand("acdbg", &DevDraw::toggleAntiCheatDebugGui);
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff
@@ -243,7 +244,7 @@ void Console::execCmd(std::string cmd) {
 	}
 	if (!execCustomDevCmd(cmd) && !setEngineDvar(cmd)) {
 		//Console::devPrint("Passing cmd to command buffer");
-		Console::print(cmd);
+		Console::print(cmd); //TODO: change this to only print to internal console
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
 

@@ -73,33 +73,39 @@ std::string GameUtil::dvarValueToString(const dvar_t* dvar, bool showQuotesAroun
     if (dvar->type == DVAR_TYPE_INT || dvar->type == DVAR_TYPE_COUNT) {
         return std::to_string(dvar->current.integer);
     }
-    //if (dvar->type == DVAR_TYPE_ENUM) {
-    //    if (!dvar->domain.enumeration.stringCount) {
-    //        return "PLACEHOLDER: ENUM";
-    //    }
-    //    else {
-    //        //for (int i = 0; i < dvar->domain.enumeration.stringCount; i++) {
-    //        //	possible += dvar->domain.enumeration.strings[i];
-    //        //	if (i + 1 != dvar->domain.enumeration.stringCount) {
-    //        //		possible += ", ";
-    //        //	}
-    //        //}
-    //        return *(const char**)(dvar->domain.integer.max + 4 * dvar->current.integer);
-    //    }
-    //}
+    if (dvar->type == DVAR_TYPE_ENUM) {
+        //if (!dvar->domain.enumeration.stringCount) {
+            return "PLACEHOLDER: ENUM";
+        //}
+        //else {
+            //for (int i = 0; i < dvar->domain.enumeration.stringCount; i++) {
+            //	possible += dvar->domain.enumeration.strings[i];
+            //	if (i + 1 != dvar->domain.enumeration.stringCount) {
+            //		possible += ", ";
+            //	}
+            //}
+          //  return *(const char**)(dvar->domain.integer.max + 4 * dvar->current.integer);
+       // }
+    }
+    if (dvar->type == DVAR_TYPE_FLOAT_SPECIAL) {
+        if (truncateFloats) {
+            std::ostringstream stream;
+            stream << std::fixed << std::setprecision(1) << dvar->current.floatSpecial.value;
+            std::string result = stream.str();
+            return result;
+        }
+        return std::to_string(dvar->current.floatSpecial.value);
+    }
     if (dvar->type == DVAR_TYPE_STRING) {
         if (showQuotesAroundStrings) {
             return "\"" + std::string(dvar->current.string) + "\"";
         }
         return dvar->current.string;
-
     }
     if (dvar->type == DVAR_TYPE_COLOR || dvar->type == DVAR_TYPE_COLOR2) {
         return colorToString(dvar->current.color);
     }
-    if (dvar->type == DVAR_TYPE_COLOR_XYZ) {
-        return std::to_string(dvar->current.value) + " " + std::to_string(dvar->current.vector[1]) + " " + std::to_string(dvar->current.vector[2]);
-    }
+
     return "Unsupported type: " + std::to_string(dvar->type);
 }
 

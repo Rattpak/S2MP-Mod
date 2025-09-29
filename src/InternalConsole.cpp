@@ -310,16 +310,21 @@ void InternalConsole::addToOutputStack(std::string s, int level) {
 	}
 }
 
+//temp
+material_t* InternalConsole::getMaterialWhite() {
+	return mtl_white;
+}
+
 
 void drawDescriptionBox(int windowWidth, int windowHeight, const dvar_t* dvar) {
 	Functions::_R_AddCmdDrawStretchPic(margin - borderSize + searchBoxOffset, (margin - borderSize) + consoleHeight * 2 + (fullConsoleGap * 2) - 1, windowWidth - (margin * 2) + (borderSize * 2) - searchBoxOffset, (lineSpacing * 2) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorSecondary, mtl_white);
 	Functions::_R_AddCmdDrawStretchPic(margin + searchBoxOffset, margin + consoleHeight * 2 + (fullConsoleGap * 2) - 1, windowWidth - (margin * 2) - searchBoxOffset, (lineSpacing * 2) - (borderSize * 2) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorPrimary, mtl_white);
-	//if (dvar->description == nullptr || dvar->description[0] == '\0') {
-		Functions::_R_AddCmdDrawText("N/A", 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight * 2 + (fullConsoleGap * 2) - 1 + lineSpacing + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
-	//}
-	//else {
-	//	Functions::_R_AddCmdDrawTextWInternal(dvar->description, 0x7FFFFFFF, InternalConsole::consoleFont, margin + searchBoxOffset + 6, margin + consoleHeight * 2 + (fullConsoleGap * 2) - 1 + lineSpacing + (textStartOffsetGapY / 2) + 1, windowWidth - (margin * 2), 1.0f, 1.0f, 0.0f, colorWhite, 1.0f, 1.0f);
-	//}
+	if (dvar->name) {
+		Functions::_R_AddCmdDrawText(DvarInterface::getDvarDescription(dvar->name).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight * 2 + (fullConsoleGap * 2) - 1 + lineSpacing + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
+	}
+	else {
+		Functions::_R_AddCmdDrawText("You should not see this text...", 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight * 2 + (fullConsoleGap * 2) - 1 + lineSpacing + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
+	}
 
 	//Domain
 	std::string domainText = "Domain is PLACEHOLDER"; //+ GameUtil::getDvarDomainAsString(dvar);

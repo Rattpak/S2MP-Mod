@@ -14,6 +14,7 @@
 
 std::unordered_map<std::string, std::string> DvarInterface::userToEngineMap;
 std::unordered_map<std::string, std::string> DvarInterface::engineToUserMap;
+std::unordered_map<std::string, std::string> DvarInterface::descriptionMap; //so descriptions are no longer stored within the dvar_t structure :/
 
 //Sets a Dvar in engine using the Dvar Interface
 //Takes the name of the dvar, and the cmd vector
@@ -48,6 +49,24 @@ void DvarInterface::addMapping(const std::string& userString, const std::string&
     engineToUserMap[engineString] = userString;
 }
 
+void DvarInterface::addMapping(const std::string& userString, const std::string& engineString, const std::string& description) {
+    std::string dvarLower = userString;
+    std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);
+    userToEngineMap[dvarLower] = engineString;
+    engineToUserMap[engineString] = userString;
+    
+    //add desc
+    descriptionMap[engineString] = description;
+}
+
+std::string DvarInterface::getDvarDescription(const std::string& engineStr) {
+    auto it = descriptionMap.find(engineStr);
+    if (it != descriptionMap.end()) {
+        return it->second;
+    }
+    return "undefined"; //couldnt find
+}
+
 std::string DvarInterface::toEngineString(const std::string& userString) {
     std::string dvarLower = userString;
     std::transform(dvarLower.begin(), dvarLower.end(), dvarLower.begin(), GameUtil::asciiToLower);
@@ -74,6 +93,7 @@ void DvarInterface::addDvarsWithName(const char* name) {
 void DvarInterface::addAllMappings() {
     //taking these from the generated user_config_mp.cfg
     //doing this since console pulls directly from dvar mapping
+    //also some random ones i found
     addDvarsWithName("win_useWmInput");
     addDvarsWithName("com_maxfps");
     addDvarsWithName("com_graphicsTier");
@@ -83,7 +103,7 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("r_lodBiasSkinned");
     addDvarsWithName("r_lodScaleRigid");
     addDvarsWithName("r_lodBiasRigid");
-    addDvarsWithName("r_drawWater");
+    //addDvarsWithName("r_drawWater");
     addDvarsWithName("ragdoll_mp_limit");
     addDvarsWithName("r_elevatedPriority");
     addDvarsWithName("r_preloadShaders");
@@ -149,34 +169,34 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("logitech_led");
     addDvarsWithName("ui_drawCrosshair");
     addDvarsWithName("ui_drawHitmarker");
-    //random ones i found
     addDvarsWithName("vehCam_planeChaseOffset");
     addDvarsWithName("vehCam_splitscreenPlaneChaseOffset");
+    addDvarsWithName("shadowplay_killswitch");
 
 
-    addMapping("nextmap", "4059");
+    addMapping("nextmap", "4059", "Next map to play");
     addMapping("mapname", "1673");
     //from R_RegisterDvars
-    addMapping("r_texFilterDisable", "91");
+    addMapping("r_texFilterDisable", "91", "Disables all texture filtering (uses nearest only.)");
     addMapping("r_characterSceneEnable", "5475");
-    addMapping("r_texFilterMipMode", "4107");
-    addMapping("r_texShowMipMode", "2416");
-    addMapping("r_texFilterMipBias", "3569");
-    addMapping("r_texFilterProbeBilinear", "5634");
+    addMapping("r_texFilterMipMode", "4107", "Forces all mipmaps to use a particular blend between levels (or disables mipping.)");
+    addMapping("r_texShowMipMode", "2416", "Forces textures with the specified mip filtering to draw black.");
+    addMapping("r_texFilterMipBias", "3569", "Change the mipmap bias");
+    addMapping("r_texFilterProbeBilinear", "5634", "Force reflection probe to use bilinear filter");
     addMapping("r_lodDynamicScale", "1111");
     addMapping("r_artUseTweaks", "5960");
     addMapping("r_lightGridTempSmoothingFactor", "2677");
     addMapping("r_globalSecondarySelfVisScale", "1264");
     addMapping("r_globalSecondarySelfVisLerpToFullyOpen", "5139");
-    addMapping("r_lightMap", "3271");
-    addMapping("r_colorMap", "3391");
-    addMapping("r_detailMap", "2194");
-    addMapping("r_displacementMap", "4388");
-    addMapping("r_normalMap", "5467");
-    addMapping("r_specularMap", "2427");
-    addMapping("r_specOccMap", "5620");
-    addMapping("r_envBrdfLutMap", "3818");
-    addMapping("r_emissiveMap", "769");
+    addMapping("r_lightMap", "3271", "Replace all lightmaps with pure black or pure white");
+    addMapping("r_colorMap", "3391", "Replace all color maps with pure black or pure white");
+    addMapping("r_detailMap", "2194", "Replace all detail maps with an image that effectively disables them");
+    addMapping("r_displacementMap", "4388", "Replace all displacement maps with an image that effectively disables them");
+    addMapping("r_normalMap", "5467", "Replace all normal maps with a flat normal map");
+    addMapping("r_specularMap", "2427", "Replace all specular maps with pure black (off) or pure white (super shiny)");
+    addMapping("r_specOccMap", "5620", "Replace all specular occlusion maps with pure black (fully occluded) or pure white (not occluded)");
+    addMapping("r_envBrdfLutMap", "3818", "Replace environment BRDF lookup table with pure black (no secondary specular) or pure white (maximum secondary specular)");
+    addMapping("r_emissiveMap", "769", "Replace all emissive maps with pure black or pure white");
     addMapping("r_depthPrepass", "4600");
     addMapping("r_depthHackPrepass", "1342");
     addMapping("r_volumetricDepth", "3395");
@@ -232,7 +252,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_colorimetryHDRForcePQ", "5322");
     addMapping("r_colorimetryHDRDisableBlackLevelAdjust", "4268");
     addMapping("r_colorimetryHDRExposureAdjust", "2268");
-    addMapping("r_outdoorFeather", "161");
+    addMapping("r_outdoorFeather", "161", "Outdoor z-feathering value");
     addMapping("r_sun_from_dvars", "2255");
     addMapping("r_atlasAnimFPS", "1289");
     addMapping("developer", "1147");
@@ -243,10 +263,10 @@ void DvarInterface::addAllMappings() {
     addMapping("r_offchipTessellationAllowed", "1938");
     addMapping("r_offchipTessellationTfThreshold", "635");
     addMapping("r_offchipTessellationWaveThreshold", "4679");
-    addMapping("r_patchCountAllowed", "3925");
-    addMapping("r_subdivPatchCount", "4902");
-    addMapping("r_displacementPatchCount", "3287");
-    addMapping("r_defaultPatchCount", "3923");
+    addMapping("r_patchCountAllowed", "3925", "Enable run-time setting of patch count per draw call.");
+    addMapping("r_subdivPatchCount", "4902", "Patches per thread group for sub-division surfaces.");
+    addMapping("r_displacementPatchCount", "3287", "Patches per thread group for displacement surfaces.");
+    addMapping("r_defaultPatchCount", "3923", "Patches per thread group for all other surfaces.");
     addMapping("r_lateAllocParamCacheAllowed", "1518");
     addMapping("r_eyeSparkle", "727");
     addMapping("r_eyePupil", "1932");
@@ -321,7 +341,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_preBakedTndTweaks", "297");
     addMapping("r_delayAddSceneModels", "3337");
     addMapping("r_emblemBrightnessScale", "2735");
-    addMapping("r_balanceLightmapOpaqueLists", "2599");
+    addMapping("r_balanceLightmapOpaqueLists", "2599", "Split lightmap opaque into multiple draw lists.");
     addMapping("r_volumeLightScatterUseTweaks", "3889");
     addMapping("r_volumeLightScatterLinearAtten", "2564");
     addMapping("r_volumeLightScatterQuadraticAtten", "3758");
@@ -332,8 +352,8 @@ void DvarInterface::addAllMappings() {
     addMapping("r_volumeLightScatterColor", "3200");
     addMapping("r_volumeLightScatterEv", "4638");
     //addMapping("r_surfaceHDRScalarUseTweaks", "5058");
-    addMapping("r_unlitSurfaceHDRScalar", "284");
-    addMapping("r_litSurfaceHDRScalar", "1097");
+    addMapping("r_unlitSurfaceHDRScalar", "284", "Vision set based scalar applied to unlit surfaces to balance those surfaces with the luminance of the scene");
+    addMapping("r_litSurfaceHDRScalar", "1097", "Vision set based scalar applied to lit surfaces");
     addMapping("r_ssaoUseTweaks", "4822");
     addMapping("r_ssaoWidth", "919");
     addMapping("r_ssaoDepthScale", "1870");
@@ -362,7 +382,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_hemiAoCombineResolutionsWithMul", "3011");
     addMapping("r_hemiAoHierarchyDepth", "5329");
     addMapping("r_hemiAoDepthSquash", "2843");
-    addMapping("r_hemiAoStrength", "554");
+    addMapping("r_hemiAoStrength", "554", "Strength of Hemi Screen Space Ambient Occlusion effect");
     addMapping("r_hemiAoPower", "3869");
     addMapping("r_gtaoQualityLevel", "5156");
     addMapping("r_cacheModelLighting", "4636");
@@ -370,7 +390,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_keepSunShadowCache", "1708");
 
     //from CG_CompassRegisterDvars
-    addMapping("compassSize", "2692");
+    addMapping("compassSize", "2692", "Scale the compass");
     addMapping("compassSoundPingFadeTime", "5111");
     addMapping("compassClampIcons", "2980");
     addMapping("compassFriendlyWidth", "4963");
@@ -390,7 +410,7 @@ void DvarInterface::addAllMappings() {
     addMapping("compassPrototypeElevation", "3500");
     addMapping("compassPrototypeFiring", "4129");
     addMapping("compassHideVehicles", "965");
-    addMapping("cg_hudMapRadarLineThickness", "4365");
+    addMapping("cg_hudMapRadarLineThickness", "4365", "Thickness, relative to the map width, of the radar texture that sweeps across the full screen map");
     addMapping("cg_hudMapFriendlyWidth", "796");
     addMapping("cg_hudMapFriendlyHeight", "714");
     addMapping("cg_hudMapPlayerWidth", "4685");
@@ -428,11 +448,11 @@ void DvarInterface::addAllMappings() {
     addMapping("motionTrackerPingPitchAddPerEnemy", "5477");
 
     //from SocialConfig_Init
-    addMapping("theater_active", "616");
-    addMapping("facebook_active", "4761");
-    addMapping("facebook_delay", "1636");
-    addMapping("facebook_max_retry_time", "5797");
-    addMapping("facebook_retry_step", "4142");
+    addMapping("theater_active", "616", "Are we allowed to show theater or not.");
+    addMapping("facebook_active", "4761", "Are we allowed to show Facebook or not");
+    addMapping("facebook_delay", "1636", "Delay before the Facebook calls start to Demonware. -1 means On-Demand and it will wait until the 'startfacebook' menu call");
+    addMapping("facebook_max_retry_time", "5797", "Max time that the Facebook authentication can retry");
+    addMapping("facebook_retry_step", "4142", "Step in m/s for the Facebook authentication retry");
     addMapping("facebook_friends_max_retry_time", "339");
     addMapping("facebook_friends_retry_step", "2306");
     addMapping("facebook_friends_refresh_time", "5238");
@@ -440,14 +460,14 @@ void DvarInterface::addAllMappings() {
     addMapping("facebook_friends_active", "2687");
     addMapping("facebook_upload_video_active", "2688");
     addMapping("facebook_upload_photo_active", "5141");
-    addMapping("userGroup_active", "1021");
+    addMapping("userGroup_active", "1021", "Are we allowed to show Usergroups or not");
     addMapping("userGroup_max_retry_time", "1490");
     addMapping("userGroup_retry_step", "1419");
     addMapping("userGroup_RetryTime", "227");
     addMapping("userGroup_refresh_time_secs", "55");
     addMapping("userGroup_cool_off_time", "776");
-    addMapping("elite_clan_delay", "2672");
-    addMapping("elite_clan_active", "3629");
+    addMapping("elite_clan_delay", "2672", "Delay before the bdTeams calls start to Demonware. -1 means On-Demand and it will wait until the 'starteliteclan' menu call");
+    addMapping("elite_clan_active", "3629", "Are we allowed to show Elite Clans or not");
     addMapping("elite_clan_get_clan_max_retry_time", "4416");
     addMapping("elite_clan_get_clan_retry_step", "1092");
     addMapping("elite_clan_get_members_max_retry_time", "4619");
@@ -468,27 +488,27 @@ void DvarInterface::addAllMappings() {
     addMapping("elite_clan_remote_view_active", "5205");
     addMapping("elite_clan_remote_view_retry_step", "434");
     addMapping("elite_clan_remote_view_max_retry_time", "5560");
-    addMapping("dw_presence_active", "4174");
-    addMapping("dw_presence_coop_join", "418");
-    addMapping("dw_presence_put_delay", "3550");
-    addMapping("dw_presence_put_rate", "561");
-    addMapping("dw_presence_get_rate", "3602");
+    addMapping("dw_presence_active", "4174", "Is the demonware presence system enabled");
+    addMapping("dw_presence_coop_join", "418", "Do we allow players to join on presence for private coop matches (post session to demonware)");
+    addMapping("dw_presence_put_delay", "3550", "Number of milliseconds to wait in a presence state before sending to demonware");
+    addMapping("dw_presence_put_rate", "561", "Number of milliseconds to wait between sending presence state to demonware");
+    addMapping("dw_presence_get_rate", "3602", "Number of milliseconds to wait between fetching presence state from demonware");
     addMapping("dw_interleave_all_nat_types", "3358");
     addMapping("dw_enable_connection_telemetry", "1799");
     addMapping("dw_nattrav_cache_enable", "770");
     addMapping("dw_nattrav_cache_timeout", "463");
-    addMapping("num_available_map_packs", "5942");
+    addMapping("num_available_map_packs", "5942", "Number of map packs available for this platform");
     addMapping("clientNetPerf_enabled", "1427");
     addMapping("clientNetPerf_UserCmdTimeWindowMs", "156");
     addMapping("clientNetPerf_UserCmdProcessedMinCount", "5040");
     addMapping("clientNetPerf_UserCmdQueuedMinCount", "4912");
     addMapping("clientNetPerf_UserCmdDroppedMinCount", "2614");
     addMapping("sv_clientPacketsBurstMinCount", "2044");
-    addMapping("iotd_active", "2623");
-    addMapping("iotd_retry", "60");
-    addMapping("igs_td", "532");
-    addMapping("matchdata_active", "967");
-    addMapping("matchdata_maxcompressionbuffer", "2660");
+    addMapping("iotd_active", "2623", "Is the IOTD system enabled");
+    addMapping("iotd_retry", "60", "Can the IOTD system retry fetching data from Demonware");
+    addMapping("igs_td", "532", "Show Trial DLC");
+    addMapping("matchdata_active", "967", "Are match data uploads enabled");
+    addMapping("matchdata_maxcompressionbuffer", "2660", "Max SP match data compression buffer to use (in bytes)");
     addMapping("breadcrumbdata_active", "466");
     addMapping("breadcrumbdata_maxcompressionbuffer", "4030");
     addMapping("breadcrumbdata_frequency_seconds", "34");
@@ -500,25 +520,25 @@ void DvarInterface::addAllMappings() {
     addMapping("playercard_cache_upload_retry_step", "2476");
     addMapping("playercard_cache_download_max_retry_time", "301");
     addMapping("playercard_cache_download_retry_step", "3347");
-    addMapping("match_making_telemetry_chance", "743");
-    addMapping("log_host_migration_chance", "2574");
-    addMapping("max_ping_threshold_good", "4332");
-    addMapping("max_ping_threshold_medium", "4760");
-    addMapping("aci", "160");
+    addMapping("match_making_telemetry_chance", "743", "The % chance of sending match making telemetry");
+    addMapping("log_host_migration_chance", "2574", "The % chance of host migration results telemetry");
+    addMapping("max_ping_threshold_good", "4332", "max ping value to be considered as good");
+    addMapping("max_ping_threshold_medium", "4760", "max ping value to be considered as medium");
+    addMapping("aci", "160", "anticheat infraction");
     addMapping("vpte", "5029");
     addMapping("zombiesAllowSoloPause", "5353");
     addMapping("dlog_active", "5785");
-    addMapping("marketing_refresh_time", "1543");
-    addMapping("emblems_active", "4798");
-    addMapping("selfie_active", "387");
-    addMapping("ca_intra_only", "3302");
-    addMapping("ca_do_mlc", "1966");
-    addMapping("ca_require_signin", "2520");
-    addMapping("ca_auto_signin", "5570");
-    addMapping("lb_times_in_window", "3355");
-    addMapping("lb_window", "2163");
-    addMapping("svwp", "765");
-    addMapping("dc_lobbymerge", "3583");
+    addMapping("marketing_refresh_time", "1543", "time in seconds to wait before refreshing marketing messages from demonware");
+    addMapping("emblems_active", "4798", "Are we allowed to enable Emblems or not");
+    addMapping("selfie_active", "387", "Are we allowed to enable Selfie Uploads or not");
+    addMapping("ca_intra_only", "3302", "CoD Anywhere Intra Network Only");
+    addMapping("ca_do_mlc", "1966", "CoD Anywhere Do Multi Login check");
+    addMapping("ca_require_signin", "2520", "CoD Anywhere require sign in to enter MP");
+    addMapping("ca_auto_signin", "5570", "CoD Anywhere start sign-in task automatically on startup or first party sign-in");
+    addMapping("lb_times_in_window", "3355", "Lobby throttling window amount");
+    addMapping("lb_window", "2163", "Lobby throttling window");
+    addMapping("svwp", "765", "playerdata server write protection: 0 = disable, 1 = silent, 2 = kick");
+    addMapping("dc_lobbymerge", "3583", "Allows lobby merging across data centres");
     addMapping("net_write_tween_packets", "5801");
     addMapping("net_read_tween_packets", "4773");
     addMapping("net_latest_tween_threshold", "1907");
@@ -532,86 +552,127 @@ void DvarInterface::addAllMappings() {
 
     //some lui and hub jawns
     //also a bunch of E3 stuff
-    addMapping("lui_menuFlowEnabled", "4436");
-    addMapping("lui_xboxlive_menu", "3547");
-    addMapping("lui_systemlink_menu", "1572");
-    addMapping("lui_splitscreenupscaling", "659");
+    addMapping("lui_menuFlowEnabled", "4436", "Enables LUI menu flow");
+    addMapping("lui_xboxlive_menu", "3547", "Enables the LUI xboxlive menu");
+    addMapping("lui_systemlink_menu", "1572", "Enables the LUI systemlink menu");
+    addMapping("lui_splitscreenupscaling", "659", "Force splitscreen upscaling off/on (-1 off, 1 on) -- requires map change");
     addMapping("lui_draw_hints", "5270");
     addMapping("e3demo", "2803");
     addMapping("e3demo_host", "4605");
     addMapping("e3demo_client", "1303");
     addMapping("e3demo_show_client_title_screen", "871");
-    addMapping("lui_hud_motion_enabled", "42");
-    addMapping("lui_hud_motion_perspective", "5345");
-    addMapping("lui_hud_motion_translation_scale", "381");
-    addMapping("lui_hud_motion_translation_max", "4686");
-    addMapping("lui_hud_motion_rotation_scale", "386");
-    addMapping("lui_hud_motion_rotation_max", "1033");
-    addMapping("lui_hud_motion_bob_scale", "5406");
-    addMapping("lui_hud_motion_angle_ease_speed", "2690");
-    addMapping("lui_hud_motion_trans_ease_speed", "397");
+    addMapping("lui_hud_motion_enabled", "42", "Enable hud motion");
+    addMapping("lui_hud_motion_perspective", "5345", "value for hud motion perspective transform in pixels");
+    addMapping("lui_hud_motion_translation_scale", "381", "lui_hud_motion_translation_scale");
+    addMapping("lui_hud_motion_translation_max", "4686", "Hud motion translation max");
+    addMapping("lui_hud_motion_rotation_scale", "386", "Hud motion rotation scale");
+    addMapping("lui_hud_motion_rotation_max", "1033", "Hud motion rotation max");
+    addMapping("lui_hud_motion_bob_scale", "5406", "Hud motion bob scale");
+    addMapping("lui_hud_motion_angle_ease_speed", "2690", "Hud motion ease percentage of degrees per second");
+    addMapping("lui_hud_motion_trans_ease_speed", "397", "Hud motion ease percentage of pixels per second");
+    addMapping("lui_FFotDSupportEnabled", "4373", "Enables lui to update itself via the ffotd");
+    addMapping("lui_disable_blur", "262", "Disable LUI blur"); //DOUBLE CHECK THIS
+    addMapping("dev_auto_hubstart", "3708", "Auto load the game into the MP hub");
     addMapping("hub_vendor_overhead_min_distance", "1647");
     addMapping("hub_vendor_overhead_max_distance", "3924");
     addMapping("hub_supply_drop_max_distance", "4143");
     addMapping("hub_leaderboard_max_distance", "3296");
 
-    addMapping("cg_foliagesnd_alias", "4011");
+    addMapping("cg_foliagesnd_alias", "4011", "The sound that plays when an actor or player enters a foliage clip brush.");
     addMapping("cg_broadcasterSkycamDistance", "3119");
     addMapping("cg_subtitleForcedColor", "5004");
     addMapping("cg_subtitleColor", "2191");
     addMapping("cg_gunReticleTeamColor_EnemyTeam", "4426");
     addMapping("cg_gunReticleTeamColor_MyTeam", "4893");
     addMapping("cg_ScorestreakColor_Enemy", "2906");
-    addMapping("cg_weaponVisInterval", "412");
-    addMapping("cg_disableScreenShake", "3926");
+    addMapping("cg_weaponVisInterval", "412", "Do weapon vis checks once per this many frames, per centity");
+    addMapping("cg_disableScreenShake", "3926", "Turns off screen shakes when turned on. Dev-only");
     addMapping("useRelativeTeamColors", "1244");
-    addMapping("cg_weapHitCullEnable", "5446");
-    addMapping("cg_weapHitCullAngle", "207");
-    addMapping("overrideNVGModelWithKnife", "5025");
-    addMapping("cg_viewZSmoothingTime", "957");
-    addMapping("cg_viewZSmoothingMax", "2391");
-    addMapping("cg_viewZSmoothingMin", "5640");
-    addMapping("cg_invalidCmdHintBlinkInterval", "811");
-    addMapping("cg_invalidCmdHintDuration", "641");
-    addMapping("cg_flashbangNameFadeOut", "3428");
-    addMapping("cg_flashbangNameFadeIn", "5860");
-    addMapping("cg_friendlyNameFadeOut", "5344");
-    addMapping("cg_friendlyNameFadeIn", "3768");
-    addMapping("cg_drawFriendlyNames", "1380");
-    addMapping("cg_overheadNamesFont", "731");
-    addMapping("cg_overheadNamesGlow", "257");
-    addMapping("cg_overheadNamesFarScale", "1900");
-    addMapping("cg_overheadNamesFarDist", "2393");
-    addMapping("cg_overheadNamesNearDist", "1733");
+    addMapping("cg_weapHitCullEnable", "5446", "When true, cull back facing weapon hit fx.");
+    addMapping("cg_weapHitCullAngle", "207", "Angle of cone within which to cull back facing weapon hit effects");
+    addMapping("overrideNVGModelWithKnife", "5025", "When true, nightvision animations will attach the weapDef's knife model instead of the night vision goggles.");
+    addMapping("cg_viewZSmoothingTime", "957", "Amount of time to spread the smoothing over");
+    addMapping("cg_viewZSmoothingMax", "2391", "Threshhold for the maximum smoothing distance we'll do");
+    addMapping("cg_viewZSmoothingMin", "5640", "Threshhold for the minimum smoothing distance it must move to smooth");
+    addMapping("cg_invalidCmdHintBlinkInterval", "811", "Blink rate of an invalid command hint");
+    addMapping("cg_invalidCmdHintDuration", "641", "Duration of an invalid command hint");
+    addMapping("cg_flashbangNameFadeOut", "3428", "Time in milliseconds to fade out friendly names when flash banged");
+    addMapping("cg_flashbangNameFadeIn", "5860", "Time in milliseconds to fade in friendly names after a flashbang");
+    addMapping("cg_friendlyNameFadeOut", "5344", "Time in milliseconds to fade out friendly names");
+    addMapping("cg_friendlyNameFadeIn", "3768", "Time in milliseconds to fade in friendly names");
+    addMapping("cg_drawFriendlyNames", "1380", "Whether to show friendly names in game");
+    addMapping("cg_overheadNamesFont", "731", "Font for overhead names");
+    addMapping("cg_overheadNamesGlow", "257", "Glow color for overhead names");
+    addMapping("cg_overheadNamesFarScale", "1900", "The amount to scale overhead name sizes at cg_overheadNamesFarDis");
+    addMapping("cg_overheadNamesFarDist", "2393", "The far distance at which name sizes are scaled by cg_overheadNamesFarScale");
+    addMapping("cg_overheadNamesNearDist", "1733", "The near distance at which names are full size");
 
-    addMapping("com_errorResolveCommand", "4278");
+    addMapping("com_errorResolveCommand", "4278", "Command to run when they close the error box");
     
-    addMapping("r_portalMinClipArea", "634");
-    addMapping("r_portalMinRecurseDepth", "3100");
-    addMapping("r_sunshadowmap_cmdbuf_worker", "5260");
+    addMapping("r_portalMinClipArea", "634", "Don't clip child portals by a parent portal smaller than this fraction of the screen area.");
+    addMapping("r_portalMinRecurseDepth", "3100", "Ignore r_portalMinClipArea for portals with fewer than this many parent portals.");
+    addMapping("r_sunshadowmap_cmdbuf_worker", "5260", "Process shadowmap command buffer in a separate thread");
     addMapping("r_animatedVertsUseNoCacheLimit", "2274");
     addMapping("r_animatedVertsNoCacheScale", "3220");
     addMapping("r_screenSpaceShadows", "4712");
     addMapping("r_maxScreenSpaceShadowsSamplesTotal", "4241");
     addMapping("r_minScreenSpaceShadowsSamplesPerLight", "4941");
-    addMapping("r_volumeLightScatter", "2696");
-    addMapping("r_useLightGridDefaultModelLightingLookup", "2706");
-    addMapping("r_lightGridDefaultModelLightingLookup", "3460");
-    addMapping("r_useLightGridDefaultFXLightingLookup", "1074");
-    addMapping("r_lightGridDefaultFXLightingLookup", "1307");
-    addMapping("r_blurdstGaussianBlurRadius", "190");
-    addMapping("r_blurdstGaussianBlurLevel", "3261");
-    addMapping("r_uiBlurDstMode", "1175");
-    addMapping("sm_spotLightScoreModelScale", "4230");
-    addMapping("sm_minSpotLightScore", "5176");
-    addMapping("sm_spotShadowFadeTime", "3286");
-    addMapping("r_useShadowGeomOpt", "4163");
-    addMapping("r_fog_depthhack_scale", "645");
+    addMapping("r_volumeLightScatter", "2696", "Enables volumetric light scattering");
+    addMapping("r_useLightGridDefaultModelLightingLookup", "2706", "Enable/disable default model lighting lookup");
+    addMapping("r_lightGridDefaultModelLightingLookup", "3460", "Default model lighting lookup location");
+    addMapping("r_useLightGridDefaultFXLightingLookup", "1074", "Enable/disable default fx lighting lookup");
+    addMapping("r_lightGridDefaultFXLightingLookup", "1307", "Default FX lighting lookup location");
+    addMapping("r_blurdstGaussianBlurRadius", "190", "Amount to gaussian blur blur distortion render target");
+    addMapping("r_blurdstGaussianBlurLevel", "3261", "MIP level to start gaussian blur at");
+    addMapping("r_uiBlurDstMode", "1175", "UI blur distortion mode. Fast uses the scene mip map render target, PostSun uses a downsampled post sun resolve buffer, PostSun HQ uses a gaussian blurred post sun resolve buffer.");
+    addMapping("sm_spotLightScoreModelScale", "4230", "Scale the calculated spot light score by this value if the light currently only affects static or script brush models.");
+    addMapping("sm_minSpotLightScore", "5176", "Minimum score (based on intensity, radius, and position relative to the camera) for a spot light to have shadow maps.");
+    addMapping("sm_spotShadowFadeTime", "3286", "How many seconds it takes for a primary light shadow map to fade in or out");
+    addMapping("r_useShadowGeomOpt", "4163", "Enable iwRad shadow geometry optimization. It only works when we have the data generated in iwRad.");
+    addMapping("r_fog_depthhack_scale", "645", "Fog scale for depth hack surfaces");
     addMapping("r_materialWind", "1520");
-    addMapping("r_mpRimDiffuseTint", "817");
-    addMapping("r_mpRimStrength", "2634");
-    addMapping("r_mpRimColor", "2013");
-    addMapping("fx_enable", "3917");
+    addMapping("r_mpRimDiffuseTint", "817", "Change character's rim diffuse tint for multiplayer.");
+    addMapping("r_mpRimStrength", "2634", "Change character's rim strength for multiplayer");
+    addMapping("r_mpRimColor", "2013", "Change character's rim color for multiplayer");
+    //FX_RegisterDvars
+    addMapping("fx_enable", "3917", "Toggles all effects processing");
+    addMapping("fx_lightgridplus_enable", "5637");
+    addMapping("fx_draw", "3461", "Toggles drawing of effects after processing");
+    addMapping("fx_draw_spotLight", "2157", "Toggles drawing of effects after processing");
+    addMapping("fx_draw_omniLight", "5408", "Toggles drawing of effects after processing");
+    addMapping("fx_visMinTraceDist", "3344", "Minimum visibility trace size");
+    addMapping("fx_drawClouds", "1398", "Toggles the drawing of particle clouds");
+    addMapping("fx_deferelem", "452", "Toggles deferred processing of elements instead of effects");
+    addMapping("fx_killEffectOnRewind", "1666", "Causes effects that have been marked for a soft kill (fade out) to be killed immediately on a rewind.");
+    addMapping("fx_lightmap_pixels_per_texel", "3085");
+    addMapping("fx_lightmap_max_level", "557");
+    addMapping("fx_alphaThreshold", "3541", "Don't draw billboard sprites, oriented sprites or tails with alpha below this threshold (0-256).");
+    addMapping("fx_use_rewind_flags", "4994");
+    addMapping("fx_physicsImpactVelocityThreshold", "2224", "Set the min normal velocity threshold in order for model physics fx to generate child impact effects.");
+    addMapping("fx_cast_shadow", "2527", "Enable transparency shadow mapping from script");
+    addMapping("fx_lightGridSampleOffset", "4525", "the length of effect sample's offset along X Axis");
+    addMapping("glass_break", "2210", "Toggle whether or not glass breaks when shot");
+    addMapping("glass_edge_angle", "2449", "Sets the range of angle deflections used by new glass pieces on a supported edge");
+    addMapping("glass_fall_ratio", "3991", "Ratio of piece area to supporting edge length squared.  Below the min, the piece never falls.");
+    addMapping("glass_fall_delay", "474", "glass_fall_delay");
+    addMapping("glass_fx_chance", "2355", "Chance to play an effect on a small piece of glass when it hits the ground");
+    addMapping("glass_hinge_friction", "2848", "Friction used by moving glass pieces when joined like a hinge to a frame");
+    addMapping("glass_max_pieces_per_frame", "3251", "Maximum number of pieces to create in one frame. This is a guideline and not a hard limit.");
+    addMapping("glass_max_shatter_fx_per_frame", "3958", "Maximum number of shatter effects to play in one frame This is a guideline and not a hard limit.");
+    addMapping("glass_shard_maxsize", "3595", "The maximum area for a flying piece of glass when shattering. Pieces larger than this will be broken into smaller ones");
+    addMapping("glass_fringe_maxsize", "5363", "The maximum area for an edge piece of glass when shattering. Pieces larger than this will be broken into smaller ones");
+    addMapping("glass_fringe_maxcoverage", "4886", "The maximum portion of the original piece of glass that is allowed to remain after the glass shatters");
+    addMapping("glass_trace_interval", "2239", "The length of time, in milliseconds, between glass piece traces");
+    addMapping("glass_physics_chance", "3430", "The chance for a given shard of glass to use physics");
+    addMapping("glass_physics_maxdist", "436", "The maximum distance of a glass piece from the player to do physics");
+    addMapping("glass_shattered_scale", "1567", "The scale of the shattered glass material");
+    addMapping("glass_crack_pattern_scale", "4887", "The scale applied to the radius used for the crack pattern");
+    addMapping("glass_fall_gravity", "2436", "Gravity for falling pieces of glass");
+    addMapping("glass_linear_vel", "3330", "Sets the range of linear velocities used by new glass pieces");
+    addMapping("glass_angular_vel", "3766", "Sets the range of angular velocities used by new glass pieces");
+    addMapping("fx_dynamicGritDisableBlood", "543");
+    addMapping("fx_dynamicGritDisableHide", "5442");
+    addMapping("fx_dynamicGritDisableFire", "1487");
 
     addMapping("cg_drawCrosshair", "1874");
     addMapping("cg_drawCrosshairNames", "1979");
@@ -751,10 +812,10 @@ void DvarInterface::addAllMappings() {
     addMapping("physVeh_jump", "713");
 
     //LUI
-    addMapping("LUI_WorkerCmdGC", "3886");
+    addMapping("LUI_WorkerCmdGC", "3886", "Dev-only flag to enable/disable LUI workerCmd GC thread");
 
     //ComScore_Init
-    addMapping("comscore_backoff", "3219");
+    addMapping("comscore_backoff", "3219", "constants for the comscore backoff function a*(x-b)^2+c");
 
     addMapping("dive_exhaustion_window", "4075");
     addMapping("bg_shieldHitEncodeWidthWorld", "3901");
@@ -773,10 +834,10 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_subtitleWidthStandard", "4834");
     addMapping("cg_subtitleMinTime", "2986");
     addMapping("cg_drawpaused", "3496");
-    addMapping("cl_paused", "183");
-    addMapping("cg_teamChatsOnly", "1127");
-    addMapping("cg_chatHeight", "2662");
-    addMapping("cg_chatTime", "804");
+    addMapping("cl_paused", "183", "Pause the game");
+    addMapping("cg_teamChatsOnly", "1127", "Allow chatting only on the same team");
+    addMapping("cg_chatHeight", "2662", "The font height of a chat message");
+    addMapping("cg_chatTime", "804", "The amount of time that a chat message is visible");
     addMapping("tracer_stoppingPowerWidth", "2824");
     addMapping("tracer_stoppingPowerColor1", "3726");
     addMapping("tracer_stoppingPowerColor2", "2658");
@@ -789,13 +850,13 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_marks_ents_player_only", "4775");
     addMapping("cg_landingSounds", "4440");
     addMapping("cg_footsteps", "4291");
-    addMapping("cg_errordecay", "4391");
+    addMapping("cg_errordecay", "4391", "Decay for predicted error");
     addMapping("cg_processImmediateEvents", "2921");
     addMapping("cg_tweenExtrapolationPeriodMs", "5173");
     addMapping("cg_tweenOverrideThresholdMs", "4088");
     addMapping("cg_tweenOverridePeriodSlowMs", "2778");
     addMapping("cg_tweenOverridePeriodMs", "1906");
-    addMapping("cg_brass", "3385");
+    addMapping("cg_brass", "3385", "Weapons eject brass");
     addMapping("cg_crosshairEnemyColor", "3165");
     addMapping("cg_crosshairDynamic", "2700");
     addMapping("cg_crosshairAlphaMin", "4967");
@@ -822,23 +883,23 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_drawMantleHint", "2104");
     addMapping("cg_drawDoubleTapDetonateHint", "1784");
     addMapping("cg_drawBreathHUD", "1668");
-    addMapping("cg_drawBreathHint", "863");
-    addMapping("cg_draw2D", "2562");
-    addMapping("cg_viewVehicleInfluence", "3019");
-    addMapping("cg_fovMin", "361");
-    addMapping("cg_hintFadeTime", "310");
-    addMapping("cg_weaponHintsCoD1Style", "629");
-    addMapping("cg_cursorHints", "4521");
-    addMapping("cg_drawGun", "1762");
-    addMapping("cg_fovScale", "3078");
+    addMapping("cg_drawBreathHint", "863", "Draw a 'hold breath to steady' hint");
+    addMapping("cg_draw2D", "2562", "Draw 2D screen elements");
+    addMapping("cg_viewVehicleInfluence", "3019", "The influence on the view angles from being in a vehicle");
+    addMapping("cg_fovMin", "361", "The minimum possible field of view");
+    addMapping("cg_hintFadeTime", "310", "Time in milliseconds for the cursor hint to fade");
+    addMapping("cg_weaponHintsCoD1Style", "629", "Draw weapon hints in CoD1 style: with the weapon name, and with the icon below");
+    addMapping("cg_cursorHints", "4521", "Draw cursor hints where: 0: no hints 1 : sin size pulse 2 : one way size pulse 3 : alpha pulse 4 : static image");
+    addMapping("cg_drawGun", "1762", "Draw the view model");
+    addMapping("cg_fovScale", "3078", "Scale applied to the field of view");
 
     //filesystem
-    addMapping("fs_basepath", "4972");
-    addMapping("fs_basegame", "2796");
-    addMapping("fs_gameDirVar", "1751");
-    addMapping("fs_ignoreLocalized", "3139");
-    addMapping("fs_homepath", "4068");
-    addMapping("fs_debug", "1467"); //not used in engine but still exists. I will use it tho
+    addMapping("fs_basepath", "4972", "Base game path");
+    addMapping("fs_basegame", "2796", "Base game name");
+    addMapping("fs_game", "1751", "Game data directory. Must be \"\" or a sub directory of 'mods/'.");
+    addMapping("fs_ignoreLocalized", "3139", "Ignore localized files");
+    addMapping("fs_homepath", "4068", "Game home path");
+    addMapping("fs_debug", "1467", "Enable file system debugging information"); //not used in engine but still exists. I will use it tho
 
     //
     addMapping("cg_remoteCameraZNear", "4317");
@@ -861,6 +922,18 @@ void DvarInterface::addAllMappings() {
     addMapping("vehAudio_inAirPitchUpLerp", "1120");
     addMapping("vehAudio_inAirPitchDownLerp", "2350");
     addMapping("vehAudio_spawnVolumeTime", "141");
+
+    //ui dvars ig
+    addMapping("ui_netSource", "1639", "The network source where:   0:Local   1:Internet   2:Favorites");
+    addMapping("ui_currentMap", "788", "Current map index");
+    addMapping("ui_onlineRequired", "3556", "UI requires online connection to be present.");
+    addMapping("ui_currentFeederMapIndex", "864", "Currently selected map");
+    addMapping("ui_selectedFeederMap", "264", "Current preview game type");
+    addMapping("ui_missingMapName", "2958", "Name of map to show in missing content error");
+    addMapping("ui_serverStatusTimeOut", "2382", "Time in milliseconds before a server status request times out");
+    addMapping("ui_buildLocation", "549", "Where to draw the build number");
+
+
 
     //3708 1 skips the title screen
     //4835 disabled game start button

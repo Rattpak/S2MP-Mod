@@ -22,4 +22,5 @@ public:
 	static void render(int windowWidth, int windowHeight);
 	static void renderDevGui(std::vector<std::string>& list, int xPos, int yPos, int wWid, int wHei, float* color, font_t* font);
 	static void toggleLuaDebugGui();
+	static void toggleAntiCheatDebugGui();
 };

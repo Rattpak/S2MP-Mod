@@ -29,6 +29,7 @@ public:
 	static void clearConsole();
 	static void closeConsole();
 	static void addToOutputStack(std::string s, int level);
+	static material_t* getMaterialWhite();
 	static void toggleConsole();
 	static void toggleFullConsole();
 	static void init();

@@ -14,6 +14,11 @@ public:
 	static void init();
 };
 
+class ScriptLoader {
+public:
+	static void init();
+};
+
 class FontLoader {
 public:
 	static void init();
