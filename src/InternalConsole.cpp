@@ -303,9 +303,9 @@ void InternalConsole::addToOutputStack(std::string s, int level) {
 		outputStack.push_back(s);
 		outputLogLevel.push_back(level);
 	}
-
-	//1.2.4-alpha: stick to bottom when at bottom
-	if (outputStack.size() > maxLines && outputStack.size() <= outputStackSeekPos + maxLines) {
+	
+	//stick to bottom if at bottom
+	if (outputStack.size() - 1 > maxLines && outputStack.size() - 1 <= outputStackSeekPos + maxLines) {
 		outputStackSeekPos++;
 	}
 }

@@ -103,7 +103,7 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("r_lodBiasSkinned");
     addDvarsWithName("r_lodScaleRigid");
     addDvarsWithName("r_lodBiasRigid");
-    //addDvarsWithName("r_drawWater");
+    //addDvarsWithName("r_drawWater"); //doesnt do anything
     addDvarsWithName("ragdoll_mp_limit");
     addDvarsWithName("r_elevatedPriority");
     addDvarsWithName("r_preloadShaders");

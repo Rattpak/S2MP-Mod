@@ -243,7 +243,6 @@ void Console::execCmd(std::string cmd) {
 		return;
 	}
 	if (!execCustomDevCmd(cmd) && !setEngineDvar(cmd)) {
-		//Console::devPrint("Passing cmd to command buffer");
 		Console::print(cmd); //TODO: change this to only print to internal console
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
