@@ -172,6 +172,16 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("vehCam_planeChaseOffset");
     addDvarsWithName("vehCam_splitscreenPlaneChaseOffset");
     addDvarsWithName("shadowplay_killswitch");
+    addDvarsWithName("vehCam_chaseFD_ADSCamOffset");
+    addDvarsWithName("vehCam_chaseFD_ADSVelocityCamOffsetMultBoostAcceleration");
+    addDvarsWithName("vehCam_chaseFD_ADSVelocityCamOffsetMultAcceleration");
+    addDvarsWithName("vehCam_chaseFD_ADSVelocityCamOffsetMultDeceleration");
+    addDvarsWithName("vehCam_chaseFD_nonADSCamOffset");
+    addDvarsWithName("vehCam_chaseFD_transitionSpawnCamOffset");
+    addDvarsWithName("vehCam_chaseFD_transitionSpawnCamAngleOffset");
+    addDvarsWithName("vehCam_chaseFD_normalSpawnCamOffset");
+    addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultAcceleration");
+    addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultDeceleration");
 
 
     addMapping("nextmap", "4059", "Next map to play");
@@ -880,8 +890,8 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_drawDamageDirection", "883");
     addMapping("cg_drawDamageFlash", "221");
     addMapping("cg_drawTurretCrosshair", "5771");
-    addMapping("cg_drawMantleHint", "2104");
-    addMapping("cg_drawDoubleTapDetonateHint", "1784");
+    addMapping("cg_drawMantleHint", "2104", "Draw a 'press key to mantle' hint");
+    addMapping("cg_drawDoubleTapDetonateHint", "1784", "Draw a 'double tap to detonate grenade' hint");
     addMapping("cg_drawBreathHUD", "1668");
     addMapping("cg_drawBreathHint", "863", "Draw a 'hold breath to steady' hint");
     addMapping("cg_draw2D", "2562", "Draw 2D screen elements");
@@ -901,7 +911,26 @@ void DvarInterface::addAllMappings() {
     addMapping("fs_homepath", "4068", "Game home path");
     addMapping("fs_debug", "1467", "Enable file system debugging information"); //not used in engine but still exists. I will use it tho
 
-    //
+    //CG_ViewRegisterDvars (not done)
+    addMapping("cg_heliKillCamFov", "37", "Helicopter kill camera field of view.");
+    addMapping("cg_heliKillCamNearBlur", "1863");
+    addMapping("cg_heliKillCamFarBlur", "693");
+    addMapping("cg_heliKillCamFarBlurStart", "5721");
+    addMapping("cg_heliKillCamFarBlurDist", "5782");
+    addMapping("cg_heliKillCamNearBlurStart", "3000");
+    addMapping("cg_heliKillCamNearBlurEnd", "5460");
+    addMapping("cg_heliKillCamFstop", "1136");
+    addMapping("cg_airstrikeKillCamFov", "3720");
+    addMapping("cg_airstrikeKillCamNearBlur", "3706");
+    addMapping("cg_airstrikeKillCamFarBlur", "3822");
+    addMapping("cg_airstrikeKillCamFarBlurStart", "5493");
+    addMapping("cg_airstrikeKillCamFarBlurDist", "4446");
+    addMapping("cg_airstrikeKillCamNearBlurStart", "5840");
+    addMapping("cg_airstrikeKillCamNearBlurEnd", "5095");
+    addMapping("cg_airstrikeCamFstop", "3160");
+    addMapping("cg_explosiveKillCamUpDist", "1321");
+    addMapping("cg_explosiveKillCamBackDist", "3692");
+
     addMapping("cg_remoteCameraZNear", "4317");
     addMapping("radarjamDistMin", "5504");
     addMapping("radarjamDistMax", "4545");
@@ -917,7 +946,7 @@ void DvarInterface::addAllMappings() {
     addMapping("cg_hubZoomFov", "4444");
     addMapping("cg_hubZoomDist", "861");
 
-    addMapping("veh_boneControllerLodDist", "3878");
+    addMapping("veh_boneControllerLodDist", "3878", "Distance at which bone controllers are not updated.");
     addMapping("vehCam_freeLook", "1293");
     addMapping("vehAudio_inAirPitchUpLerp", "1120");
     addMapping("vehAudio_inAirPitchDownLerp", "2350");
