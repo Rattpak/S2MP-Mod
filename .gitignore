@@ -371,3 +371,4 @@ FodyWeavers.xsd
 # IDE
 .idea/*
 .vscode/*
+/build/ScriptLoader.cpp
