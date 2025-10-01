@@ -5,6 +5,9 @@ class Functions {
 public:
 	static void init();
 
+	typedef char* (__cdecl* GetStringFromResource)(UINT num);
+	static GetStringFromResource _GetStringFromResource;
+
 	typedef void(__cdecl* SV_SendServerCommand)(__int64 client, int type, const char* fmt, ...);
 	static SV_SendServerCommand _SV_SendServerCommand;
 

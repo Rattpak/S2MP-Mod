@@ -6,6 +6,7 @@
 #include "FuncPointers.h"
 #include "Console.hpp"
 
+Functions::GetStringFromResource Functions::_GetStringFromResource = nullptr;
 Functions::SV_SendServerCommand Functions::_SV_SendServerCommand = nullptr;
 Functions::Com_Error Functions::_Com_Error = nullptr;
 Functions::Scr_MakeGameMessage Functions::_Scr_MakeGameMessage = nullptr;
@@ -38,6 +39,7 @@ void Functions::init()
 {
 	Console::initPrint("Functions::init()");
 
+	_GetStringFromResource = (GetStringFromResource)(0x7EF3A0_b);
 	_SV_SendServerCommand = (SV_SendServerCommand)(0x7485E0_b);
 	_Com_Error = (Com_Error)(0xAA1E0_b);
 	_Scr_MakeGameMessage = (Scr_MakeGameMessage)(0x613230_b);

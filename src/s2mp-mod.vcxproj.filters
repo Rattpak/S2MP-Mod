@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Arxan">
+      <UniqueIdentifier>{D6D594B2-4240-4929-8B7E-FACEF727277E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Code">
+      <UniqueIdentifier>{D7D11CCF-C39E-77DA-ECB7-6582D8E3AC68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Common">
+      <UniqueIdentifier>{C5C39D09-B17B-DF56-1A83-B8B2065A7A47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Console">
+      <UniqueIdentifier>{4F9F6B3D-BB54-E432-4449-DE09B0FDDA36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Loaders">
+      <UniqueIdentifier>{262044F1-92D5-BCE6-1BCA-B6BD877EB3EA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Util">
+      <UniqueIdentifier>{9AC626CF-8693-81DA-AFAC-6F829BD8B668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Util\Hook">
+      <UniqueIdentifier>{BAD8087F-2699-84B5-EFD3-CD325B53C991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\dev">
+      <UniqueIdentifier>{5BF62FA9-C7D5-AE44-D0ED-391B3C4C15A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\dll">
+      <UniqueIdentifier>{38F72FA9-A4D6-AE44-ADEE-391B194D15A6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Arxan.hpp">
+      <Filter>src\Arxan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ConfigManager.h">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Console.hpp">
+      <Filter>src\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DevDef.h">
+      <Filter>src\dev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DevPatches.hpp">
+      <Filter>src\dev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DvarInterface.hpp">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FuncPointers.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GameUtil.hpp">
+      <Filter>src\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hook.hpp">
+      <Filter>src\Util\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Hooking.Patterns.h">
+      <Filter>src\Util\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Loaders.hpp">
+      <Filter>src\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Noclip.hpp">
+      <Filter>src\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PrintPatches.hpp">
+      <Filter>src\Code</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\framework.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\memory.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pch.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\resource.h">
+      <Filter>src\dll</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\structs.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\client\game\game.h">
+      <Filter>src\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Errors.hpp">
+      <Filter>src\Code</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ArxanPatches.cpp">
+      <Filter>src\Arxan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ConfigManager.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Console.cpp">
+      <Filter>src\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CustomCommands.cpp">
+      <Filter>src\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DebugPatches.cpp">
+      <Filter>src\Arxan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DevDraw.cpp">
+      <Filter>src\dev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DevPatches.cpp">
+      <Filter>src\dev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DvarInterface.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ExtConsole.cpp">
+      <Filter>src\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ExtConsoleGui.cpp">
+      <Filter>src\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FontLoader.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FuncPointers.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameUtil.cpp">
+      <Filter>src\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hook.cpp">
+      <Filter>src\Util\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Hooking.Patterns.cpp">
+      <Filter>src\Util\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\InternalConsole.cpp">
+      <Filter>src\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Loaders.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LuiLoader.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Noclip.cpp">
+      <Filter>src\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PrintPatches.cpp">
+      <Filter>src\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\dllmain.cpp">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\memory.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pch.cpp">
+      <Filter>src\dll</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\client\game\game.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Errors.cpp">
+      <Filter>src\Code</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ScriptLoader.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\s2mp-mod.rc">
+      <Filter>src\dll</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\src\s2mp_con.bmp">
+      <Filter>src\dll</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

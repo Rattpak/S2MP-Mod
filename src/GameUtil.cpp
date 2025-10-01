@@ -9,6 +9,7 @@
 #include <sstream>
 #include <algorithm>
 #include <list>
+#include "resource.h"
 
 typedef unsigned int uint32;
 char** commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
@@ -21,6 +22,20 @@ std::string GameUtil::sanitizeFileName(const std::string& name) {
         }
     }
     return safe;
+}
+
+bool GameUtil::bytesMatch(const uint8_t* addr, const std::initializer_list<uint8_t>& pattern) {
+    for (size_t i = 0; i < pattern.size(); ++i) {
+        if (addr[i] != *(pattern.begin() + i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+void GameUtil::setCustomSplashScreen() {
+
 }
 
 /*

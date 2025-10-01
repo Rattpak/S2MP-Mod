@@ -20,8 +20,6 @@
 #include "Loaders.hpp"
 #include "Errors.hpp"
 
-//#include "client/src/Scripting.h"
-
 HANDLE hProcess;
 HINSTANCE hInst;
 
@@ -63,6 +61,8 @@ void infoPrintOffsets() {
 
 //0 - CLI, 1 - GUI, 2 - BOTH
 void ExtConsole::extConInit(int extConsoleMode) {
+
+	HINSTANCE hInstance = GetModuleHandle(nullptr);
 	hProcess = GetCurrentProcess();
 	if (extConsoleMode >= 1) {
 		//wait for external console gui to be fully ready
@@ -82,6 +82,14 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	infoPrintOffsets();
 	Functions::init();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
+	if (!FindWindowA("S2", NULL)) {
+		Console::print("Waiting for game to initialize...");
+	}
+
+	while (!FindWindowA("S2", NULL)) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+
 
 	ArxanPatches::init();
 	DebugPatches::init();
@@ -92,7 +100,6 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
 	Errors::init();
-	//Script::init();
 
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

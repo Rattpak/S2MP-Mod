@@ -107,6 +107,7 @@ struct LuaFile
     const unsigned __int8* buffer;
 };
 
+//size 0x28
 struct ScriptFile
 {
     const char* name;

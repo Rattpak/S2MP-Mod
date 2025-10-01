@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{34596DAC-2026-C8B7-493F-B65F356BFD45}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>s2mp-mod</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug\</OutDir>
+    <IntDir>..\obj\Debug\s2mp-mod\</IntDir>
+    <TargetName>s2mp-mod</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release\</OutDir>
+    <IntDir>..\obj\Release\s2mp-mod\</IntDir>
+    <TargetName>s2mp-mod</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>ASMJIT_STATIC;ZLIB_CONST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src;..\deps\asmjit\src;..\deps\gsc-tool\include;..\deps\minhook\include;..\deps\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>ASMJIT_STATIC;ZLIB_CONST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src;..\deps\asmjit\src;..\deps\gsc-tool\include;..\deps\minhook\include;..\deps\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary>..\bin\Debug\s2mp-mod.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>ASMJIT_STATIC;ZLIB_CONST;USE_BUILD_USER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src;..\deps\asmjit\src;..\deps\gsc-tool\include;..\deps\minhook\include;..\deps\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>ASMJIT_STATIC;ZLIB_CONST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\src;..\deps\asmjit\src;..\deps\gsc-tool\include;..\deps\minhook\include;..\deps\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\bin\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary>..\bin\Release\s2mp-mod.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Arxan.hpp" />
+    <ClInclude Include="..\src\client\game\game.h" />
+    <ClInclude Include="..\src\ConfigManager.h" />
+    <ClInclude Include="..\src\Console.hpp" />
+    <ClInclude Include="..\src\DevDef.h" />
+    <ClInclude Include="..\src\DevPatches.hpp" />
+    <ClInclude Include="..\src\DvarInterface.hpp" />
+    <ClInclude Include="..\src\Errors.hpp" />
+    <ClInclude Include="..\src\FuncPointers.h" />
+    <ClInclude Include="..\src\GameUtil.hpp" />
+    <ClInclude Include="..\src\Hook.hpp" />
+    <ClInclude Include="..\src\Hooking.Patterns.h" />
+    <ClInclude Include="..\src\Loaders.hpp" />
+    <ClInclude Include="..\src\Noclip.hpp" />
+    <ClInclude Include="..\src\PrintPatches.hpp" />
+    <ClInclude Include="..\src\framework.h" />
+    <ClInclude Include="..\src\memory.h" />
+    <ClInclude Include="..\src\pch.h" />
+    <ClInclude Include="..\src\resource.h" />
+    <ClInclude Include="..\src\structs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ArxanPatches.cpp" />
+    <ClCompile Include="..\src\client\game\game.cpp" />
+    <ClCompile Include="..\src\ConfigManager.cpp" />
+    <ClCompile Include="..\src\Console.cpp" />
+    <ClCompile Include="..\src\CustomCommands.cpp" />
+    <ClCompile Include="..\src\DebugPatches.cpp" />
+    <ClCompile Include="..\src\DevDraw.cpp" />
+    <ClCompile Include="..\src\DevPatches.cpp" />
+    <ClCompile Include="..\src\DvarInterface.cpp" />
+    <ClCompile Include="..\src\Errors.cpp" />
+    <ClCompile Include="..\src\ExtConsole.cpp" />
+    <ClCompile Include="..\src\ExtConsoleGui.cpp" />
+    <ClCompile Include="..\src\FontLoader.cpp" />
+    <ClCompile Include="..\src\FuncPointers.cpp" />
+    <ClCompile Include="..\src\GameUtil.cpp" />
+    <ClCompile Include="..\src\Hook.cpp" />
+    <ClCompile Include="..\src\Hooking.Patterns.cpp" />
+    <ClCompile Include="..\src\InternalConsole.cpp" />
+    <ClCompile Include="..\src\Loaders.cpp" />
+    <ClCompile Include="..\src\LuiLoader.cpp" />
+    <ClCompile Include="..\src\Noclip.cpp" />
+    <ClCompile Include="..\src\PrintPatches.cpp" />
+    <ClCompile Include="..\src\dllmain.cpp" />
+    <ClCompile Include="..\src\memory.cpp" />
+    <ClCompile Include="..\src\pch.cpp" />
+    <ClCompile Include="..\src\ScriptLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\src\s2mp-mod.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\src\s2mp_con.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\asmjit.vcxproj">
+      <Project>{ED0182F2-D9A3-ACC8-C25E-C01CAE9F3319}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xsk-gsc-s2.vcxproj">
+      <Project>{D7C4A4AE-C37C-E6FB-2C84-BF57185B81EC}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xsk-gsc-utils.vcxproj">
+      <Project>{83585E48-EF18-DA7E-B853-23FC24D31E5B}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\minhook.vcxproj">
+      <Project>{5A9B3AC7-C67A-B962-CF92-44393BF11FC4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\zlib.vcxproj">
+      <Project>{16CFA17C-0206-A30D-ABF2-881097081F0F}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

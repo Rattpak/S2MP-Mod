@@ -5,6 +5,8 @@
 class GameUtil {
 public:
 	static std::string sanitizeFileName(const std::string& name);
+	static bool bytesMatch(const uint8_t* addr, const std::initializer_list<uint8_t>& pattern);
+	static void setCustomSplashScreen();
 	static void blockGameInput(bool b);
 	static std::string colorToString(const unsigned __int8 color[4]);
 	static std::string dvarValueToString(const dvar_t* dvar, bool showQuotesAroundStrings, bool truncateFloats);
