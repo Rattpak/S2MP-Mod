@@ -46,6 +46,23 @@ void ExtConsole::consoleMainLoop() {
 	}
 }
 
+bool doZombiesMode = false;
+
+void checkAndSetZombieMode() {
+	const char* filename = "ZM";
+	DWORD attributes = GetFileAttributesA(filename);
+	if (attributes != INVALID_FILE_ATTRIBUTES) {
+		doZombiesMode = true;
+		if (DeleteFileA(filename)) {
+			Console::devPrint("Cleared zombiemode flag");
+		}
+		else {
+			Console::devPrint("FAILED to clear zombiemode flag");
+		}
+	}
+
+}
+
 void infoPrintOffsets() {
 	uintptr_t s2base = (uintptr_t)GetModuleHandle(NULL);
 	uintptr_t s2baseOff = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
@@ -82,15 +99,22 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	infoPrintOffsets();
 	Functions::init();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
+	
+	checkAndSetZombieMode();
+	Console::printf("Setting engine mode to %s", doZombiesMode ? "Zombies" : "Multiplayer");
+	if (doZombiesMode) {
+		constexpr std::array<unsigned char, 1> ZOMBIES = { 0x02 }; //patch
+		HANDLE pHandle = GetCurrentProcess();
+		WriteProcessMemory(pHandle, (LPVOID)(0xDAA4E34_b), ZOMBIES.data(), ZOMBIES.size(), nullptr);
+	}
 	if (!FindWindowA("S2", NULL)) {
 		Console::print("Waiting for game to initialize...");
 	}
-
+	DeleteFileA("ZM");//just in case
 	while (!FindWindowA("S2", NULL)) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
-
-
+	DeleteFileA("ZM");//just in case
 	ArxanPatches::init();
 	DebugPatches::init();
 	InternalConsole::init();
@@ -100,7 +124,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
 	Errors::init();
-
+	DeleteFileA("ZM");//just in case
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();
 	}

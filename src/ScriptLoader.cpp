@@ -32,7 +32,7 @@ void hook_Load_ScriptFileAsset(ScriptFile** scriptFile) {
 		ScriptFile* varScriptFile = *scriptFile;
 		if (varScriptFile->buffer) {
 			Console::printf("Loading ScriptFile '%s' with compressedLen of: %d", varScriptFile->name, varScriptFile->compressedLen);
-			dumpScript(varScriptFile);
+			//dumpScript(varScriptFile);
 			if (varScriptFile->name) {
 				std::string path = std::string("S2MP-Mod/scripts/") + varScriptFile->name + ".gscbin";
 				std::ifstream inFile(path, std::ios::binary);
