@@ -18,9 +18,8 @@
 #include "DevDef.h"
 #include <Arxan.hpp>
 
-
-void Console::Print(printType type, const char* fmt, ...)
-{
+//did i do this lol
+void Console::Print(printType type, const char* fmt, ...) {
 	va_list argList;
 	va_start(argList, fmt);
 
@@ -50,6 +49,12 @@ void Console::Print(printType type, const char* fmt, ...)
 	}
 }
 
+
+//Output to internal console without label
+void Console::printIntCon(std::string text) {
+	//Internal Console
+	InternalConsole::addToOutputStack(text, 0);
+}
 
 //Output to all consoles without label
 void Console::print(std::string text) {
@@ -153,6 +158,9 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("entdbg", &DevDraw::toggleEntityDebugGui);
 	GameUtil::addCommand("acdbg", &DevDraw::toggleAntiCheatDebugGui);
 	GameUtil::addCommand("intcondbg", &DevDraw::toggleIntConDebugGui);
+	GameUtil::addCommand("listcmd", &CustomCommands::listAllCmds);
+	GameUtil::addCommand("map", &CustomCommands::changeMap);
+	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff
@@ -188,25 +196,12 @@ bool execCustomDevCmd(std::string& cmd) {
 	//--------------------------------------------
 
 	
-	if (p[0] == "map") {
-		if (p.size() >= 2) {
-			CustomCommands::changeMap(p[1]);
-		}
-		return true;
-	}
-
-	
 	if (p[0] == "quit") {
 		exit(0);
 		return true;
 	}
 
-	//if (p[0] == "cg_drawlui") {
-	//	if (p.size() >= 2) {
-	//		CustomCommands::toggleHud(GameUtil::stringToBool(p[1]));
-	//	}
-	//	return true;
-	//}
+
 	
 	if (p[0] == "cg_hudblood") {
 		if (p.size() >= 2) {
@@ -222,13 +217,7 @@ bool execCustomDevCmd(std::string& cmd) {
 		}
 		return true;
 	}
-	
-	//if (p[0] == "cg_drawgun") {
-	//	if (p.size() >= 2) {
-	//		CustomCommands::toggleGun(GameUtil::stringToBool(p[1]));
-	//	}
-	//	return true;
-	//}
+
 	return false;
 }
 
@@ -244,7 +233,7 @@ void Console::execCmd(std::string cmd) {
 		return;
 	}
 	if (!execCustomDevCmd(cmd) && !setEngineDvar(cmd)) {
-		Console::print(cmd); //TODO: change this to only print to internal console
+		Console::printIntCon(cmd);
 		GameUtil::Cbuf_AddText(LOCAL_CLIENT_0, (char*)cmd.c_str());
 	}
 }

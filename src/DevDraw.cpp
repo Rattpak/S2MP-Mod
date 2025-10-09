@@ -160,6 +160,11 @@ void DevDraw::renderIntConDebugGui(int windowWidth, int windowHeight) {
     guiTextList.push_back("cmdStackSize: " + std::to_string(InternalConsole::DEVONLY_cmdStackSize()));
     guiTextList.push_back("cmdStackSeekPos: " + std::to_string(InternalConsole::DEVONLY_cmdStackSeekPos()));
     guiTextList.push_back("recentKeynum: " + std::to_string(InternalConsole::DEVONLY_recentKeynum()));
+    guiTextList.push_back("autoCompleteSubstring: " + InternalConsole::DEVONLY_autoCompleteSubstring());
+    guiTextList.push_back("didGreenForThisText: " + std::to_string(InternalConsole::DEVONLY_didGreenForThisText()));
+    guiTextList.push_back("autoCompleteIndex: " + std::to_string(InternalConsole::DEVONLY_autoCompleteIndex()));
+    guiTextList.push_back("autoCompleteTextSize: " + std::to_string(InternalConsole::DEVONLY_autoCompleteTextSize()));
+    guiTextList.push_back("isAutoCompleteCycling: " + std::to_string(InternalConsole::DEVONLY_isAutoCompleteCycling()));
 
     DevDraw::renderDevGui(guiTextList, 1575, 100, windowWidth, windowHeight, intConDbgColor, conFont);
 }

@@ -25,5 +25,7 @@ public:
 
 	static std::string sanitizeFormatWidths(const char* fmt);
 
+	static CmdArgs* getCmdArgs();
+
 	static std::list<cmd_function_s> cmdHeap;
 };

@@ -44,28 +44,18 @@ std::wstring stringToWString(const std::string& str) {
 }
 
 void ExternalConsoleGui::print(const std::string& s) {
+    if (!txtbox_output) {
+        return;
+    }
+
     std::string modifiedString = s + "\r\n";
     std::wstring wstrNewText = stringToWString(modifiedString);
-    int length = GetWindowTextLength(txtbox_output);
-    //hardcoded max for now
-    if (length + wstrNewText.size() > 30000) {
-        SetWindowText(txtbox_output, L"");
-        length = 0;
-    }
-    wchar_t* buffer = new wchar_t[length + wstrNewText.size() + 1];
-    GetWindowText(txtbox_output, buffer, length + 1);
-    wcscat_s(buffer, length + wstrNewText.size() + 1, wstrNewText.c_str());
-    SetWindowText(txtbox_output, buffer);
-    delete[] buffer;
-
-    //move caret to end
     int textLength = GetWindowTextLength(txtbox_output);
-    SendMessage(txtbox_output, EM_SETSEL, (WPARAM)textLength, (LPARAM)textLength);
-
-    //scroll to caret pos
+    SendMessage(txtbox_output, EM_SETSEL, textLength, textLength);
+    SendMessage(txtbox_output, EM_REPLACESEL, FALSE, (LPARAM)wstrNewText.c_str());
     SendMessage(txtbox_output, EM_SCROLLCARET, 0, 0);
-    InvalidateRect(txtbox_output, NULL, TRUE);
 }
+
 
 void sendToConsole(HWND hwndEdit) {
     wchar_t buffer[1024]; //buffer for text
@@ -370,5 +360,3 @@ int ExternalConsoleGui::init(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR 
 
     return Msg.wParam;
 }
-
-

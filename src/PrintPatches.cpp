@@ -43,6 +43,12 @@ Online_PatchStreamer_va _Online_PatchStreamer_va = nullptr;
 typedef void(*Com_WriteConfig_f)(int localClientNum, const char* name);
 Com_WriteConfig_f _Com_WriteConfig_f = nullptr;
 
+typedef char(*DB_FileExists)(const char* zoneName, FF_DIR source);
+DB_FileExists _DB_FileExists = nullptr;
+
+typedef char(*LUI_Error)(const char* error, void* luiVm);
+LUI_Error _LUI_Error = nullptr;
+
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
         Console::printf("Loading Map: %s", name);
@@ -120,9 +126,23 @@ void hook_Online_PatchStreamer_va(const char* label, const char* fmt, ...) {
 }
 
 void hook_Com_WriteConfig_f(int localClientNum, const char* name) {
-    if (Functions::_Dvar_FindVar("1467")->current.integer) //fs_debug
-    Console::printf("Writing to config file '%s' for local client %d", name, localClientNum);
+    if (Functions::_Dvar_FindVar("1467")->current.integer) { //fs_debug
+        Console::printf("Writing to config file '%s' for local client %d", name, localClientNum);
+    }
+    
     _Com_WriteConfig_f(localClientNum, name);
+}
+
+void hook_DB_FileExists(const char* zoneName, FF_DIR source) {
+    if (Functions::_Dvar_FindVar("1467")->current.integer) { //fs_debug
+        Console::printf("Checking if file '%s' exists in %s", zoneName, source ? "usermaps directory" : "default directory");
+    }
+    _DB_FileExists(zoneName, source);
+}
+
+void hook_LUI_Error(const char* error, void* luiVm) {
+    Console::printf("LUI: %s", Functions::_SEH_SafeTranslateString(error));
+    _LUI_Error(error, luiVm);
 }
 
 void PrintPatches::init() {
@@ -172,5 +192,14 @@ void PrintPatches::init() {
     //Writing to config file '%s' for local client %d
     MH_CreateHook(reinterpret_cast<void*>(0xF7180_b), &hook_Com_WriteConfig_f, reinterpret_cast<void**>(&_Com_WriteConfig_f));
     MH_EnableHook(reinterpret_cast<void*>(0xF7180_b));
+    
+    //fs_debug required
+    //Checking if file '%s' exists in %s
+    MH_CreateHook(reinterpret_cast<void*>(0xFA770_b), &hook_DB_FileExists, reinterpret_cast<void**>(&_DB_FileExists));
+    MH_EnableHook(reinterpret_cast<void*>(0xFA770_b));
+    
 
+    //LUI_Error
+    MH_CreateHook(reinterpret_cast<void*>(0x122BD0_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
+    MH_EnableHook(reinterpret_cast<void*>(0x122BD0_b));
 }

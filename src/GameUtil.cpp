@@ -279,3 +279,13 @@ std::string GameUtil::sanitizeFormatWidths(const char* fmt) {
     std::string s(fmt);
     return std::regex_replace(s, std::regex("%(\\d+)([a-zA-Z])"), "%$2");
 }
+
+CmdArgs* GameUtil::getCmdArgs() {
+    CmdArgs* cmdArgs = reinterpret_cast<CmdArgs*>(0xAC662E0_b);
+    if (!cmdArgs) {
+        Console::printf("%s was called but cmdArgs was null!", __FUNCTION__);
+        return nullptr;
+    }
+
+    return cmdArgs;
+}

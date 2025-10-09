@@ -7,6 +7,7 @@
 #include "FuncPointers.h"
 #include <array>
 #include "DvarInterface.hpp"
+#include "GameUtil.hpp"
 
 uintptr_t CustomCommands::base = (uintptr_t)GetModuleHandle(NULL) + 0x1000;
 uintptr_t CustomCommands::rawBase = (uintptr_t)GetModuleHandle(NULL);
@@ -27,16 +28,19 @@ void CustomCommands::toggleGodmode() {
 	CustomCommands::isGodmode = !CustomCommands::isGodmode;
 }
 
-//cg_drawlui
-void CustomCommands::toggleHud(bool b) {
-	constexpr std::array<unsigned char, 5> DISABLE_HUD_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
-	constexpr std::array<unsigned char, 5> ENABLE_HUD_PATCH_BYTES = { 0xE8, 0x66, 0xE8, 0xFF, 0xFF }; //original
-	HANDLE pHandle = GetCurrentProcess();
-	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x960205), ENABLE_HUD_PATCH_BYTES.data(), ENABLE_HUD_PATCH_BYTES.size(), nullptr);
-	}
-	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x960205), DISABLE_HUD_PATCH_BYTES.data(), DISABLE_HUD_PATCH_BYTES.size(), nullptr);
+
+void CustomCommands::listAllCmds() {
+	cmd_function_s* cmd = *(cmd_function_s**)0xAC662D8_b;
+	while (cmd) {
+		if (IsBadReadPtr(cmd, sizeof(cmd_function_s))) {
+			break;
+		}
+
+
+		if (cmd->name && !IsBadStringPtrA(cmd->name, 64)) {
+			Console::print(std::string(cmd->name));
+		}
+		cmd = cmd->next;
 	}
 }
 
@@ -53,18 +57,6 @@ void CustomCommands::toggleHudBlood(bool b) {
 	}
 }
 
-//cg_drawGun
-void CustomCommands::toggleGun(bool b) {
-	constexpr std::array<unsigned char, 5> DISABLE_GUNDRAW_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
-	constexpr std::array<unsigned char, 5> ENABLE_GUNDRAW_PATCH_BYTES = { 0xE8, 0x97, 0x15, 0x0D, 0x00 }; //original
-	HANDLE pHandle = GetCurrentProcess();
-	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x7A774), ENABLE_GUNDRAW_PATCH_BYTES.data(), ENABLE_GUNDRAW_PATCH_BYTES.size(), nullptr);
-	}
-	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x7A774), DISABLE_GUNDRAW_PATCH_BYTES.data(), DISABLE_GUNDRAW_PATCH_BYTES.size(), nullptr);
-	}
-}
 
 //r_fog
 void CustomCommands::toggleFog(bool b) {
@@ -83,8 +75,51 @@ void CustomCommands::translateString() {
 
 }
 
-void CustomCommands::changeMap(const std::string& mapname) {
-	//TODO
+void CustomCommands::cmdTest() {
+	CmdArgs* cmdArgs = GameUtil::getCmdArgs();
+	if (!cmdArgs) {
+		return;
+	}
+
+	int nest = cmdArgs->nesting;
+	int count = cmdArgs->argc[nest];
+	Console::printf("CmdArgs (nesting = %d) has %d arguemnts:", nest, count);
+
+	const char** args = cmdArgs->argv[nest];
+
+	for (int i = 0; i < count; ++i) {
+		if (!IsBadStringPtrA(args[i], 64)) {
+			Console::printf("Arg[%d]: %s", i, args[i]);
+		}
+	}
+}
+
+//when it works, causes too many lui errors in main.lua
+//TODO: fix
+void CustomCommands::changeMap() {
+	bool isMapPreloaded = false;
+	CmdArgs* cmdArgs = GameUtil::getCmdArgs();
+	if (!cmdArgs) {
+		return;
+	}
+
+	int nest = cmdArgs->nesting;
+	int count = cmdArgs->argc[nest];
+	if (count < 2) {
+		Console::print("Usage: map <map name> <optional sv_migrate>");
+		return;
+	}
+
+	if (count <= 3) {
+		int* sv_migrate = (int*)0xBD44248_b;
+		*sv_migrate = 0;
+	}
+	else {
+		int* sv_migrate = (int*)0xBD44248_b;
+		*sv_migrate = atol(cmdArgs->argv[nest][3]); //TODO: make this safe
+	}
+	
+	Functions::_SV_StartMap(LOCAL_CLIENT_0, cmdArgs->argv[nest][2], isMapPreloaded);
 }
 
 void CustomCommands::fastRestart() {

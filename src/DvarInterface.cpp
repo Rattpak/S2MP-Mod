@@ -182,8 +182,10 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("vehCam_chaseFD_normalSpawnCamOffset");
     addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultAcceleration");
     addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultDeceleration");
+    addDvarsWithName("telemetry_error_killswitch");
 
 
+    addMapping("g_gametype", "1924");
     addMapping("nextmap", "4059", "Next map to play");
     addMapping("mapname", "1673");
     //from R_RegisterDvars

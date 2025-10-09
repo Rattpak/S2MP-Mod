@@ -6,6 +6,7 @@
 #include "FuncPointers.h"
 #include "Console.hpp"
 
+Functions::SV_StartMap Functions::_SV_StartMap = nullptr;
 Functions::GetStringFromResource Functions::_GetStringFromResource = nullptr;
 Functions::SV_SendServerCommand Functions::_SV_SendServerCommand = nullptr;
 Functions::Com_Error Functions::_Com_Error = nullptr;
@@ -39,6 +40,7 @@ void Functions::init()
 {
 	Console::initPrint("Functions::init()");
 
+	_SV_StartMap = (SV_StartMap)(0x740000_b);
 	_GetStringFromResource = (GetStringFromResource)(0x7EF3A0_b);
 	_SV_SendServerCommand = (SV_SendServerCommand)(0x7485E0_b);
 	_Com_Error = (Com_Error)(0xAA1E0_b);

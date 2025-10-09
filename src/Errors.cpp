@@ -19,6 +19,7 @@ static std::unordered_map<int, std::string> errorMap = {
     {879, "CM_LoadMap: NULL name"},
     {1274, "ERROR: Invalid server value '%s' for '%s'"},
     {1260, "FS_BuildOSPath: os path length exceeded"},
+    {447, "Too many active clients.  You may be missing a \"nosplitscreen\" in a menu."},
     //if anyone finds more just add them here
 };
 

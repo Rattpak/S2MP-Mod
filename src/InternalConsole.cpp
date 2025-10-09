@@ -56,11 +56,21 @@ float fullConsoleGap = 4.0f;
 std::string textBuffer = "";
 int cursorPos = 0;
 
+union intConEntry {
+	dvar_t* dvar;
+	cmd_function_s* cmd;
+};
+
+struct intConSearchResult {
+	bool isDvar;
+	intConEntry entry; 
+};
+
 //searchbox vars
 float hintBoxColorSecondary[4] = { colorSecondary[0], colorSecondary[1], colorSecondary[2], 1.0f};
 float hintBoxColorPrimary[4] = { colorPrimary[0], colorPrimary[1],colorPrimary[2], 1.0f};
 int lastSearchLength = -1;
-std::vector<const dvar_t*> searchResults;
+std::vector<const intConSearchResult*> searchResults;
 int MAX_SEARCH_RESULTS = 24; //was a const a swear
 int resultCount = 0;
 int searchBoxOffset = 96;
@@ -345,20 +355,34 @@ void drawSearchBoxResults(int windowWidth, int windowHeight) {
 	else {
 		Functions::_R_AddCmdDrawStretchPic(margin - borderSize + searchBoxOffset, (margin - borderSize) + consoleHeight + fullConsoleGap, windowWidth - (margin * 2) + (borderSize * 2) - searchBoxOffset, (lineSpacing * searchResults.size()) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorSecondary, mtl_white);
 		Functions::_R_AddCmdDrawStretchPic(margin + searchBoxOffset, margin + consoleHeight + fullConsoleGap, windowWidth - (margin * 2) - searchBoxOffset, (lineSpacing * searchResults.size()) - (borderSize * 2) + (textStartOffsetGapY * 2), 0.0f, 0.0f, 0.0f, 0.0f, hintBoxColorPrimary, mtl_white);
+		//this is a rewrite for s2 support since its not the same as t6spmod
+		int dvarCount = 0;
+
+		//draw dvars first
 		for (int i = 0; i < searchResults.size(); i++) {
-			//if (searchResults.at(i)->type != DVAR_TYPE_INT64) { //is a dvar
-				Functions::_R_AddCmdDrawText(DvarInterface::toUserString(searchResults.at(i)->name).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
-				Functions::_R_AddCmdDrawText(GameUtil::dvarValueToString(searchResults.at(i), true, false).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6 + valueDisplayOffsetX, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
-			//}
-			//else { //is a command
-			//	Functions::_R_AddCmdDrawText(searchResults.at(i)->name, 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing + (i * lineSpacing) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, commandColor, 0.0f);
-			//}
+			if (searchResults[i]->isDvar) {
+				dvarCount++;
+				dvar_t* dvar = searchResults[i]->entry.dvar;
+				Functions::_R_AddCmdDrawText(DvarInterface::toUserString(dvar->name).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap + lineSpacing * (dvarCount)+(textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
+				Functions::_R_AddCmdDrawText(GameUtil::dvarValueToString(dvar, true, false).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + searchBoxOffset + 6 + valueDisplayOffsetX, margin + consoleHeight + fullConsoleGap + lineSpacing * (dvarCount)+(textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
+				
+			}
+		}
+		//draw cmd after
+		int cmdCount = 0;
+		for (int i = 0; i < searchResults.size(); i++) {
+			if (!searchResults[i]->isDvar) {
+				cmdCount++;
+				cmd_function_s* cmd = searchResults[i]->entry.cmd;
+				Functions::_R_AddCmdDrawText(cmd->name, 0x7FFFFFFF,InternalConsole::consoleFont,0, 0,InternalConsole::consoleFont->pixelHeight,margin + searchBoxOffset + 6, margin + consoleHeight + fullConsoleGap +lineSpacing * (dvarCount + cmdCount) + (textStartOffsetGapY / 2) + 1, 1.0f, 1.0f, 0.0f, commandColor, 0.0f);
+				
+			}
 		}
 	}
 	if (resultCount == 1) { //do the description draw now
-		//if (searchResults.at(0)->type != DVAR_TYPE_INT64) {
-			drawDescriptionBox(windowWidth, windowHeight, searchResults.at(0));
-		//}
+		if (searchResults.at(0)->isDvar) {
+			drawDescriptionBox(windowWidth, windowHeight, searchResults.at(0)->entry.dvar);
+		}
 	}
 }
 
@@ -383,13 +407,38 @@ void findMatchingDvars(const dvar_t* dvar) {
 		noslash = textBuffer.substr(0, pos);
 	}
 	if (GameUtil::toLower(DvarInterface::toUserString(std::string(dvar->name))).find(GameUtil::toLower(noslash)) != std::string::npos) {
-		if (searchResults.size() >= MAX_SEARCH_RESULTS == false) { //dont waste time adding if not using
-			searchResults.push_back(dvar);
+		if (searchResults.size() < MAX_SEARCH_RESULTS) {
+			intConSearchResult* result = new intConSearchResult();
+			result->isDvar = true;
+			result->entry.dvar = const_cast<dvar_t*>(dvar);
+
+			searchResults.push_back(result);
 		}
 		resultCount++;
 	}
 }
 
+void findMatchingCmds(cmd_function_s* cmd) {
+	std::string noslash = textBuffer;
+	if (!noslash.empty() && noslash[0] == '/') {
+		noslash.erase(0, 1);
+	}
+	
+	size_t pos = textBuffer.find(' ');
+	if (pos != std::string::npos) {
+		noslash = textBuffer.substr(0, pos);
+	}
+	if (GameUtil::toLower(std::string(cmd->name)).find(GameUtil::toLower(noslash)) != std::string::npos) {
+		if (searchResults.size() < MAX_SEARCH_RESULTS) {
+			intConSearchResult* result = new intConSearchResult();
+			result->isDvar = false;
+			result->entry.cmd = const_cast<cmd_function_s*>(cmd);
+
+			searchResults.push_back(result);
+		}
+		resultCount++;
+	}
+}
 
 void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 	size_t spacePos = textBuffer.find(' ');
@@ -426,6 +475,16 @@ void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 		}
 	
 		//TODO: parse commands from in-engine
+		cmd_function_s* cmd = *(cmd_function_s**)0xAC662D8_b;
+		while (cmd) {
+			if (IsBadReadPtr(cmd, sizeof(cmd_function_s))) {
+				break;
+			}
+			if (cmd->name && !IsBadStringPtrA(cmd->name, 64)) {
+				findMatchingCmds(cmd);
+			}
+			cmd = cmd->next;
+		}
 
 		lastSearchLength = textBuffer.length();
 		if (searchResults.size() == 0) {
@@ -545,20 +604,27 @@ void handleKeys(int client, int key, int down) {
 	mostRecentKeynum = key;
 	//Noclip::sprintBindHandler(key, down);
 
-	if (key != 9) { //if not tab (for canceling autocomplete)
-		if (isAutoCompleteCycling) {
-			if (autoCompleteIndex - 1 < 0) {
-				textBuffer = DvarInterface::toUserString(searchResults.at(searchResults.size())->name);
-			}
-			else {
-				textBuffer = DvarInterface::toUserString(searchResults.at(autoCompleteIndex - 1)->name);
-			}
 
-			cursorPos = textBuffer.length();
+	if (key != 9) { //if not tab (for canceling autocomplete)
+		if (isAutoCompleteCycling && !searchResults.empty()) {
+			int newIndex = autoCompleteIndex - 1;
+			if (newIndex < 0) {
+				newIndex = static_cast<int>(searchResults.size()) - 1; //wrap to end
+			}
+			if (newIndex >= 0 && newIndex < static_cast<int>(searchResults.size())) {
+				const intConSearchResult* result = searchResults.at(newIndex);
+				if (result->isDvar) {
+					textBuffer = DvarInterface::toUserString(result->entry.dvar->name);
+				}
+				else {
+					textBuffer = std::string(result->entry.cmd->name);
+				}
+				cursorPos = textBuffer.length();
+			}
 		}
+	
 		isAutoCompleteCycling = false;
 		autoCompleteIndex = 0;
-
 	}
 	//Shift key
 	if (key == 160 && down == 1) {
@@ -748,7 +814,13 @@ void handleKeys(int client, int key, int down) {
 			}
 
 			didGreenForThisText = false;
-			textBuffer = DvarInterface::toUserString(searchResults.at(autoCompleteIndex)->name);
+			if (searchResults.at(autoCompleteIndex)->isDvar) {
+				textBuffer = DvarInterface::toUserString(searchResults.at(autoCompleteIndex)->entry.dvar->name);
+			}
+			else {
+				textBuffer = searchResults.at(autoCompleteIndex)->entry.cmd->name;
+			}
+			
 			cursorPos = textBuffer.length();
 			autoCompleteIndex++;
 			return;
@@ -924,6 +996,23 @@ int InternalConsole::DEVONLY_cmdStackSeekPos() {
 int InternalConsole::DEVONLY_recentKeynum() {
 	return mostRecentKeynum;
 }
+std::string InternalConsole::DEVONLY_autoCompleteSubstring() {
+	return autoCompleteSubstring;
+}
+bool InternalConsole::DEVONLY_didGreenForThisText() {
+	return didGreenForThisText;
+}
+int InternalConsole::DEVONLY_autoCompleteIndex() {
+	return autoCompleteIndex;
+}
+int InternalConsole::DEVONLY_autoCompleteTextSize() {
+	return autoCompleteTextSize;
+}
+bool InternalConsole::DEVONLY_isAutoCompleteCycling() {
+	return isAutoCompleteCycling;
+}
+
+
 
 void InternalConsole::init() {
 	renderHookInit();

@@ -150,13 +150,10 @@ struct cmd_function_s
     void(__fastcall* function)();
 };
 
-struct CmdArgs
+enum FF_DIR : __int32
 {
-    int nesting;
-    int localClientNum[8];
-    int controllerIndex[8];
-    int argc[8];
-    const char** argv[8];
+    FFD_DEFAULT = 0x0,
+    FFD_USER_MAP = 0x1,
 };
 
 enum dvarType_t : int8_t
@@ -244,4 +241,13 @@ struct playerState_s
     float origin[3];
     float velocity[3];
     //more...
+};
+
+struct CmdArgs
+{
+    int nesting;
+    LocalClientNum_t localClientNum[8];
+    int controllerIndex[8];
+    int argc[8];
+    const char** argv[8];
 };

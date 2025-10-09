@@ -5,6 +5,9 @@ class Functions {
 public:
 	static void init();
 
+	typedef void (__cdecl* SV_StartMap)(LocalClientNum_t localClientNum, const char* map, bool mapIsPreloaded);
+	static SV_StartMap _SV_StartMap;
+
 	typedef char* (__cdecl* GetStringFromResource)(UINT num);
 	static GetStringFromResource _GetStringFromResource;
 

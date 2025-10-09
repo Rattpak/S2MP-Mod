@@ -14,6 +14,7 @@ public:
 
 	static void Print(printType type, const char* fmt, ...);
 	static void execCmd(std::string cmd);
+	static void printIntCon(std::string text);
 	static void print(std::string text);
 	static void printf(const char* fmt, ...);
 	static void labelPrint(std::string label, std::string text);
@@ -50,6 +51,11 @@ public:
 	static int DEVONLY_cmdStackSize();
 	static int DEVONLY_cmdStackSeekPos();
 	static int DEVONLY_recentKeynum();
+	static std::string DEVONLY_autoCompleteSubstring();
+	static bool DEVONLY_didGreenForThisText();
+	static int DEVONLY_autoCompleteIndex();
+	static int DEVONLY_autoCompleteTextSize();
+	static bool DEVONLY_isAutoCompleteCycling();
 
 	static font_t* consoleFont;
 };
@@ -76,12 +82,14 @@ public:
 	static uintptr_t base;
 	static uintptr_t rawBase;
 	static void toggleGodmode();
+	static void listAllCmds();
 	static void toggleHud(bool b);
 	static void toggleHudBlood(bool b);
 	static void toggleGun(bool b);
 	static void toggleFog(bool b);
 	static void translateString();
-	static void changeMap(const std::string& mapname);
+	static void cmdTest();
+	static void changeMap();
 	static void fastRestart();
 	static void mapRestart();
 private:
