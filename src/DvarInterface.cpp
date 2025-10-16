@@ -90,6 +90,11 @@ void DvarInterface::addDvarsWithName(const char* name) {
     addMapping(name, name);
 }
 
+void DvarInterface::registerBool(const char* name, bool val, int flags, const char* description) {
+    Functions::_Dvar_RegisterBool(name, val, flags);
+    DvarInterface::addMapping(name, name, description); //TODO: make a dedicated function for custom dvars
+}
+
 void DvarInterface::addAllMappings() {
     //taking these from the generated user_config_mp.cfg
     //doing this since console pulls directly from dvar mapping
@@ -229,6 +234,10 @@ void DvarInterface::addAllMappings() {
     addMapping("sm_spotPolygonOffsetClamp", "136");
     addMapping("sm_sunShadowCenter", "450");
     addMapping("sm_sunShadowCenterMode", "775");
+    addMapping("sm_strictCull", "4889", "Strict shadow map cull");
+    addMapping("sm_spotDistCull", "1875", "Distance cull spot shadows");
+    addMapping("sm_fastSunShadow", "4583", "Fast sun shadow");
+    addMapping("sm_debugFastSunShadow", "4583", "Debug fast sun shadow");
     addMapping("r_filmGrainUseTweaks", "4316");
     addMapping("r_filmGrainIntensity", "4276");
     addMapping("r_filmGrainFps", "3289");
@@ -400,6 +409,22 @@ void DvarInterface::addAllMappings() {
     addMapping("r_cacheModelLighting", "4636");
     addMapping("r_showModelLightingLowWaterMark", "3116");
     addMapping("r_keepSunShadowCache", "1708");
+    addMapping("r_blur", "797", "Dev tweak to blur the screen");
+    addMapping("r_distortion", "5094", "Enable distortion");
+    addMapping("r_distortion_script_force_off", "922", "Force distortion off in script");
+    addMapping("r_globalGenericMaterialScale", "2807", "Hack global generic material constants");
+    addMapping("r_filmTweakLightTint", "4601", "Tweak dev var; film color light tint color");
+    addMapping("r_filmTweakMediumTint", "905", "Tweak dev var; film color medium tint color");
+    addMapping("r_filmTweakDarkTint", "1760", "Tweak dev var; film color dark tint color");
+    addMapping("r_filmTweakInvert", "3026", "Tweak dev var; enable inverted video");
+    addMapping("r_filmTweakDesaturationDark", "724", "Tweak dev var; Additional desaturation applied after all 3D drawing to dark areas");
+    addMapping("r_filmTweakDesaturation", "3859", "Tweak dev var; Desaturation applied after all 3D drawing to light");
+    addMapping("r_filmTweakBrightness", "2750", "Tweak dev var; film color brightness");
+    addMapping("r_filmTweakEnable", "3114", "Tweak dev var; enable film color effects");
+    addMapping("r_filmTweakContrast", "2440", "Tweak dev var; film color contrast");
+    addMapping("r_filmTweakIntensity", "3025", "Tweak dev var; film color intensity");
+    addMapping("r_brightness", "1691", "Brightness adjustment");
+    addMapping("r_desaturation", "1821", "Desaturation adjustment");
 
     //from CG_CompassRegisterDvars
     addMapping("compassSize", "2692", "Scale the compass");
@@ -646,6 +671,13 @@ void DvarInterface::addAllMappings() {
     addMapping("r_mpRimDiffuseTint", "817", "Change character's rim diffuse tint for multiplayer.");
     addMapping("r_mpRimStrength", "2634", "Change character's rim strength for multiplayer");
     addMapping("r_mpRimColor", "2013", "Change character's rim color for multiplayer");
+    addMapping("r_hudFx", "4475", "Draw HUD Effects");
+    //addMapping("r_fog", "3425", "Set to 0 to disable fog"); //might just use custom one
+    addMapping("r_polygonOffsetScale", "3557", "Offset scale for decal polygons; bigger values z-fight less but poke through walls more");
+    addMapping("r_zfar", "484", "Change the distance at which culling fog reaches 100% opacity; 0 is off");
+    addMapping("r_znear", "3153");
+    addMapping("r_subwindow", "4019");
+
     //FX_RegisterDvars
     addMapping("fx_enable", "3917", "Toggles all effects processing");
     addMapping("fx_lightgridplus_enable", "5637");
@@ -953,6 +985,7 @@ void DvarInterface::addAllMappings() {
     addMapping("vehAudio_inAirPitchUpLerp", "1120");
     addMapping("vehAudio_inAirPitchDownLerp", "2350");
     addMapping("vehAudio_spawnVolumeTime", "141");
+    
 
     //ui dvars ig
     addMapping("ui_netSource", "1639", "The network source where:   0:Local   1:Internet   2:Favorites");
@@ -964,12 +997,12 @@ void DvarInterface::addAllMappings() {
     addMapping("ui_serverStatusTimeOut", "2382", "Time in milliseconds before a server status request times out");
     addMapping("ui_buildLocation", "549", "Where to draw the build number");
 
+    //WSA
+    addMapping("dlog_devpointHost", "5138");
 
 
-    //3708 1 skips the title screen
     //4835 disabled game start button
     //4670 0 removes microtransaction deals from qm menu
-
     //4660 some render bool
 }
 

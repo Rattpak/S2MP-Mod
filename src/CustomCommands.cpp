@@ -133,3 +133,9 @@ void CustomCommands::mapRestart() {
 	int* sv_map_restart = (int*)(base + 0xBD44240);
 	*sv_map_restart = 1;
 }
+
+void CustomCommands::quit() {
+	Console::print("quitting...");
+	Functions::_Com_Quit_f();
+	//TODO: delete the __s2Exe file here
+}

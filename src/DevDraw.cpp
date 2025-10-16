@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "DevDef.h"
 
-
 std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::string(__TIME__);
 
 #ifdef USE_BUILD_USER
@@ -29,7 +28,7 @@ void drawDevelopmentInfo(int windowW, int windowH) {
     //font_t* devFont = Functions::_R_RegisterFont("fonts/consoleFont", 10);
 
     if (font) {
-        Functions::_R_AddCmdDrawText("S2MP-MOD PROTOTYPE BUILD (STEAM)", 0x7fffffff, font, 0, 0, font->pixelHeight, 2, 1 + font->pixelHeight, 1.0f, 1.0f, 0.0f, watermarkCol, 0);
+        Functions::_R_AddCmdDrawText("S2MP-MOD 1.0.0-Alpha (Pre-Release)", 0x7fffffff, font, 0, 0, font->pixelHeight, 2, 1 + font->pixelHeight, 1.0f, 1.0f, 0.0f, watermarkCol, 0);
 
         if (devFont) {
             std::string devBuildInfoText = devBuildDate;
@@ -71,12 +70,12 @@ void renderLuaDebugGui(int windowWidth, int windowHeight) {
     if (used > luaMemHighWatermark) {
         luaMemHighWatermark = used;
     }
-    int g_lui_lock_level = *(int*)(0x1C675F4_b);
+    bool s_errorInProgress = *(bool*)(0x122C10A_b);
     bool g_virtualLobbyActive = *(bool*)(0x1C675F2_b);
     guiTextList.push_back("S2MP-MOD LUA DEBUGGER");
     guiTextList.push_back("Lua memory used: " + std::to_string(used) + " / " + std::to_string(max / 1024) + " KB");
     guiTextList.push_back("Lua memory high watermark: " + std::to_string(luaMemHighWatermark) + " KB");
-    //guiTextList.push_back("Lua lock level: " + std::to_string(g_lui_lock_level));
+    guiTextList.push_back("Error In Progress: " + std::to_string(s_errorInProgress));
     guiTextList.push_back("Virtual lobby active: " + std::string(g_virtualLobbyActive ? "true" : "false"));
 
     DevDraw::renderDevGui(guiTextList, 15, 35, windowWidth, windowHeight, luiDebugGuiColor, conFont);

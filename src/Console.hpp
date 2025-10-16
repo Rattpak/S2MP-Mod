@@ -23,6 +23,7 @@ public:
 	static void initPrint(std::string text);
 	static std::vector<std::string> parseCmdToVec(const std::string& cmd);
 	static void registerCustomCommands();
+	static void registerCustomDvars();
 };
 
 class InternalConsole {
@@ -92,6 +93,7 @@ public:
 	static void changeMap();
 	static void fastRestart();
 	static void mapRestart();
+	static void quit();
 private:
 	static bool isGodmode;
 };

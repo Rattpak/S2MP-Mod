@@ -121,6 +121,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	PrintPatches::init();
 	DevPatches::init();
 	Console::registerCustomCommands();
+	Console::registerCustomDvars();
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
 	Errors::init();

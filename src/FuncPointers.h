@@ -85,4 +85,7 @@ public:
 
 	typedef material_t* (__cdecl* Material_RegisterHandle)(const char* name);
 	static Material_RegisterHandle _Material_RegisterHandle;
+
+	typedef void* (__cdecl* Dvar_RegisterBool)(const char* dvarName, bool value, unsigned int flags);
+	static Dvar_RegisterBool _Dvar_RegisterBool;
 };

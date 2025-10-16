@@ -49,6 +49,9 @@ DB_FileExists _DB_FileExists = nullptr;
 typedef char(*LUI_Error)(const char* error, void* luiVm);
 LUI_Error _LUI_Error = nullptr;
 
+typedef char(*_printf)(const char* const Format, ...);
+_printf __printf = nullptr;
+
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
         Console::printf("Loading Map: %s", name);
@@ -141,8 +144,24 @@ void hook_DB_FileExists(const char* zoneName, FF_DIR source) {
 }
 
 void hook_LUI_Error(const char* error, void* luiVm) {
-    Console::printf("LUI: %s", Functions::_SEH_SafeTranslateString(error));
+    Console::printf("LUI Error: %s", Functions::_SEH_SafeTranslateString(error));
     _LUI_Error(error, luiVm);
+}
+
+void hook_printf(const char* const Format, ...) {
+    if (!Format) {
+        Console::print("format is NULL");
+        return;
+    }
+    constexpr size_t BUFSZ = 4096;
+    char buf[BUFSZ];
+
+    va_list args;
+    va_start(args, Format);
+    std::vsnprintf(buf, BUFSZ, Format, args);
+    va_end(args);
+
+    Console::printf(buf);
 }
 
 void PrintPatches::init() {
@@ -202,4 +221,9 @@ void PrintPatches::init() {
     //LUI_Error
     MH_CreateHook(reinterpret_cast<void*>(0x122BD0_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
     MH_EnableHook(reinterpret_cast<void*>(0x122BD0_b));
+
+    //printf
+    //havent found anything that uses this yet
+    //MH_CreateHook(reinterpret_cast<void*>(0x31619E_b), &hook_printf, reinterpret_cast<void**>(&__printf));
+    //MH_EnableHook(reinterpret_cast<void*>(0x31619E_b));
 }

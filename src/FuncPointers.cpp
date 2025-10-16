@@ -35,6 +35,7 @@ Functions::LUI_CoD_GetMaxMemory Functions::_LUI_CoD_GetMaxMemory = nullptr;
 Functions::LUI_CoD_GetFreeMemoryBytes Functions::_LUI_CoD_GetFreeMemoryBytes = nullptr;
 Functions::hks_HashTable_contiguousArraySize Functions::_hks_HashTable_contiguousArraySize = nullptr;
 Functions::Material_RegisterHandle Functions::_Material_RegisterHandle = nullptr;
+Functions::Dvar_RegisterBool Functions::_Dvar_RegisterBool = nullptr;
 
 void Functions::init()
 {
@@ -69,4 +70,6 @@ void Functions::init()
 	_LUI_CoD_GetFreeMemoryBytes = (LUI_CoD_GetFreeMemoryBytes)(0x1E4CC0_b);
 	_hks_HashTable_contiguousArraySize = (hks_HashTable_contiguousArraySize)(0x32BFA0_b);
 	_Material_RegisterHandle = (Material_RegisterHandle)(0x91F430_b);
+
+	_Dvar_RegisterBool = (Dvar_RegisterBool)(0x1149A0_b);
 }

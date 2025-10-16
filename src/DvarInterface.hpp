@@ -10,6 +10,7 @@ private:
     static std::unordered_map<std::string, std::string> engineToUserMap;
     static std::unordered_map<std::string, std::string> descriptionMap;
     static void addDvarsWithName(const char* name);
+    
     static void addAllMappings();
     static void addMapping(const std::string& userString, const std::string& engineString);
     static void addMapping(const std::string& userString, const std::string& engineString, const std::string& description);
@@ -26,4 +27,5 @@ public:
     static std::string toEngineString(const std::string& userString);
     static std::string toUserString(const std::string& engineString);
     
+    static void registerBool(const char* name, bool val, int flags, const char* description);
 };

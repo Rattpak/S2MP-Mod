@@ -161,6 +161,11 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("listcmd", &CustomCommands::listAllCmds);
 	GameUtil::addCommand("map", &CustomCommands::changeMap);
 	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
+	GameUtil::addCommand("quit", &CustomCommands::quit);
+}
+
+void Console::registerCustomDvars() {
+	DvarInterface::registerBool("testBool", 1, 0, "S2MP-Mod custom bool test");
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff

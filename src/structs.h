@@ -129,6 +129,9 @@ struct RawFile
 enum XAssetType {
     ASSET_TYPE_XMODEL = 0xA,
     ASSET_TYPE_MATERIAL = 0xD,
+    ASSET_TYPE_GFXWORLD = 0x27,
+    ASSET_TYPE_LIGHT_DEF = 0x2B,
+    ASSET_TYPE_WEAPON = 0x30,
     ASSET_TYPE_RAWFILE = 0x39,
     ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
@@ -154,6 +157,18 @@ enum FF_DIR : __int32
 {
     FFD_DEFAULT = 0x0,
     FFD_USER_MAP = 0x1,
+};
+
+enum HksError : __int32
+{
+    HKS_NO_ERROR = 0x0,
+    LUA_ERRSYNTAX = 0xFFFFFFFC,
+    LUA_ERRFILE = 0xFFFFFFFB,
+    LUA_ERRRUN = 0xFFFFFF9C,
+    LUA_ERRMEM = 0xFFFFFF38,
+    LUA_ERRERR = 0xFFFFFED4,
+    HKS_THROWING_ERROR = 0xFFFFFE0C,
+    HKS_GC_YIELD = 0x1,
 };
 
 enum dvarType_t : int8_t
@@ -223,7 +238,7 @@ struct dvar_t
     const char* name;
     int flags;
     dvarType_t type; //1 byte
-    bool modified;
+    bool modified; //0x16
     DvarValue current;
     //more stuff
 };
@@ -250,4 +265,67 @@ struct CmdArgs
     int controllerIndex[8];
     int argc[8];
     const char** argv[8];
+};
+
+//WIP
+struct gentity_s {
+
+};
+
+//SIZE: 0xA8
+struct ComPrimaryLight {
+    unsigned char type; //0x0
+    unsigned char canUseShadowMap; //0x1
+    unsigned char exponent; //0x2
+
+    /*
+        UNKNOWN
+    */
+    unsigned char pad03; //0x3
+    unsigned char pad04[0x0C]; //0x04 --> 0x0F
+
+
+    float color[3]; //0x10 --> 0x18
+    float dir[3]; //0x1C --> 0x24
+    float up[3]; //0x28 --> 0x30
+    float origin[3]; //0x34 --> 0x3C
+    float fadeOffset[2]; //0x40 --> 0x44
+    float bulbRadius; //0x48
+    float bulbLength[3]; //0x4C --> 0x54
+    float radius; //0x58
+    float cosHalfFovOuter; //0x5C
+    float cosHalfFovInner; //0x60
+
+    /*
+        UNKNOWN
+    */
+    unsigned char pad64[0x3C]; //0x64 --> 0x9F
+
+    const char* defName; //0xA0
+};
+
+//DOUBLE CHECK THIS
+struct cplane_s {
+    float normal[3];
+    float dist;
+    unsigned char type;
+    unsigned char pad[3];
+};
+
+//DOUBLE CHECK THIS
+struct GfxWorldDpvsPlanes {
+    int cellCount;
+    cplane_s* planes;
+    unsigned __int16* nodes;
+    unsigned int* sceneEntCellBits;
+};
+
+//WIP
+struct GfxWorld {
+
+    GfxWorldDpvsPlanes dpvsPlanes; //0x58
+    /*
+    
+    */
+    unsigned int* cellCasterBits; //0xC50
 };
