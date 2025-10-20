@@ -90,7 +90,7 @@
 #include <asmjit/core/jitruntime.h>
 #include <asmjit/x86/x86assembler.h>
 
-#include "client/game/symbols.h"
+#include "game.h"
 
 using namespace std::literals;
 

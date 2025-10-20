@@ -16,8 +16,6 @@
 #include <xsk/gsc/engine/s2.hpp>
 #include <Hook.hpp>
 #include <string.h>
-#include <utils/compression.h>
-#include <utils/string.h>
 
 
 

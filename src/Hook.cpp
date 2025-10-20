@@ -6,7 +6,6 @@
 #include "Hook.hpp"
 #include <cstdint>
 
-#include <utils/string.h>
 #include "memory.h"
 
 //Credit:
