@@ -495,7 +495,7 @@ void CreateChecksumHealingStub()
             using namespace asmjit::x86;
             Assembler a(&code);
             asmjit::Label L1 = a.newLabel();
-            asmjit::Label DEBUG = a.newLabel();
+           //asmjit::Label DEBUG = a.newLabel();
 
             a.sub(rsp, 0x32);
             pushad64_Min();

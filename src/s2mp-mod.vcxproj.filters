@@ -31,6 +31,9 @@
     <Filter Include="src\dll">
       <UniqueIdentifier>{38F72FA9-A4D6-AE44-ADEE-391B194D15A6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\dll\resource">
+      <UniqueIdentifier>{1f927307-9072-4576-9d5f-c3dc754b1930}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Arxan.hpp">
@@ -81,17 +84,17 @@
     <ClInclude Include="..\src\pch.h">
       <Filter>src\dll</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\resource.h">
-      <Filter>src\dll</Filter>
+    <ClInclude Include="..\src\Errors.hpp">
+      <Filter>src\Code</Filter>
     </ClInclude>
     <ClInclude Include="..\src\structs.h">
       <Filter>src\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\client\game\game.h">
-      <Filter>src\Common</Filter>
+    <ClInclude Include="..\src\resource.h">
+      <Filter>src\dll\resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Errors.hpp">
-      <Filter>src\Code</Filter>
+    <ClInclude Include="..\src\game.h">
+      <Filter>src\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,24 +167,33 @@
     <ClCompile Include="..\src\pch.cpp">
       <Filter>src\dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\client\game\game.cpp">
-      <Filter>src\Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Errors.cpp">
       <Filter>src\Code</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ScriptLoader.cpp">
       <Filter>src\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\RawFileLoader.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StringTableLoader.cpp">
+      <Filter>src\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game.cpp">
+      <Filter>src\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\src\mod_splash.bmp">
+      <Filter>src\dll\resource</Filter>
+    </Image>
+    <Image Include="..\src\s2mp_con.bmp">
+      <Filter>src\dll\resource</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\s2mp-mod.rc">
-      <Filter>src\dll</Filter>
+      <Filter>src\dll\resource</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\src\s2mp_con.bmp">
-      <Filter>src\dll</Filter>
-    </Image>
   </ItemGroup>
 </Project>

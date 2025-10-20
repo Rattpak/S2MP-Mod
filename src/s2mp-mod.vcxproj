@@ -104,7 +104,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Arxan.hpp" />
-    <ClInclude Include="..\src\client\game\game.h" />
     <ClInclude Include="..\src\ConfigManager.h" />
     <ClInclude Include="..\src\Console.hpp" />
     <ClInclude Include="..\src\DevDef.h" />
@@ -112,6 +111,7 @@
     <ClInclude Include="..\src\DvarInterface.hpp" />
     <ClInclude Include="..\src\Errors.hpp" />
     <ClInclude Include="..\src\FuncPointers.h" />
+    <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\GameUtil.hpp" />
     <ClInclude Include="..\src\Hook.hpp" />
     <ClInclude Include="..\src\Hooking.Patterns.h" />
@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ArxanPatches.cpp" />
-    <ClCompile Include="..\src\client\game\game.cpp" />
     <ClCompile Include="..\src\ConfigManager.cpp" />
     <ClCompile Include="..\src\Console.cpp" />
     <ClCompile Include="..\src\CustomCommands.cpp" />
@@ -139,6 +138,7 @@
     <ClCompile Include="..\src\ExtConsoleGui.cpp" />
     <ClCompile Include="..\src\FontLoader.cpp" />
     <ClCompile Include="..\src\FuncPointers.cpp" />
+    <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\GameUtil.cpp" />
     <ClCompile Include="..\src\Hook.cpp" />
     <ClCompile Include="..\src\Hooking.Patterns.cpp" />
@@ -150,12 +150,15 @@
     <ClCompile Include="..\src\dllmain.cpp" />
     <ClCompile Include="..\src\memory.cpp" />
     <ClCompile Include="..\src\pch.cpp" />
+    <ClCompile Include="..\src\RawFileLoader.cpp" />
     <ClCompile Include="..\src\ScriptLoader.cpp" />
+    <ClCompile Include="..\src\StringTableLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\src\s2mp-mod.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\src\mod_splash.bmp" />
     <Image Include="..\src\s2mp_con.bmp" />
   </ItemGroup>
   <ItemGroup>
