@@ -50,23 +50,29 @@ void Console::Print(printType type, const char* fmt, ...) {
 }
 
 
+
 //Output to internal console without label
 void Console::printIntCon(std::string text) {
 	//Internal Console
 	InternalConsole::addToOutputStack(text, 0);
 }
 
+
 //Output to all consoles without label
-void Console::print(std::string text) {
-	//External CLI
+void Console::print(const std::string& text) {
+	
+	// External CLI
 	std::cout << text << std::endl;
-	//External Console Window
+	// External Console Window
 	ExternalConsoleGui::print(text);
-	//Internal Console
+	// Internal Console
 	InternalConsole::addToOutputStack(text, 0);
 }
 
 void Console::printf(const char* fmt, ...) {
+	if (!fmt) {
+		return;
+	}
 	va_list args;
 	va_start(args, fmt);
 
@@ -148,6 +154,12 @@ std::string toHex(uint32_t value) {
 	return ss.str();
 }
 
+#ifdef DEVELOPMENT_BUILD
+void printfCrashTest() {
+	Console::printf("%s %i %s", nullptr, nullptr, 0);
+}
+#endif
+
 void Console::registerCustomCommands() {
 	GameUtil::addCommand("noclip", &Noclip::toggle);
 	GameUtil::addCommand("map_restart", &CustomCommands::mapRestart);
@@ -162,10 +174,19 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("map", &CustomCommands::changeMap);
 	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
 	GameUtil::addCommand("quit", &CustomCommands::quit);
+	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
+#ifdef DEVELOPMENT_BUILD
+	GameUtil::addCommand("printfNullptr", &printfCrashTest);
+#endif // DEVELOPMENT_BUILD
+
 }
 
 void Console::registerCustomDvars() {
 	DvarInterface::registerBool("testBool", 1, 0, "S2MP-Mod custom bool test");
+	DvarInterface::registerBool("g_dumpLui", 0, 0, "Dump LUI files on map load");
+	DvarInterface::registerBool("g_dumpStringTables", 0, 0, "Dump StringTables when they are loaded");
+	DvarInterface::registerBool("g_dumpRawfiles", 0, 0, "Dump RawFiles when they are loaded");
+	DvarInterface::registerBool("printWorldInfo", 0, 0, "Prints GfxWorld build info on load");
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff

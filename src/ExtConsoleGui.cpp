@@ -47,10 +47,13 @@ void ExternalConsoleGui::print(const std::string& s) {
     if (!txtbox_output) {
         return;
     }
-
+    int textLength = GetWindowTextLength(txtbox_output);
+    if (textLength > 27000) {
+        SetWindowText(txtbox_output, L"");
+        textLength = 0;
+    }
     std::string modifiedString = s + "\r\n";
     std::wstring wstrNewText = stringToWString(modifiedString);
-    int textLength = GetWindowTextLength(txtbox_output);
     SendMessage(txtbox_output, EM_SETSEL, textLength, textLength);
     SendMessage(txtbox_output, EM_REPLACESEL, FALSE, (LPARAM)wstrNewText.c_str());
     SendMessage(txtbox_output, EM_SCROLLCARET, 0, 0);

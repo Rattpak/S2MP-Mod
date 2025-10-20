@@ -188,6 +188,62 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultAcceleration");
     addDvarsWithName("vehCam_chaseFD_nonADSVelocityCamOffsetMultDeceleration");
     addDvarsWithName("telemetry_error_killswitch");
+    addDvarsWithName("scr_thirdPerson");
+    addDvarsWithName("cg_hudObjectiveTextScale");
+    addDvarsWithName("scr_game_graceperiod");
+    addDvarsWithName("scr_game_playerwaittime");
+    addDvarsWithName("scr_game_matchstarttime");
+    addDvarsWithName("scr_game_roundstarttime");
+    addDvarsWithName("scr_game_allowkillcam");
+    addDvarsWithName("scr_game_onlyheadshots");
+    addDvarsWithName("scr_game_deathpointloss");
+    addDvarsWithName("scr_game_suicidepointloss");
+    addDvarsWithName("scr_game_suicidespawndelay");
+    addDvarsWithName("scr_game_spectatetype");
+    addDvarsWithName("scr_game_lockspectatorpov");
+    addDvarsWithName("scr_game_perks");
+    addDvarsWithName("scr_game_forceuav");
+    addDvarsWithName("scr_game_compassRadarUpdateTime");
+    addDvarsWithName("scr_game_radarMode");
+    addDvarsWithName("scr_game_hardpoints");
+    addDvarsWithName("scr_game_killstreakdelay");
+    addDvarsWithName("scr_game_minimapHiddenWhileADS");
+    addDvarsWithName("scr_oneShot");
+    addDvarsWithName("scr_wanderlustOnly");
+    addDvarsWithName("leprechauns_enabled");
+    addDvarsWithName("spv_ground_war_active");
+    addDvarsWithName("sv_blacklistReasons");
+    addDvarsWithName("scr_hardcore_StreaksTeamKill");
+    addDvarsWithName("scr_enable_flybywire");
+    addDvarsWithName("scr_hardpoint_allowartillery");
+    addDvarsWithName("scr_hardpoint_allowuav");
+    addDvarsWithName("scr_hardpoint_allowhelicopter");
+    addDvarsWithName("scr_team_fftype");
+    addDvarsWithName("scr_team_respawntime");
+    addDvarsWithName("scr_team_teamkillpointloss");
+    addDvarsWithName("scr_team_teamkillspawndelay");
+    addDvarsWithName("scr_team_teamkillkicklimit");
+    addDvarsWithName("scr_player_numlives");
+    addDvarsWithName("scr_player_respawndelay");
+    addDvarsWithName("scr_player_maxhealth");
+    addDvarsWithName("scr_player_suicidespawndelay");
+    addDvarsWithName("scr_player_healthregentime");
+    addDvarsWithName("scr_player_forcerespawn");
+    addDvarsWithName("scr_player_sprinttime");
+    addDvarsWithName("isMLGMatch");
+    addDvarsWithName("isEsportsMatch");
+    addDvarsWithName("spawning_revised_domination");
+    addDvarsWithName("spawning_revised_teamdeathmatch");
+    addDvarsWithName("spawning_revised_capturetheflag");
+    addDvarsWithName("spawning_revised_hardpoint");
+    addDvarsWithName("spawning_revised_cornersighttraces");
+    addDvarsWithName("spawning_revised_frontline");
+    addDvarsWithName("spawning_revised_fatique");
+    addDvarsWithName("spawning_use_classic");
+    addDvarsWithName("scr_hardcore");
+    addDvarsWithName("scr_diehard");
+    addDvarsWithName("scr_oldschool");
+    addDvarsWithName("ui_hud_obituaries");
 
 
     addMapping("g_gametype", "1924");
@@ -425,6 +481,7 @@ void DvarInterface::addAllMappings() {
     addMapping("r_filmTweakIntensity", "3025", "Tweak dev var; film color intensity");
     addMapping("r_brightness", "1691", "Brightness adjustment");
     addMapping("r_desaturation", "1821", "Desaturation adjustment");
+    addMapping("r_loadForRenderer", "4838", "Set to false to disable dx allocations (for dedicated server mode)");
 
     //from CG_CompassRegisterDvars
     addMapping("compassSize", "2692", "Scale the compass");
@@ -999,6 +1056,7 @@ void DvarInterface::addAllMappings() {
 
     //WSA
     addMapping("dlog_devpointHost", "5138");
+
 
 
     //4835 disabled game start button

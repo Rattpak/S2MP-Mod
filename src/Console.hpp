@@ -15,7 +15,7 @@ public:
 	static void Print(printType type, const char* fmt, ...);
 	static void execCmd(std::string cmd);
 	static void printIntCon(std::string text);
-	static void print(std::string text);
+	static void print(const std::string& text);
 	static void printf(const char* fmt, ...);
 	static void labelPrint(std::string label, std::string text);
 	static void infoPrint(std::string text);
@@ -34,6 +34,7 @@ public:
 	static material_t* getMaterialWhite();
 	static void toggleConsole();
 	static void toggleFullConsole();
+	static void clearFullConsole();
 	static void init();
 
 	//for dev intcon debugger

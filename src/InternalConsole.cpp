@@ -16,10 +16,10 @@ font_t* InternalConsole::consoleFont = nullptr;
 material_t* mtl_white = nullptr;
 
 std::vector<std::string> outputStack;
-std::vector<int> outputLogLevel;
-int outputStackSeekPos = 0;
-int maxLines = 0;
-int lineSpacing = 16;
+std::vector<unsigned int> outputLogLevel;
+unsigned int outputStackSeekPos = 0;
+unsigned int maxLines = 0;
+unsigned int lineSpacing = 16;
 
 //Main Internal Console
 float colorSecondary[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -54,7 +54,7 @@ float consoleHeight = 25.0f;
 float borderSize = 1.0f;
 float fullConsoleGap = 4.0f;
 std::string textBuffer = "";
-int cursorPos = 0;
+unsigned int cursorPos = 0;
 
 union intConEntry {
 	dvar_t* dvar;
@@ -213,6 +213,7 @@ int scrollbarTrackHeight;
 int sliderHeight;
 int sliderOffsetY;
 void drawFullConsoleOutput(int windowWidth, int windowHeight) {
+	int outputStackSizeCrit = outputStack.size();
 	int outputBaseX = (margin - borderSize) + 5;
 	int outputBaseY = (margin - borderSize) + consoleHeight + fullConsoleGap + 16;
 	int outputMaxY = windowHeight - margin - 14;
@@ -258,9 +259,13 @@ void drawFullConsoleOutput(int windowWidth, int windowHeight) {
 	Functions::_R_AddCmdDrawStretchPic(scrollbarBaseX, scrollbarBaseY + sliderOffsetY, scrollbarWidth, sliderHeight, 0.0f, 0.0f, 0.0f, 0.0f, scrollbarSliderColorSecondary, mtl_white);
 	//slider fg
 	Functions::_R_AddCmdDrawStretchPic(scrollbarBaseX + scrollbarBorderSize, scrollbarBaseY + scrollbarBorderSize + sliderOffsetY, scrollbarWidth - (scrollbarBorderSize * 2), sliderHeight - (scrollbarBorderSize * 2), 0.0f, 0.0f, 0.0f, 0.0f, scrollbarSliderColorPrimary, mtl_white);
-
+	
 	for (int i = 0; outputBaseY + (i * lineSpacing) < outputMaxY; i++) {
-		if ((outputStackSeekPos + i) >= 0 && (outputStackSeekPos + i) < outputStack.size()) {
+		
+		if ((outputStackSeekPos + i) >= 0 && (outputStackSeekPos + i) < outputStackSizeCrit) {
+			if (outputStackSeekPos + i >= outputLogLevel.size()) {
+				continue; //failure. Likely due to outputLogLevel not being updated in time.
+			}
 			if (outputLogLevel.at(outputStackSeekPos + i) == 0) {
 				Functions::_R_AddCmdDrawText(outputStack.at(outputStackSeekPos + i).c_str(), 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, outputBaseX, outputBaseY + (i * lineSpacing), 1.0f, 1.0f, 0.0f, colorWhite, 0.0f);
 				continue;
@@ -281,11 +286,17 @@ void drawFullConsoleOutput(int windowWidth, int windowHeight) {
 	}
 }
 
+
+
+static std::mutex consoleMutex;
+
 // 0 - Info (default)
 // 1 - Warning
 // 2 - Error
 // 3 - SPMod Developer
 void InternalConsole::addToOutputStack(std::string s, int level) {
+	std::lock_guard<std::mutex> lock(consoleMutex);
+
 	size_t newlinePos = s.find_first_of("\n\r");
 	//v1.2.8-alpha: Internal Console newline fix
 	//if a newline character is found, split the string and recursively call the function
@@ -304,7 +315,9 @@ void InternalConsole::addToOutputStack(std::string s, int level) {
 
 			//recursively call the function with the remaining string after the newline character
 			std::string remaining = s.substr(newlinePos + 1);
+			consoleMutex.unlock();
 			addToOutputStack(remaining, level);
+			consoleMutex.lock();
 		}
 	}
 	else {
@@ -500,6 +513,10 @@ void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 int prevWindowWidth = -1;
 int prevWindowHeight = -1;
 void drawConsole() {
+	//if (outputStack.size() > 15000) { //TEMP but like i really dont want thousands of lines in the output at once
+	//	InternalConsole::clearFullConsole();
+	//}
+
 	int windowWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
 	int windowHeight = *(int*)(0x1DA11EC_b);
 	if (borderSize > 1) {
@@ -598,6 +615,12 @@ void InternalConsole::toggleFullConsole() {
 	}
 }
 
+void InternalConsole::clearFullConsole() {
+	outputStackSeekPos = 0;
+	outputStack.clear();
+	outputLogLevel.clear();
+}
+
 
 int mostRecentKeynum = -1;
 void handleKeys(int client, int key, int down) {
@@ -668,6 +691,7 @@ void handleKeys(int client, int key, int down) {
 		}
 		else {
 			outputStackSeekPos = outputStack.size() - maxLines;
+			
 		}
 
 		return;

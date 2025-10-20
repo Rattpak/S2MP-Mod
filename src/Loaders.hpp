@@ -23,3 +23,15 @@ class FontLoader {
 public:
 	static void init();
 };
+
+class StringTableLoader {
+public:
+	static void dump(StringTable* table);
+	static void loadCustom(StringTable* table);
+};
+
+class RawFileLoader {
+public:
+	static void dump(RawFile* rawfile);
+	static void loadCustom(RawFile* rawfile);
+};

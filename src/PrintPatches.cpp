@@ -52,6 +52,9 @@ LUI_Error _LUI_Error = nullptr;
 typedef char(*_printf)(const char* const Format, ...);
 _printf __printf = nullptr;
 
+typedef void(*Load_GfxBuildInfo)(bool atStreamStart);
+Load_GfxBuildInfo _Load_GfxBuildInfo = nullptr;
+
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
         Console::printf("Loading Map: %s", name);
@@ -164,6 +167,31 @@ void hook_printf(const char* const Format, ...) {
     Console::printf(buf);
 }
 
+
+void printGfxBuildInfo(uintptr_t addr) {
+    if (addr == 0) {
+        Console::printf("GfxBuildInfo: address is 0");
+        return;
+    }
+
+    GfxBuildInfo** p = reinterpret_cast<GfxBuildInfo**>(addr);
+
+    Console::printf("bspCommandline   : %s", (*p)->bspCommandline);
+    Console::printf("lightCommandline : %s", (*p)->lightCommandline);
+    Console::printf("bspTimestamp     : %s", (*p)->bspTimestamp);
+    Console::printf("lightTimestamp   : %s", (*p)->lightTimestamp);
+}
+
+
+
+void hook_Load_GfxBuildInfo(bool atStreamStart) {
+    _Load_GfxBuildInfo(atStreamStart);
+
+    if (Functions::_Dvar_FindVar("printWorldInfo")->current.enabled) {
+        printGfxBuildInfo(0x9AD3D60_b);
+    }
+}
+
 void PrintPatches::init() {
 	Console::infoPrint(__FUNCTION__);
 
@@ -222,8 +250,7 @@ void PrintPatches::init() {
     MH_CreateHook(reinterpret_cast<void*>(0x122BD0_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
     MH_EnableHook(reinterpret_cast<void*>(0x122BD0_b));
 
-    //printf
-    //havent found anything that uses this yet
-    //MH_CreateHook(reinterpret_cast<void*>(0x31619E_b), &hook_printf, reinterpret_cast<void**>(&__printf));
-    //MH_EnableHook(reinterpret_cast<void*>(0x31619E_b));
+    //GfxWorld build info
+    MH_CreateHook(reinterpret_cast<void*>(0x5112B0_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
+    MH_EnableHook(reinterpret_cast<void*>(0x5112B0_b));
 }
