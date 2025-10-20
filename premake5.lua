@@ -71,6 +71,8 @@ workspace "s2mp-mod"
                 "src/Noclip.hpp",
                 "src/PrintPatches.cpp",
                 "src/PrintPatches.hpp",
+                "src/Errors.cpp",
+                "src/Errors.hpp",
             },
             ["src/Common"] = {
                 "src/FuncPointers.cpp",
@@ -78,6 +80,8 @@ workspace "s2mp-mod"
                 "src/memory.cpp",
                 "src/memory.h",
                 "src/structs.h",
+                "src/game.h",
+                "src/game.cpp",
             },
             ["src/Console"] = {
                 "src/Console.cpp",
@@ -92,6 +96,9 @@ workspace "s2mp-mod"
                 "src/Loaders.cpp",
                 "src/Loaders.hpp",
                 "src/LuiLoader.cpp",
+                "src/RawFileLoader.cpp",
+                "src/ScriptLoader.cpp",
+                "src/StringTableLoader.cpp",
             },
             ["src/Util"] = {
                 "src/ConfigManager.cpp",
