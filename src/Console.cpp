@@ -177,6 +177,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
 #ifdef DEVELOPMENT_BUILD
 	GameUtil::addCommand("printfNullptr", &printfCrashTest);
+	GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);
 #endif // DEVELOPMENT_BUILD
 
 }

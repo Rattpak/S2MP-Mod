@@ -798,3 +798,18 @@ static_assert(offsetof(GfxImage, mipCount) == 0x52);
 static_assert(offsetof(GfxImage, cardMemory) == 0x54);
 static_assert(offsetof(GfxImage, mapType) == 0x58);
 static_assert(offsetof(GfxImage, levelCount) == 0x5C);
+
+union OmnvarValue
+{
+	bool enabled;
+	int integer;
+	unsigned int time;
+	float value;
+	unsigned int ncsString;
+};
+
+struct OmnvarData
+{
+	unsigned int timeModified;
+	OmnvarValue current;
+};

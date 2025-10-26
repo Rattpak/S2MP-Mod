@@ -71,6 +71,8 @@ static std::unordered_map<int, std::string> errorMap = {
     {4563, "Localized string should start with %s"},
     {3390, "exitlevel already called"},
     {3388, "map_restart already called"},
+    {1275, "Invalid game folder"},
+    {1276, "Couldn't load %s. Make sure Call of Duty: WWII is run from the correct folder."},
     //if anyone finds more just add them here
 };
 

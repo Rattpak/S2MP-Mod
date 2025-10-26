@@ -55,6 +55,9 @@ _printf __printf = nullptr;
 typedef void(*Load_GfxBuildInfo)(bool atStreamStart);
 Load_GfxBuildInfo _Load_GfxBuildInfo = nullptr;
 
+typedef bool(*LUI_BeginEvent)(LocalClientNum_t localClientNum, const char* eventName, void* luaVM);
+LUI_BeginEvent _LUI_BeginEvent = nullptr;
+
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
         Console::printf("Loading Map: %s", name);
@@ -192,6 +195,16 @@ void hook_Load_GfxBuildInfo(bool atStreamStart) {
     }
 }
 
+void hook_LUI_BeginEvent(LocalClientNum_t localClientNum, const char* eventName, void* luaVM) {
+    std::string s = std::string(eventName);
+
+    if (s != "mousemove" && s != "mouseup" && s != "mousedown") {
+        Console::printf("LUI_BeginEvent: %s", eventName);
+    }
+
+    _LUI_BeginEvent(localClientNum, eventName, luaVM);
+}
+
 void PrintPatches::init() {
 	Console::infoPrint(__FUNCTION__);
 
@@ -253,4 +266,8 @@ void PrintPatches::init() {
     //GfxWorld build info
     MH_CreateHook(reinterpret_cast<void*>(0x5112B0_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
     MH_EnableHook(reinterpret_cast<void*>(0x5112B0_b));
+
+    //LUI_BeginEvent test
+    MH_CreateHook(reinterpret_cast<void*>(0x121380_b), &hook_LUI_BeginEvent, reinterpret_cast<void**>(&_LUI_BeginEvent));
+    MH_EnableHook(reinterpret_cast<void*>(0x121380_b));
 }

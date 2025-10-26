@@ -13,6 +13,7 @@
 
 class DevPatches {
 public:
+	static void imageTestPt2();
 	static void init();
 };
 

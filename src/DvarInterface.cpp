@@ -671,6 +671,7 @@ void DvarInterface::addAllMappings() {
     addMapping("hub_vendor_overhead_max_distance", "3924");
     addMapping("hub_supply_drop_max_distance", "4143");
     addMapping("hub_leaderboard_max_distance", "3296");
+    addMapping("LUI_MemErrorsFatal", "1626", "Out of memory errors cause drops when true, reinits the UI system if false");
 
     addMapping("cg_foliagesnd_alias", "4011", "The sound that plays when an actor or player enters a foliage clip brush.");
     addMapping("cg_broadcasterSkycamDistance", "3119");

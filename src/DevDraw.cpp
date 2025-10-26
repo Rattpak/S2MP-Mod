@@ -116,7 +116,7 @@ void DevDraw::toggleEntityDebugGui() {
 }
 
 bool debugAntiCheatGui = false;
-void rednerAntiCheatDebugGui(int windowWidth, int windowHeight) {
+void renderAntiCheatDebugGui(int windowWidth, int windowHeight) {
     if (!debugAntiCheatGui) {
         return;
     }
@@ -183,6 +183,6 @@ void DevDraw::render(int windowWidth, int windowHeight) {
 
     renderLuaDebugGui(windowWidth, windowHeight);
     renderEntDebugGui(windowWidth, windowHeight);
-    rednerAntiCheatDebugGui(windowWidth, windowHeight);
+    renderAntiCheatDebugGui(windowWidth, windowHeight);
 }
 
