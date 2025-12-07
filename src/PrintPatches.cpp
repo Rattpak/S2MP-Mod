@@ -201,6 +201,7 @@ void hook_LUI_BeginEvent(LocalClientNum_t localClientNum, const char* eventName,
     if (s != "mousemove" && s != "mouseup" && s != "mousedown") {
         Console::printf("LUI_BeginEvent: %s", eventName);
     }
+    
 
     _LUI_BeginEvent(localClientNum, eventName, luaVM);
 }
@@ -268,6 +269,6 @@ void PrintPatches::init() {
     MH_EnableHook(reinterpret_cast<void*>(0x5112B0_b));
 
     //LUI_BeginEvent test
-    //MH_CreateHook(reinterpret_cast<void*>(0x121380_b), &hook_LUI_BeginEvent, reinterpret_cast<void**>(&_LUI_BeginEvent));
-    //MH_EnableHook(reinterpret_cast<void*>(0x121380_b));
+   // MH_CreateHook(reinterpret_cast<void*>(0x121380_b), &hook_LUI_BeginEvent, reinterpret_cast<void**>(&_LUI_BeginEvent));
+   // MH_EnableHook(reinterpret_cast<void*>(0x121380_b));
 }

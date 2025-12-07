@@ -142,16 +142,23 @@ struct RawFile
 };
 
 enum XAssetType {
+	ASSET_TYPE_PHYSPRESET = 0x0,
     ASSET_TYPE_XMODEL = 0xA,
     ASSET_TYPE_MATERIAL = 0xD,
     ASSET_TYPE_GFXWORLD = 0x27,
     ASSET_TYPE_LIGHT_DEF = 0x2B,
+	ASSET_TYPE_LOCALIZE_ENTRY = 0x2E,
     ASSET_TYPE_WEAPON = 0x30,
     ASSET_TYPE_RAWFILE = 0x39,
     ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
+	ASSET_TYPE_TRACER = 0x40,
+	ASSET_TYPE_XMODELALIAS = 0x41,
+	ASSET_TYPE_ADDON_MAP_ENTS = 0x42,
     ASSET_TYPE_LUA_FILE = 0x45,
+	ASSET_TYPE_LASER = 0x4A,
     ASSET_TYPE_FONT = 0x4E,
+	ASSET_TYPE_DLOGSCHEMA = 0x51,
 };
 
 union XAssetHeader {
@@ -812,4 +819,57 @@ struct OmnvarData
 {
 	unsigned int timeModified;
 	OmnvarValue current;
+};
+
+struct AttHybridSettings {
+	float adsSpread;
+	float adsAimPitch;
+	float adsTransInTime;
+	float adsTransInFromSprintTime;
+	float adsTransOutTime;
+	int adsReloadTransTime;
+	float adsCrosshairInFrac;
+	float adsCrosshairOutFrac;
+	float adsZoomFov;
+	float adsZoomInFrac;
+	float adsZoomOutFrac;
+	float adsFovLerpInTime;
+	float adsFovLerpOutTime;
+	float adsBobFactor;
+	float adsViewBobMult;
+	float adsViewErrorMin;
+	float adsViewErrorMax;
+	float adsFireAnimFrac;
+};
+
+
+//this is wrong lol; correct size tho
+struct WeaponAttachment {
+	const char* szInternalName;
+	const char* szDisplayName;
+	int type;
+	int weaponType;
+	int weapClass;
+	int greebleType;
+	void** worldModels;
+	void** viewModels;
+	void** reticleViewModels;
+	void* chargeInfo;
+	AttHybridSettings* hybridSettings;
+	unsigned short* fieldOffsets;
+	void* fields;
+	int numFields;
+	int loadIndex;
+	int adsSettingsMode;
+	float adsSceneBlurStrength;
+	int knifeAttachTagOverride;
+	BOOL hideIronSightsWithThisAttachment;
+	BOOL showMasterRail;
+	BOOL showSideRail;
+	BOOL shareAmmoWithAlt;
+	BOOL knifeAlwaysAttached;
+	BOOL useDualFOV;
+	BOOL riotShield;
+	BOOL adsSceneBlur;
+	BOOL automaticAttachment;
 };

@@ -73,6 +73,19 @@ static std::unordered_map<int, std::string> errorMap = {
     {3388, "map_restart already called"},
     {1275, "Invalid game folder"},
     {1276, "Couldn't load %s. Make sure Call of Duty: WWII is run from the correct folder."},
+    {656, "Save game saved with different script files"},
+    {4704, "not an entity"},
+    {4705, "not an entity"},
+    {3882, "Trying to call a vehicle command on a spawner.\nEntity '%s' at (%.0f %.0f %.0f)"},
+    {3883, "Trying to call a vehicle command on a non-script_vehicle entity.\nEntity '%s' at (%.0f %.0f %.0f)"},
+    {3884, "Trying to call a vehicle spawner command on a vehicle.\nEntity '%s' at (%.0f %.0f %.0f)"},
+    {3885, "Trying to call a vehicle spawner command on a non-script_vehicle entity.\nEntity '%s' at (%.0f %.0f %.0f)"},
+    {4751, "Parameter must be a valid client"},
+    {198, "Couldn't load file or file is invalid '%s'"},
+    {202, "Couldn't load file or file is invalid '%s'"},
+    {363, "CG_RegisterWeapon: No idle anim specified for [%s]"},
+    {365, "CG_RegisterWeapon: No idle anim specified for [%s]"},
+    {373, "no viewmodel set for player %d for '%s' in '%s' hand. Set viewmodel hands in script or weapon settings"},
     //if anyone finds more just add them here
 };
 

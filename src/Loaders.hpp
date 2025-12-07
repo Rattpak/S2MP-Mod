@@ -35,3 +35,8 @@ public:
 	static void dump(RawFile* rawfile);
 	static void loadCustom(RawFile* rawfile);
 };
+
+class MapEntLoader {
+public:
+	static void dump(RawFile* rawfile);
+};

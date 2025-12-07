@@ -246,7 +246,7 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("ui_hud_obituaries");
 
 
-    addMapping("g_gametype", "1924");
+    addMapping("g_gametype", "1924", "The current game mode");
     addMapping("nextmap", "4059", "Next map to play");
     addMapping("mapname", "1673");
     //from R_RegisterDvars
@@ -1058,7 +1058,11 @@ void DvarInterface::addAllMappings() {
     //WSA
     addMapping("dlog_devpointHost", "5138");
 
-
+    //Server Demo Dvars
+    addMapping("g_knockback", "4541");
+    addMapping("g_maxDroppedWeapons", "1605", "Maximum number of dropped weapons");
+    addMapping("g_inactivity", "2916", "Time delay before player is kicked for inactivity");
+    //TODO: finish this later
 
     //4835 disabled game start button
     //4670 0 removes microtransaction deals from qm menu

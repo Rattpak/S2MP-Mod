@@ -1,10 +1,26 @@
 #include "pch.h"
 #include "Loaders.hpp"
 #include "FuncPointers.h"
+#include <unordered_set>
 
+//dont load from here just dump from here
+//also has the waited for xasset print so ya
 typedef XAssetHeader(*DB_FindXAssetHeader)(XAssetType type, const char* name, int allow_create_default);
 DB_FindXAssetHeader _DB_FindXAssetHeader = nullptr;
 XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int allow_create_default) {
+    static std::unordered_set<XAssetType> seenTypes;
+    
+    if (seenTypes.find(type) == seenTypes.end()) {
+        seenTypes.insert(type);
+        Console::printf("New XAssetType: %d (first seen with name: %s)", type, name);
+    }
+
+
+    //if (type == 81 || type == 82) {
+    //    Console::printf("Skipping type %d: %s", type, name);
+    //    return {};
+    //}
+
     auto start = std::chrono::high_resolution_clock::now();
     const char* safeName = (name && name[0]) ? name : "<null>";
     XAssetHeader header = _DB_FindXAssetHeader(type, name, allow_create_default);
@@ -17,7 +33,7 @@ XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int all
 
     switch (type) {
     case ASSET_TYPE_STRINGTABLE: {
-        // always dump before load
+        //always dump before load
         if (Functions::_Dvar_FindVar("g_dumpStringTables")->current.enabled) {
             StringTableLoader::dump(header.table);
         }

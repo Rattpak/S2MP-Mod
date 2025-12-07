@@ -183,11 +183,14 @@ void Console::registerCustomCommands() {
 }
 
 void Console::registerCustomDvars() {
+#ifdef DEVELOPMENT_BUILD
 	DvarInterface::registerBool("testBool", 1, 0, "S2MP-Mod custom bool test");
+#endif // DEVELOPMENT_BUILD
 	DvarInterface::registerBool("g_dumpLui", 0, 0, "Dump LUI files on map load");
 	DvarInterface::registerBool("g_dumpStringTables", 0, 0, "Dump StringTables when they are loaded");
 	DvarInterface::registerBool("g_dumpRawfiles", 0, 0, "Dump RawFiles when they are loaded");
 	DvarInterface::registerBool("printWorldInfo", 0, 0, "Prints GfxWorld build info on load");
+	DvarInterface::registerBool("g_dumpMapEnts", 0, 0, "Dump MapEnts when they are loaded");
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff
