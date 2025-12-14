@@ -571,7 +571,7 @@ void CreateChecksumHealingStub()
                 a.ret();
                 break;
             default:
-                Console::devPrint("Error: We shouldn't be here");
+                DEV_PRINTF("Error: We shouldn't be here");
                 getchar();
                 abort();
             }
@@ -642,7 +642,7 @@ void createInlineAsmStub() {
     const size_t allocationSize = sizeof(uint8_t) * 128;
     inlineStubs = (inlineAsmStub*)malloc(sizeof(inlineAsmStub) * totalIntegrityCount);
     if (!inlineStubs) {
-        Console::devPrint("ERROR: Failed malloc in " + std::string(__FUNCTION__));
+        DEV_PRINTF("ERROR: Failed malloc in %s", std::string(__FUNCTION__));
         return;
     }
 
@@ -725,7 +725,7 @@ void createInlineAsmStub() {
             memcpy(instructionBuffer, functionAddress, length);
         }
         else {
-            Console::devPrint("ERROR: Invalid function address at index " + std::to_string(i));
+            DEV_PRINTF("ERROR: Invalid function address at index %i", i);
             continue;
         }
 

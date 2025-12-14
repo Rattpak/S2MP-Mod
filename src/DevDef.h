@@ -20,6 +20,16 @@
 #define DEV_INIT_PRINT() ((void)0)
 #endif
 
+#ifdef DEVELOPMENT_BUILD
+#define DEV_PRINTF(fmt, ...) \
+    do { \
+        Console::printf("[DEV] " fmt, ##__VA_ARGS__); \
+    } while (0)
+#else
+#define DEV_PRINTF(fmt, ...) \
+    do { } while (0)
+#endif
+
 class DevPatches {
 public:
 	static void imageTestPt2();

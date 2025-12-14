@@ -532,7 +532,7 @@ void drawConsole() {
 		prevWindowWidth = windowWidth;
 		prevWindowHeight = windowHeight;
 		outputStackSeekPos = 0; //jump to top
-		Console::devPrint("IntCon Resize Event");
+		DEV_PRINTF("IntCon Resize Event");
 	}
 
 	//CustomCommands::CG_DrawVersion(windowWidth, windowHeight);
@@ -767,7 +767,8 @@ void handleKeys(int client, int key, int down) {
 				}
 			}
 			else { //v1.2.8-alpha: Ctrl + Scroll = super scroll
-				if ((outputStackSeekPos)-superScrollAmount > 0) {
+				int newPos = (int)outputStackSeekPos - (int)superScrollAmount;
+				if (newPos > 0) {
 					outputStackSeekPos -= superScrollAmount;
 				}
 				else {

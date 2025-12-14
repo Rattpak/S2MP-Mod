@@ -3,6 +3,7 @@
 #include <fstream>
 #include <filesystem>
 #include "FuncPointers.h"
+#include "DevDef.h"
 
 typedef int(*hks_load)(lua_State* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name);
 hks_load _hks_load = nullptr;
@@ -18,17 +19,17 @@ void dumpLuaFile(const LuaFile* luaFile) {
     try {
         std::ofstream out(filePath, std::ios::binary);
         if (!out) {
-            Console::devPrint("Failed to open file for writing: " + filePath.string());
+            DEV_PRINTF("Failed to open file for writing: %s", filePath.string().c_str());
             return;
         }
 
         out.write(reinterpret_cast<const char*>(luaFile->buffer), luaFile->len);
         out.close();
 
-        Console::devPrint("Dumped LuaFile to: " + filePath.string());
+        DEV_PRINTF("Dumped LuaFile to: %s", filePath.string().c_str());
     }
     catch (const std::exception& e) {
-        Console::devPrint("Exception during LuaFile dump: " + std::string(e.what()));
+        DEV_PRINTF("Exception during LuaFile dump: %s",e.what());
     }
 }
 
@@ -51,12 +52,10 @@ void Hook_Load_LuaFileAsset() {
     void* target = (void*)(0x13BB70_b);
 
     if (MH_CreateHook(target, &Load_LuaFileAsset_hookfunc, reinterpret_cast<void**>(&oLoad_LuaFileAsset)) != MH_OK) {
-        Console::devPrint("ERROR: MH_CreateHook failure in function " + std::string(__FUNCTION__));
         return;
     }
 
     if (MH_EnableHook(target) != MH_OK) {
-        Console::devPrint("ERROR: MH_EnableHook failure in function " + std::string(__FUNCTION__));
         return;
     }
 }

@@ -54,10 +54,10 @@ void checkAndSetZombieMode() {
 	if (attributes != INVALID_FILE_ATTRIBUTES) {
 		doZombiesMode = true;
 		if (DeleteFileA(filename)) {
-			Console::devPrint("Cleared zombiemode flag");
+			DEV_PRINTF("Cleared zombiemode flag");
 		}
 		else {
-			Console::devPrint("FAILED to clear zombiemode flag");
+			DEV_PRINTF("FAILED to clear zombiemode flag");
 		}
 	}
 
