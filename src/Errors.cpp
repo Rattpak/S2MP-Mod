@@ -14,7 +14,7 @@ static std::unordered_map<int, std::string> errorMap = {
     {999, "Trying to set persistent player data while connected to a server (%s, clcState = %i)!"},
     {719, "R_RegisterFont: Too many TTF fonts registered (%d)."},
     {1278, "Unable to compare against column number %i - there are only %i columns"},
-    {845, "LUI ERROR: Failed to allocate from LUITween pool. Restarting the Lua VM"},
+    {845, "LUI ERROR: Failed to allocate from %s pool. Restarting the Lua VM"},
     {674, "G_Spawn: no free entities"},
     {560, "weapDef: No world model loaded for entity %i with model %s"},
     {879, "CM_LoadMap: NULL name"},
