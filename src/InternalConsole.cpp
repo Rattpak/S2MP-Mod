@@ -408,6 +408,10 @@ void drawSearchBoxResultSingle(int windowWidth, int windowHeight, dvar_t* dvar) 
 
 
 void findMatchingDvars(const dvar_t* dvar) {
+	if (!dvar || !dvar->name) {
+		return;
+	}
+
 	//v1.2.8-alpha: allow searching with "/"
 	std::string noslash = textBuffer;
 	if (!noslash.empty() && noslash[0] == '/') {

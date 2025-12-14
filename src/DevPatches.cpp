@@ -108,7 +108,7 @@ typedef void*(*Image_Setup)(GfxImage* image, uint32_t width, uint32_t height, ui
 Image_Setup _Image_Setup = nullptr;
 
 void* hook_Image_Setup(GfxImage* image, uint32_t width, uint32_t height, uint32_t depth, uint32_t mipCount, uint32_t imageFlags, DXGI_FORMAT imageFormat, const char* name, const void* initData) {
-    Console::printf("Image_Setup: %s, width: %d, height: %d, depth: %d, mipCount: %d, imageFlags: %d", name, width, height, depth, mipCount, imageFlags);
+    //Console::printf("Image_Setup: %s, width: %d, height: %d, depth: %d, mipCount: %d, imageFlags: %d", name, width, height, depth, mipCount, imageFlags);
     return _Image_Setup(image, width, height, depth, mipCount, imageFlags, imageFormat, name, initData);
  
 }
@@ -123,9 +123,7 @@ void DevPatches::imageTestPt2() {
 }
 
 void DevPatches::init()  {
-#ifdef DEVELOPMENT_BUILD
-    Console::initPrint(__FUNCTION__);
-#endif
+    DEV_INIT_PRINT();
     imageThing();
     //HookNtCreateUserProcess();
 }

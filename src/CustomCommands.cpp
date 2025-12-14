@@ -137,5 +137,4 @@ void CustomCommands::mapRestart() {
 void CustomCommands::quit() {
 	Console::print("quitting...");
 	Functions::_Com_Quit_f();
-	//TODO: delete the __s2Exe file here
 }

@@ -8,18 +8,16 @@
 typedef XAssetHeader(*DB_FindXAssetHeader)(XAssetType type, const char* name, int allow_create_default);
 DB_FindXAssetHeader _DB_FindXAssetHeader = nullptr;
 XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int allow_create_default) {
-    static std::unordered_set<XAssetType> seenTypes;
     
+    
+#ifdef DEVELOPMENT_BUILD
+    static std::unordered_set<XAssetType> seenTypes;
     if (seenTypes.find(type) == seenTypes.end()) {
         seenTypes.insert(type);
         Console::printf("New XAssetType: %d (first seen with name: %s)", type, name);
     }
+#endif // DEVELOPMENT_BUILD
 
-
-    //if (type == 81 || type == 82) {
-    //    Console::printf("Skipping type %d: %s", type, name);
-    //    return {};
-    //}
 
     auto start = std::chrono::high_resolution_clock::now();
     const char* safeName = (name && name[0]) ? name : "<null>";
@@ -37,14 +35,12 @@ XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int all
         if (Functions::_Dvar_FindVar("g_dumpStringTables")->current.enabled) {
             StringTableLoader::dump(header.table);
         }
-        StringTableLoader::loadCustom(header.table);
         break;
     }
     case ASSET_TYPE_RAWFILE: {
         if (Functions::_Dvar_FindVar("g_dumpRawfiles")->current.enabled) {
             RawFileLoader::dump(header.rawfile);
         }
-        RawFileLoader::loadCustom(header.rawfile);
         break;
     }
     default: { 

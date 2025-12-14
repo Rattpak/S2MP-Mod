@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "FuncPointers.h"
 #include "Console.hpp"
+#include "DevDef.h"
 
 Functions::SV_StartMap Functions::_SV_StartMap = nullptr;
 Functions::GetStringFromResource Functions::_GetStringFromResource = nullptr;
@@ -39,7 +40,7 @@ Functions::Dvar_RegisterBool Functions::_Dvar_RegisterBool = nullptr;
 
 void Functions::init()
 {
-	Console::initPrint("Functions::init()");
+	DEV_INIT_PRINT();
 
 	_SV_StartMap = (SV_StartMap)(0x740000_b);
 	_GetStringFromResource = (GetStringFromResource)(0x7EF3A0_b);

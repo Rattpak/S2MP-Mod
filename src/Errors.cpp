@@ -8,6 +8,7 @@
 #include "pch.h"
 #include "Errors.hpp"
 #include "Console.hpp"
+#include "DevDef.h"
 
 //TODO: run script errors thru the same error map
 static std::unordered_map<int, std::string> errorMap = {
@@ -142,7 +143,7 @@ void hook_Com_Error(errorParm_t code, const char* fmt, ...) {
 
 
 void Errors::init() {
-	Console::initPrint(__FUNCTION__);
+    DEV_INIT_PRINT();
     MH_CreateHook(reinterpret_cast<void*>(0xAA1E0_b), &hook_Com_Error, reinterpret_cast<void**>(&_Com_Error));
     MH_EnableHook(reinterpret_cast<void*>(0xAA1E0_b));
 }

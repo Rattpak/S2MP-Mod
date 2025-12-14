@@ -3,11 +3,13 @@
 
 std::string devBuildDate = "DEV BUILD: " + std::string(__DATE__) + " " + std::string(__TIME__);
 
+#ifdef DEVELOPMENT_BUILD
 #ifdef USE_BUILD_USER
 //add USE_BUILD_USER to your preprocessor definitions to use this feature
 //create a "build_user.txt" with the rest of the .cpp/.h files with #define BUILD_USER "username here" inside
 #include "build_user.txt"
 std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
+#endif
 #endif
 
 #include <MinHook.h>
@@ -22,24 +24,58 @@ float devCrosshairColor[4] = {1.0f, 1.0f, 1.0f, 0.8f };
 float debuggerBgColor[4] = {0.0f, 0.0f, 0.0f, 0.7f };
 float intConDbgColor[4] = { 1.0f, 0.5f, 0.0f, 1.0f };
 
+std::string versionString =
+"S2MP-MOD 1.0.1-Alpha"
+#ifdef DEVELOPMENT_BUILD
+" (DEV)"
+#endif
+;
+
+
+/**
+ * @brief Draws development build information and version text on screen.
+ *
+ * Renders the mod version string in the top-left corner. In development
+ * builds, additional build metadata (such as build date and user) is
+ * rendered at the bottom of the screen.
+ *
+ * @param windowW The current window width.
+ * @param windowH The current window height.
+ */
 void drawDevelopmentInfo(int windowW, int windowH) {
     font_t* font = Functions::_R_RegisterFont("fonts/fira_mono_regular.ttf", 16);
     font_t* devFont = Functions::_R_RegisterFont("fonts/fira_mono_regular.ttf", 16);
     //font_t* devFont = Functions::_R_RegisterFont("fonts/consoleFont", 10);
 
     if (font) {
-        Functions::_R_AddCmdDrawText("S2MP-MOD 1.0.0-Alpha (Pre-Release)", 0x7fffffff, font, 0, 0, font->pixelHeight, 2, 1 + font->pixelHeight, 1.0f, 1.0f, 0.0f, watermarkCol, 0);
-
+        Functions::_R_AddCmdDrawText(versionString.c_str(), 0x7fffffff, font, 0, 0, font->pixelHeight, 2, 1 + font->pixelHeight, 1.0f, 1.0f, 0.0f, watermarkCol, 0);
+#ifdef DEVELOPMENT_BUILD
         if (devFont) {
             std::string devBuildInfoText = devBuildDate;
 #ifdef USE_BUILD_USER
             devBuildInfoText += " " + compiledBy;
 #endif
+
             Functions::_R_AddCmdDrawText(devBuildInfoText.c_str(), 0x7fffffff, devFont, 0, 0, font->pixelHeight, 2, windowH - 2, 1.0f, 1.0f, 0.0f, devBuildInfoColor, 0);
         }
+#endif
     }
 }
 
+/**
+ * @brief Renders a generic developer debug GUI panel.
+ *
+ * Draws a background panel and renders each string in the provided list
+ * as a row of text. This function is shared by multiple debug GUIs.
+ *
+ * @param list The list of text lines to render.
+ * @param xPos The X screen position of the panel.
+ * @param yPos The Y screen position of the panel.
+ * @param wWid The current window width.
+ * @param wHei The current window height.
+ * @param color The text color.
+ * @param font The font used for rendering text.
+ */
 void DevDraw::renderDevGui(std::vector<std::string>& list, int xPos, int yPos, int wWid, int wHei, float* color, font_t* font) {
     int bgOffset = 3;
     int bgTempWidth = 275;
@@ -50,8 +86,18 @@ void DevDraw::renderDevGui(std::vector<std::string>& list, int xPos, int yPos, i
     }
 }
 
+
 bool debugLuaGui = false;
 int luaMemHighWatermark = 0;
+/**
+ * @brief Renders the Lua memory debug GUI.
+ *
+ * Displays current Lua memory usage, high watermark, and selected engine
+ * state flags. Rendering occurs only when the Lua debug GUI is enabled.
+ *
+ * @param windowWidth The current window width.
+ * @param windowHeight The current window height.
+ */
 void renderLuaDebugGui(int windowWidth, int windowHeight) {
     if (!debugLuaGui) {
         return;
@@ -81,12 +127,24 @@ void renderLuaDebugGui(int windowWidth, int windowHeight) {
     DevDraw::renderDevGui(guiTextList, 15, 35, windowWidth, windowHeight, luiDebugGuiColor, conFont);
 }
 
+/**
+ * @brief Toggles the Lua debug GUI on or off.
+ */
 void DevDraw::toggleLuaDebugGui() {
     debugLuaGui = !debugLuaGui;
 }
 
 bool debugEntGui = false;
 int entityHighWatermark = 0;
+/**
+ * @brief Renders the g_spawn entity usage debug GUI.
+ *
+ * Displays current entity usage and the highest observed entity count.
+ * Rendering occurs only when the entity debug GUI is enabled.
+ *
+ * @param windowWidth The current window width.
+ * @param windowHeight The current window height.
+ */
 void renderEntDebugGui(int windowWidth, int windowHeight) {
     if (!debugEntGui) {
         return;
@@ -111,6 +169,11 @@ void renderEntDebugGui(int windowWidth, int windowHeight) {
 
     DevDraw::renderDevGui(guiTextList, 315, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
 }
+
+
+/**
+ * @brief Toggles the entity debug GUI on or off.
+ */
 void DevDraw::toggleEntityDebugGui() {
     debugEntGui = !debugEntGui;
 }
@@ -172,14 +235,17 @@ void DevDraw::toggleIntConDebugGui() {
     drawIntConDbg = !drawIntConDbg;
 }
 
-/*
-    Function runs at end of every frame.
-    Not everything in here needs to be for DEVELOPMENT_BUILD
-*/
+/**
+ * @brief Renders all developer debug overlays.
+ *
+ * This function is called at the end of every frame and is responsible
+ * for drawing all enabled development and debug GUIs.
+ *
+ * @param windowWidth The current window width.
+ * @param windowHeight The current window height.
+ */
 void DevDraw::render(int windowWidth, int windowHeight) {
-#ifdef DEVELOPMENT_BUILD
     drawDevelopmentInfo(windowWidth, windowHeight);
-#endif // DEVELOPMENT_BUILD
 
     renderLuaDebugGui(windowWidth, windowHeight);
     renderEntDebugGui(windowWidth, windowHeight);

@@ -13,7 +13,6 @@ public:
 		dev,
 	};
 
-	static void Print(printType type, const char* fmt, ...);
 	static void execCmd(std::string cmd);
 	static void printIntCon(std::string text);
 	static void print(const std::string& text);

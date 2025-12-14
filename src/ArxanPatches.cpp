@@ -949,9 +949,7 @@ void suspendAllOtherThreads() {
 
 bool o = false;
 void ArxanPatches::init() {
-#ifdef DEVELOPMENT_BUILD
-    Console::initPrint(std::string(__FUNCTION__));
-#endif // DEVELOPMENT_BUILD
+    DEV_INIT_PRINT();
     createInlineAsmStub();
     //CreateChecksumHealingStub();
     //suspendAllOtherThreads();

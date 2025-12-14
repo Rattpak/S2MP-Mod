@@ -18,39 +18,6 @@
 #include "DevDef.h"
 #include <Arxan.hpp>
 
-//did i do this lol
-void Console::Print(printType type, const char* fmt, ...) {
-	va_list argList;
-	va_start(argList, fmt);
-
-	char temp[500];
-
-	vsnprintf(temp, sizeof(temp), fmt, argList);
-	va_end(argList);
-
-	char* buffer = (char*)malloc(strlen(temp) + 1);
-	if (buffer) {
-		strcpy(buffer, temp);
-	}
-
-	switch (type)
-	{
-	case info:
-		Console::labelPrint("INFO", buffer);
-		break;
-	case error:
-		Console::labelPrint("ERROR", buffer);
-		break;
-	case dev:
-		Console::labelPrint("DEV", buffer);
-		break;
-	default:
-		Console::labelPrint("", buffer);
-	}
-}
-
-
-
 //Output to internal console without label
 void Console::printIntCon(std::string text) {
 	//Internal Console
@@ -69,6 +36,16 @@ void Console::print(const std::string& text) {
 	InternalConsole::addToOutputStack(text, 0);
 }
 
+/**
+ * @brief Prints a formatted message to all consoles.
+ *
+ * Formats the given printf-style format string using the supplied
+ * variable arguments and forwards the resulting message to
+ * Console::print().
+ *
+ * @param fmt A printf-style format string.
+ * @param ... Additional arguments referenced by the format string.
+ */
 void Console::printf(const char* fmt, ...) {
 	if (!fmt) {
 		return;
@@ -110,6 +87,7 @@ void Console::infoPrint(std::string text) {
 //TODO: add preprocessor directive for developer like in t6sp-mod
 //Output to all consoles as client developer print
 void Console::devPrint(std::string text) {
+#ifdef DEVELOPMENT_BUILD
 	std::string s = "[DEV] " + text;
 	//External CLI
 	ExtConsole::coutInfo(text);
@@ -117,6 +95,7 @@ void Console::devPrint(std::string text) {
 	ExternalConsoleGui::print(s);
 	//Internal Console
 	InternalConsole::addToOutputStack(s, 0);
+#endif
 }
 
 //Output to all consoles as initialization print
@@ -190,7 +169,7 @@ void Console::registerCustomDvars() {
 	DvarInterface::registerBool("g_dumpStringTables", 0, 0, "Dump StringTables when they are loaded");
 	DvarInterface::registerBool("g_dumpRawfiles", 0, 0, "Dump RawFiles when they are loaded");
 	DvarInterface::registerBool("printWorldInfo", 0, 0, "Prints GfxWorld build info on load");
-	DvarInterface::registerBool("g_dumpMapEnts", 0, 0, "Dump MapEnts when they are loaded");
+	DvarInterface::registerBool("g_dumpMapEnts", 0, 0, "Dump MapEnts when they are loaded"); //TODO
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff

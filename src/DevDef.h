@@ -4,12 +4,21 @@
 #include "FuncPointers.h"
 #include <vector>
 
+
+
 ///////////////////////////////////////
 #define DEVELOPMENT_BUILD
-#define ARXAN_DEBUG_INFO
+//#define ARXAN_DEBUG_INFO
 //#define ARXAN_LOG_VEH
 
 ///////////////////////////////////////
+
+//muh macro
+#ifdef DEVELOPMENT_BUILD
+#define DEV_INIT_PRINT() Console::initPrint(std::string(__FUNCTION__))
+#else
+#define DEV_INIT_PRINT() ((void)0)
+#endif
 
 class DevPatches {
 public:
