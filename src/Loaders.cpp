@@ -2,6 +2,7 @@
 #include "Loaders.hpp"
 #include "FuncPointers.h"
 #include <unordered_set>
+#include "DevDef.h"
 
 //dont load from here just dump from here
 //also has the waited for xasset print so ya
