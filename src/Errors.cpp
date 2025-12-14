@@ -116,6 +116,8 @@ void hook_Com_Error(errorParm_t code, const char* fmt, ...) {
     va_start(args, fmt);
 
     //needed copy cuz original was getting cleared
+    //UPDATE: why did i do this, just pass the formatted string with no va args into com_error like what
+    //TODO: do what i said above.
     va_list argsCopy;
     va_copy(argsCopy, args);
 
