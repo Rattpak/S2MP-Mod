@@ -2,13 +2,14 @@
 
 Discord Server: https://discord.gg/Wbb5YMZrHG
 
-Very early in development. Feel free to contribute (especially with the dvar interface)
 
 ## Features
+- Internal Developer Console
 - External Developer Console
 - Reimplemented Stripped Commands / DVars
-- DVar Mapping
-- Mod auto runs between MP & ZM
+- Restored hundreds of Dvars (See DvarInterface.cpp)
+- Error String Mapping
+- Some asset dumping
 
 ## Reimplemented Commands / DVars
 - `noclip`
@@ -18,12 +19,22 @@ Very early in development. Feel free to contribute (especially with the dvar int
 - `map_restart`
 - `fast_restart`
 
+## Custom Commands
+- `luidbg` - Shows LUI debug info
+- `entdbg` - Shows g_spawn entity debug info
+- `intcondbg` - Shows internal console debugger
+- `listcmd` - Lists all commands loaded in engine
+
 ## Custom DVARs
 - `cg_drawlui` \<1 or 0\> - Enable drawing of LUI elements
 - `cg_hudblood` \<1 or 0\> - Enable drawing of on-screen damage blood
+- `g_dumpLui` \<1 or 0\> - Dump LUI files on map load
+- `g_dumpStringTables` \<1 or 0\> - Dump StringTables when they are loaded
+- `g_dumpRawfiles` \<1 or 0\> - Dump RawFiles when they are loaded
+- `printWorldInfo` \<1 or 0\> - Prints GfxWorld build info on load
   
 ## Notes
-- Place the launcher and the dll in the root folder of your WW2 installation. Run the launcher start the mod
+- Extract the contents into the root folder of your WW2 installation (steam only). Run the launcher and choose Multiplayer or Zombies.
 
 ## build
 - clone the repository and run the generate.bat to clone the dependencies and use the s2mp-mod.sln to open it in vs2022 and build.
