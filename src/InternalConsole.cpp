@@ -1044,35 +1044,53 @@ bool InternalConsole::DEVONLY_isAutoCompleteCycling() {
 
 
 void InternalConsole::init() {
+	DEV_INIT_PRINT();
+
+#ifdef DEVELOPMENT_BUILD
+	auto rendererStart = std::chrono::steady_clock::now();
+#endif
+
 	renderHookInit();
 
 	Console::print("Waiting for renderer to initialize...");
 	while (frameThreshold < 10) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
-	bool printOnce = false;
-	//Font consoleFont
-	InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
-	while (!InternalConsole::consoleFont) {
-		if (!printOnce) {
-			Console::print("Waiting for font 'fonts/consolefont'...");
-			printOnce = true;
-		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+#ifdef DEVELOPMENT_BUILD
+	auto rendererEnd = std::chrono::steady_clock::now();
+	auto rendererMs = std::chrono::duration_cast<std::chrono::milliseconds>(rendererEnd - rendererStart).count();
+	Console::printf("Renderer initialized in %lld ms (%.3f seconds)\n",rendererMs,rendererMs / 1000.0);
+#endif
+
+	//rest of mod is okay to load after renderer init so this part shouldnt block main thread
+	std::thread([]() {
+		bool printOnce = false;
+
 		InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
-	}
 
-	//Material white
-	printOnce = false;
-	mtl_white = Functions::_Material_RegisterHandle("white");
-	while (!mtl_white) {
-		if (!printOnce) {
-			Console::print("Waiting for default materials...");
-			printOnce = true;
+		while (!InternalConsole::consoleFont) {
+			if (!printOnce) {
+				Console::print("Waiting for font 'fonts/consolefont'...");
+				printOnce = true;
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-		mtl_white = Functions::_Material_RegisterHandle("white");
-	}
 
-	intConReady = true;
+		//material white
+		printOnce = false;
+		mtl_white = Functions::_Material_RegisterHandle("white");
+
+		while (!mtl_white) {
+			if (!printOnce) {
+				Console::print("Waiting for default materials...");
+				printOnce = true;
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			mtl_white = Functions::_Material_RegisterHandle("white");
+		}
+
+		intConReady = true;
+		}).detach();
 }
