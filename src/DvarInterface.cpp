@@ -700,7 +700,7 @@ void DvarInterface::addAllMappings() {
     addMapping("dlog_active", "5785");
     addMapping("marketing_refresh_time", "1543", "time in seconds to wait before refreshing marketing messages from demonware");
     addMapping("emblems_active", "4798", "Are we allowed to enable Emblems or not");
-    addMapping("selfie_active", "387", "Are we allowed to enable Selfie Uploads or not");
+    addMapping("aim_lockon_enabled", "387");
     addMapping("ca_intra_only", "3302", "CoD Anywhere Intra Network Only");
     addMapping("ca_do_mlc", "1966", "CoD Anywhere Do Multi Login check");
     addMapping("ca_require_signin", "2520", "CoD Anywhere require sign in to enter MP");
@@ -1119,6 +1119,7 @@ void DvarInterface::addAllMappings() {
     addMapping("vehAudio_inAirPitchUpLerp", "1120");
     addMapping("vehAudio_inAirPitchDownLerp", "2350");
     addMapping("vehAudio_spawnVolumeTime", "141");
+    addMapping("aim_accel_turnrate_enabled", "1922");
     
 
     //ui dvars ig
@@ -1139,6 +1140,34 @@ void DvarInterface::addAllMappings() {
     addMapping("g_maxDroppedWeapons", "1605", "Maximum number of dropped weapons");
     addMapping("g_inactivity", "2916", "Time delay before player is kicked for inactivity");
     //TODO: finish this later
+
+    //SND_Init
+    addMapping("snd_errorOnMissing", "2321");
+    addMapping("snd_volume", "5763");
+    addMapping("snd_premixVolume", "2945");
+    addMapping("snd_slaveFadeTime", "956", "The amount of time in milliseconds for a 'slave' sound to fade its volumes when a master sound starts or stops");
+    addMapping("snd_enableReverb", "2654");
+    addMapping("snd_enableEq", "1482");
+    addMapping("snd_occlusionDelay", "3743", "Minimum delay in (ms) between occlusion updates");
+    addMapping("snd_occlusionLerpTime", "3536", "Time to lerp to target occlusion lerp when occluded");
+    addMapping("snd_inheritSecondaryPitchVol", "4394");
+    addMapping("snd_musicDisabled", "1990");
+    addMapping("snd_announcerDisabled", "3059");
+    addMapping("snd_battlechatterDisabled", "3398");
+    addMapping("snd_hitsoundDisabled", "1849");
+    addMapping("snd_hitsoundVolume", "3293");
+    addMapping("snd_announcerVoicePrefix", "3", "Local mp announcer voice to use");
+    addMapping("snd_musicDisabledForCustomSoundtrack", "2757");
+    addMapping("snd_speakerConfig", "2489");
+    addMapping("snd_detectedSpeakerConfig", "2198");
+
+    //ScrPlace_Init
+    addMapping("safeArea_horizontal", "4914");
+    addMapping("safeArea_vertical", "5775");
+    addMapping("safeArea_adjusted_horizontal", "245");
+    addMapping("safeArea_adjusted_vertical", "4227");
+    addMapping("cg_hudLegacySplitscreenScale", "4517");
+    addMapping("cg_hudSplitscreenOffsetsUseScale", "454");
 
     //4835 disabled game start button
     //4670 0 removes microtransaction deals from qm menu
