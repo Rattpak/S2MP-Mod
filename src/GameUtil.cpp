@@ -12,7 +12,7 @@
 #include "resource.h"
 
 typedef unsigned int uint32;
-char** commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
+char** commandTextBuffers;
 
 /**
  * @brief Sanitizes a string for safe use as a file name.
@@ -272,14 +272,21 @@ std::string GameUtil::getStringFromClipboard() {
  * @param command The command string to execute.
  */
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
+    commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();
     if (bufferIndex == -1) {
+        Console::printf("[Cbuf_AddText] No available command buffer");
         return; 
     }
 
     Functions::_Sys_EnterCriticalSection(193);
 
+    //Console::printf("[Cbuf_AddText] bufferIndex = %d", bufferIndex);
+    //Console::printf("[Cbuf_AddText] commandTextBuffers = %p", static_cast<void*>(commandTextBuffers));
+
     char** commandBuffer = &commandTextBuffers[2 * bufferIndex];
+
+    //Console::printf("[Cbuf_AddText] commandBuffer = %p", static_cast<void*>(commandBuffer));
     uint32_t currentOffset = *(reinterpret_cast<uint32_t*>(commandBuffer) + 3);
     uint32_t bufferSize = *(reinterpret_cast<uint32_t*>(commandBuffer) + 2);
 
