@@ -33,7 +33,7 @@ dependencies.load()
 
 workspace "s2mp-mod"
     startproject "s2mp-mod"
-    location "./build"
+    location "."
 
     architecture "x86_64"
     configurations { "Debug", "Release" }
@@ -153,4 +153,4 @@ workspace "s2mp-mod"
             optimize "On"
 
 group "Dependencies"
-dependencies.projects()
+dependencies.projects()     

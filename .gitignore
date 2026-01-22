@@ -372,3 +372,8 @@ FodyWeavers.xsd
 .idea/*
 .vscode/*
 /build/ScriptLoader.cpp
+*.vcxproj
+*.filters
+/xsk-gsc-s2.vcxproj
+/xsk-gsc-s2.vcxproj
+/src/s2mp_con.pdn
