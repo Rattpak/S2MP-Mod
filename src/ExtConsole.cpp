@@ -117,7 +117,6 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	DeleteFileA("ZM");//just in case
 	ArxanPatches::init();
 	DebugPatches::init();
-	InternalConsole::init();
 	PrintPatches::init();
 	DevPatches::init();
 	Console::registerCustomCommands();
@@ -125,6 +124,9 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	DvarInterface::init();
 	Loaders::initAssetLoaders();
 	Errors::init();
+	InternalConsole::init(); //mod halts here until renderer ready (for arxan purposes)
+
+	
 	DeleteFileA("ZM");//just in case
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

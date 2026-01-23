@@ -1045,7 +1045,7 @@ bool InternalConsole::DEVONLY_isAutoCompleteCycling() {
 
 void InternalConsole::init() {
 	DEV_INIT_PRINT();
-
+	std::thread([]() {
 #ifdef DEVELOPMENT_BUILD
 	auto rendererStart = std::chrono::steady_clock::now();
 #endif
@@ -1060,11 +1060,11 @@ void InternalConsole::init() {
 #ifdef DEVELOPMENT_BUILD
 	auto rendererEnd = std::chrono::steady_clock::now();
 	auto rendererMs = std::chrono::duration_cast<std::chrono::milliseconds>(rendererEnd - rendererStart).count();
-	Console::printf("Renderer initialized in %lld ms (%.3f seconds)\n",rendererMs,rendererMs / 1000.0);
+	Console::printf("Renderer initialized in %lld ms (%.3f seconds)",rendererMs,rendererMs / 1000.0);
 #endif
 
-	//rest of mod is okay to load after renderer init so this part shouldnt block main thread
-	std::thread([]() {
+
+	
 		bool printOnce = false;
 
 		InternalConsole::consoleFont = Functions::_R_RegisterFont("fonts/consolefont", 15);
