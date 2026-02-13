@@ -41,36 +41,32 @@ Functions::Dvar_RegisterBool Functions::_Dvar_RegisterBool = nullptr;
 void Functions::init()
 {
 	DEV_INIT_PRINT();
-
-	_SV_StartMap = (SV_StartMap)(0x740000_b);
-	_GetStringFromResource = (GetStringFromResource)(0x7EF3A0_b);
-	_SV_SendServerCommand = (SV_SendServerCommand)(0x7485E0_b);
-	_Com_Error = (Com_Error)(0xAA1E0_b);
-	_Scr_MakeGameMessage = (Scr_MakeGameMessage)(0x613230_b);
-	_Sys_EnterCriticalSection = (Sys_EnterCriticalSection)(0x7D6B50_b);
-	_Sys_LeaveCriticalSection = (Sys_LeaveCriticalSection)(0x7D6BC0_b);
-	_Sys_Cwd = (Sys_Cwd)(0x7D6980_b);
-	_Dvar_FindVar = (Dvar_FindVar)(0x108C30_b);
-	_SEH_SafeTranslateString = (SEH_SafeTranslateString)(0x7934D0_b);
-	_SEH_StringEd_GetString = (SEH_StringEd_GetString)(0x793520_b);
-	_Com_Quit_f = (Com_Quit_f)(0xF4430_b);
-	_GetAvailableCommandBufferIndex = (GetAvailableCommandBufferIndex)(0x503030_b);
-	_SV_MapRestart_f = (SV_MapRestart_f)(0x73E800_b);
-
-	_R_AddCmdDrawText = (R_AddCmdDrawText)(0x92CDE0_b);
-	_R_RegisterFont = (R_RegisterFont)(0x906F50_b);
-	_UI_RunMenuScript = (UI_RunMenuScript)(0x7ADA80_b);
-	_SV_Loaded = (SV_Loaded)(0x7438D0_b);
-	_R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic)(0x92C460_b);
-	_R_AddCmdDrawTextWithCursor = (R_AddCmdDrawTextWithCursor)(0x92D670_b);
-	_LUI_OpenMenu = (LUI_OpenMenu)(0x7AC7A0_b);
-	_LiveStorage_UploadStats = (LiveStorage_UploadStats)(0x6C38A0_b);
-	_Cmd_AddCommandInternal = (Cmd_AddCommandInternal)(0x6AE0E0_b);
-
-	_LUI_CoD_GetMaxMemory = (LUI_CoD_GetMaxMemory)(0x1E4CD0_b);
-	_LUI_CoD_GetFreeMemoryBytes = (LUI_CoD_GetFreeMemoryBytes)(0x1E4CC0_b);
-	_hks_HashTable_contiguousArraySize = (hks_HashTable_contiguousArraySize)(0x32BFA0_b);
-	_Material_RegisterHandle = (Material_RegisterHandle)(0x91F430_b);
-
-	_Dvar_RegisterBool = (Dvar_RegisterBool)(0x1149A0_b);
+	_Sys_Cwd = (Sys_Cwd)(0x771750_b);
+	_SV_StartMap = (SV_StartMap)(0x6D7200_b);
+	_GetStringFromResource = (GetStringFromResource)(0x7894A0_b);
+	_SV_SendServerCommand = (SV_SendServerCommand)(0x6DFBA0_b);
+	_Com_Error = (Com_Error)(0x8F750_b);
+	_Scr_MakeGameMessage = (Scr_MakeGameMessage)(0x5AE7A0_b);
+	_Sys_EnterCriticalSection = (Sys_EnterCriticalSection)(0x7719B0_b);
+	_Sys_LeaveCriticalSection = (Sys_LeaveCriticalSection)(0x771A20_b);
+	_Dvar_FindVar = (Dvar_FindVar)(0xAE9D0_b);
+	_SEH_SafeTranslateString = (SEH_SafeTranslateString)(0x72CE50_b);
+	_SEH_StringEd_GetString = (SEH_StringEd_GetString)(0x72CEA0_b);
+	_Dvar_RegisterBool = (Dvar_RegisterBool)(0xAF5E0_b);
+	_Com_Quit_f = (Com_Quit_f)(0x99130_b);
+	_GetAvailableCommandBufferIndex = (GetAvailableCommandBufferIndex)(0x4A05C0_b);
+	_SV_MapRestart_f = (SV_MapRestart_f)(0x6D5B50_b);
+	_R_AddCmdDrawText = (R_AddCmdDrawText)(0x8B9480_b);
+	_R_RegisterFont = (R_RegisterFont)(0x892D90_b);
+	_UI_RunMenuScript = (UI_RunMenuScript)(0x745A50_b);
+	_SV_Loaded = (SV_Loaded)(0x6DF9D6_b);
+	_R_AddCmdDrawStretchPic = (R_AddCmdDrawStretchPic)(0x8B8A00_b);
+	_R_AddCmdDrawTextWithCursor = (R_AddCmdDrawTextWithCursor)(0x8B9D10_b);
+	_LUI_OpenMenu = (LUI_OpenMenu)(0x743F60_b);
+	_LiveStorage_UploadStats = (LiveStorage_UploadStats)(0x65BA90_b);
+	_Cmd_AddCommandInternal = (Cmd_AddCommandInternal)(0x6496B0_b);
+	_LUI_CoD_GetMaxMemory = (LUI_CoD_GetMaxMemory)(0x180CA0_b);
+	_LUI_CoD_GetFreeMemoryBytes = (LUI_CoD_GetFreeMemoryBytes)(0x180C90_b);
+	_hks_HashTable_contiguousArraySize = (hks_HashTable_contiguousArraySize)(0x2CA7D0_b);
+	_Material_RegisterHandle = (Material_RegisterHandle)(0x8AB5F0_b);
 }

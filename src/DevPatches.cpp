@@ -24,8 +24,8 @@ void* hook_Image_Setup(GfxImage* image, uint32_t width, uint32_t height, uint32_
 }
 
 void imageThing() {
-    MH_CreateHook(reinterpret_cast<void*>(0x90B9D0_b), &hook_Image_Setup, reinterpret_cast<void**>(&_Image_Setup));
-    MH_EnableHook(reinterpret_cast<void*>(0x90B9D0_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x8978C0_b), &hook_Image_Setup, reinterpret_cast<void**>(&_Image_Setup));
+    MH_EnableHook(reinterpret_cast<void*>(0x8978C0_b));
 }
 
 void DevPatches::imageTestPt2() {

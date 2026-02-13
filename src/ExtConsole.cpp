@@ -100,12 +100,14 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	Functions::init();
 	Console::print("Sys_Cwd(): " + std::string(Functions::_Sys_Cwd()));
 	
+
+	
 	checkAndSetZombieMode();
 	Console::printf("Setting engine mode to %s", doZombiesMode ? "Zombies" : "Multiplayer");
 	if (doZombiesMode) {
 		constexpr std::array<unsigned char, 1> ZOMBIES = { 0x02 }; //patch
 		HANDLE pHandle = GetCurrentProcess();
-		WriteProcessMemory(pHandle, (LPVOID)(0xDAA4E34_b), ZOMBIES.data(), ZOMBIES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0xD8AE894_b), ZOMBIES.data(), ZOMBIES.size(), nullptr);
 	}
 	if (!FindWindowA("S2", NULL)) {
 		Console::print("Waiting for game to initialize...");
@@ -117,6 +119,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	DeleteFileA("ZM");//just in case
 	ArxanPatches::init();
 	DebugPatches::init();
+
 	PrintPatches::init();
 	DevPatches::init();
 	Console::registerCustomCommands();

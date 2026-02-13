@@ -492,7 +492,7 @@ void calculateSearchBoxResults(int windowWidth, int windowHeight) {
 		}
 	
 		//TODO: parse commands from in-engine
-		cmd_function_s* cmd = *(cmd_function_s**)0xAC662D8_b;
+		cmd_function_s* cmd = *(cmd_function_s**)0xAA752C8_b;
 		while (cmd) {
 			if (IsBadReadPtr(cmd, sizeof(cmd_function_s))) {
 				break;
@@ -521,8 +521,8 @@ void drawConsole() {
 	//	InternalConsole::clearFullConsole();
 	//}
 
-	int windowWidth = *(int*)(0x1DA11E8_b); //this isnt actually window size i think its bink player size
-	int windowHeight = *(int*)(0x1DA11EC_b);
+	int windowWidth = *(int*)(0x1C85268_b); //this isnt actually window size i think its bink player size
+	int windowHeight = *(int*)(0x1C8526C_b);
 	if (borderSize > 1) {
 		searchBoxOffset = 96 + borderSize;
 	}
@@ -580,7 +580,7 @@ void drawConsole() {
 
 
 			//Bottom Left Build Version
-			Functions::_R_AddCmdDrawText("S2 MP build 1.25 Sun Nov 24 16:36:17 2019 win64", 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + borderSize + 2, (windowHeight - margin - borderSize), 1.0f, 1.0f, 0.0f, fullConBuildVerCol, 0);
+			Functions::_R_AddCmdDrawText("S2 MP build 2.20 Sun Jan 11 05:14:23 2026 win64", 0x7FFFFFFF, InternalConsole::consoleFont, 0, 0, InternalConsole::consoleFont->pixelHeight, margin + borderSize + 2, (windowHeight - margin - borderSize), 1.0f, 1.0f, 0.0f, fullConBuildVerCol, 0);
 			drawFullConsoleOutput(windowWidth, windowHeight);
 
 		}
@@ -969,15 +969,15 @@ void R_EndFrame_hookfunc() {
 
 
 void renderHookInit() {
-    void* target = (void*)(0x92E430_b); //endframe
+    void* target = (void*)(0x8BACD0_b); //endframe
     MH_Initialize();
 
     MH_CreateHook(target, &R_EndFrame_hookfunc, reinterpret_cast<void**>(&_EndFrame));
     MH_EnableHook(target);
 
     //CL_KeyEvent
-    MH_CreateHook(reinterpret_cast<void*>(0x4C1A20_b), &hook_CL_KeyEvent, reinterpret_cast<void**>(&_CL_KeyEvent));
-    MH_EnableHook(reinterpret_cast<void*>(0x4C1A20_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x45CBC0_b), &hook_CL_KeyEvent, reinterpret_cast<void**>(&_CL_KeyEvent));
+    MH_EnableHook(reinterpret_cast<void*>(0x45CBC0_b));
 }
 
 bool InternalConsole::DEVONLY_isShift() {

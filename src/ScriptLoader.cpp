@@ -44,6 +44,6 @@ void hook_Load_ScriptFileAsset(ScriptFile** scriptFile) {
 }
 
 void ScriptLoader::init() {
-	MH_CreateHook(reinterpret_cast<void*>(0x13CC70_b), &hook_Load_ScriptFileAsset, reinterpret_cast<void**>(&_Load_ScriptFileAsset));
-	MH_EnableHook(reinterpret_cast<void*>(0x13CC70_b));
+	MH_CreateHook(reinterpret_cast<void*>(0xD92A0_b), &hook_Load_ScriptFileAsset, reinterpret_cast<void**>(&_Load_ScriptFileAsset));
+	MH_EnableHook(reinterpret_cast<void*>(0xD92A0_b));
 }

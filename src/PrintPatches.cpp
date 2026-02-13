@@ -108,7 +108,7 @@ void hook_DB_LoadXZone(XZoneInfo* zoneInfo, __int64 zoneCount, __int64 waitAlloc
 void hook_G_InitGame(int levelTime, unsigned int randomSeed, int restart, int registerDvars, int savegame) {
     Console::print("------- Game Initialization -------");
     Console::print("gamename: S2");
-    Console::print("gamedate: Nov 24 2019");
+    Console::print("gamedate: Jan 11 2026");
     _G_InitGame(levelTime, randomSeed, restart, registerDvars, savegame);
 }
 
@@ -210,65 +210,61 @@ void PrintPatches::init() {
 	Console::infoPrint(__FUNCTION__);
 
     //Loading Map:
-    MH_CreateHook(reinterpret_cast<void*>(0x6A1050_b), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
-    MH_EnableHook(reinterpret_cast<void*>(0x6A1050_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x63C300_b), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
+    MH_EnableHook(reinterpret_cast<void*>(0x63C300_b));
 
     //----- FS_Startup -----
-    MH_CreateHook(reinterpret_cast<void*>(0x7BE630_b), &hook_FS_Startup, reinterpret_cast<void**>(&_FS_Startup));
-    MH_EnableHook(reinterpret_cast<void*>(0x7BE630_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x756330_b), &hook_FS_Startup, reinterpret_cast<void**>(&_FS_Startup));
+    MH_EnableHook(reinterpret_cast<void*>(0x756330_b));
 
     //----- Server Shutdown -----
-    MH_CreateHook(reinterpret_cast<void*>(0x743F30_b), &hook_SV_Shutdown, reinterpret_cast<void**>(&_SV_Shutdown));
-    MH_EnableHook(reinterpret_cast<void*>(0x743F30_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x6DAF50_b), &hook_SV_Shutdown, reinterpret_cast<void**>(&_SV_Shutdown));
+    MH_EnableHook(reinterpret_cast<void*>(0x6DAF50_b));
 
     //------ Server Initialization ------
-    MH_CreateHook(reinterpret_cast<void*>(0x744070_b), &hook_SV_SpawnServer, reinterpret_cast<void**>(&_SV_SpawnServer));
-    MH_EnableHook(reinterpret_cast<void*>(0x744070_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x6DB350_b), &hook_SV_SpawnServer, reinterpret_cast<void**>(&_SV_SpawnServer));
+    MH_EnableHook(reinterpret_cast<void*>(0x6DB350_b));
 
     //LUI: Loading LUA File \"%s\""
-    MH_CreateHook(reinterpret_cast<void*>(0x129D30_b), &hook_LUI_LoadLuaFile, reinterpret_cast<void**>(&_LUI_LoadLuaFile));
-    MH_EnableHook(reinterpret_cast<void*>(0x129D30_b));
+    MH_CreateHook(reinterpret_cast<void*>(0xC5150_b), &hook_LUI_LoadLuaFile, reinterpret_cast<void**>(&_LUI_LoadLuaFile));
+    MH_EnableHook(reinterpret_cast<void*>(0xC5150_b));
 
     //LUI: Starting up...
-    MH_CreateHook(reinterpret_cast<void*>(0x1282F0_b), &hook_LUI_Init, reinterpret_cast<void**>(&_LUI_Init));
-    MH_EnableHook(reinterpret_cast<void*>(0x1282F0_b));
+    MH_CreateHook(reinterpret_cast<void*>(0xC3460_b), &hook_LUI_Init, reinterpret_cast<void**>(&_LUI_Init));
+    MH_EnableHook(reinterpret_cast<void*>(0xC3460_b));
 
-    //Loading Zone: 
-    MH_CreateHook(reinterpret_cast<void*>(0x105DA0_b), &hook_DB_TryLoadXFileInternal, reinterpret_cast<void**>(&_DB_TryLoadXFileInternal));
-    MH_EnableHook(reinterpret_cast<void*>(0x105DA0_b));
+    //Loading Zone:
+    MH_CreateHook(reinterpret_cast<void*>(0xABE30_b), &hook_DB_TryLoadXFileInternal, reinterpret_cast<void**>(&_DB_TryLoadXFileInternal));
+    MH_EnableHook(reinterpret_cast<void*>(0xABE30_b));
 
     //Adding fastfile '%s' to queue
-    MH_CreateHook(reinterpret_cast<void*>(0xFF510_b), &hook_DB_LoadXZone, reinterpret_cast<void**>(&_DB_LoadXZone));
-    MH_EnableHook(reinterpret_cast<void*>(0xFF510_b));
+    MH_CreateHook(reinterpret_cast<void*>(0xA48D0_b), &hook_DB_LoadXZone, reinterpret_cast<void**>(&_DB_LoadXZone));
+    MH_EnableHook(reinterpret_cast<void*>(0xA48D0_b));
 
     //------- Game Initialization -------
-    MH_CreateHook(reinterpret_cast<void*>(0x5C3C60_b), &hook_G_InitGame, reinterpret_cast<void**>(&_G_InitGame));
-    MH_EnableHook(reinterpret_cast<void*>(0x5C3C60_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x55EC90_b), &hook_G_InitGame, reinterpret_cast<void**>(&_G_InitGame));
+    MH_EnableHook(reinterpret_cast<void*>(0x55EC90_b));
 
     //Online_PatchStreamer printing
-    MH_CreateHook(reinterpret_cast<void*>(0x2F3F30_b), &hook_Online_PatchStreamer_va, reinterpret_cast<void**>(&_Online_PatchStreamer_va));
-    MH_EnableHook(reinterpret_cast<void*>(0x2F3F30_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x2900F0_b), &hook_Online_PatchStreamer_va, reinterpret_cast<void**>(&_Online_PatchStreamer_va));
+    MH_EnableHook(reinterpret_cast<void*>(0x2900F0_b));
 
     //fs_debug required
     //Writing to config file '%s' for local client %d
-    MH_CreateHook(reinterpret_cast<void*>(0xF7180_b), &hook_Com_WriteConfig_f, reinterpret_cast<void**>(&_Com_WriteConfig_f));
-    MH_EnableHook(reinterpret_cast<void*>(0xF7180_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x9C8E0_b), &hook_Com_WriteConfig_f, reinterpret_cast<void**>(&_Com_WriteConfig_f));
+    MH_EnableHook(reinterpret_cast<void*>(0x9C8E0_b));
     
     //fs_debug required
     //Checking if file '%s' exists in %s
-    MH_CreateHook(reinterpret_cast<void*>(0xFA770_b), &hook_DB_FileExists, reinterpret_cast<void**>(&_DB_FileExists));
-    MH_EnableHook(reinterpret_cast<void*>(0xFA770_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x9FE50_b), &hook_DB_FileExists, reinterpret_cast<void**>(&_DB_FileExists));
+    MH_EnableHook(reinterpret_cast<void*>(0x9FE50_b));
     
 
     //LUI_Error
-    MH_CreateHook(reinterpret_cast<void*>(0x122BD0_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
-    MH_EnableHook(reinterpret_cast<void*>(0x122BD0_b));
+    MH_CreateHook(reinterpret_cast<void*>(0xBD900_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
+    MH_EnableHook(reinterpret_cast<void*>(0xBD900_b));
 
     //GfxWorld build info
-    MH_CreateHook(reinterpret_cast<void*>(0x5112B0_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
-    MH_EnableHook(reinterpret_cast<void*>(0x5112B0_b));
-
-    //LUI_BeginEvent test
-   // MH_CreateHook(reinterpret_cast<void*>(0x121380_b), &hook_LUI_BeginEvent, reinterpret_cast<void**>(&_LUI_BeginEvent));
-   // MH_EnableHook(reinterpret_cast<void*>(0x121380_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x4AD840_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
+    MH_EnableHook(reinterpret_cast<void*>(0x4AD840_b));
 }

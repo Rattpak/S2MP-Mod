@@ -66,11 +66,11 @@ void GameUtil::setCustomSplashScreen() {
  */
 void GameUtil::blockGameInput(bool b) {
     if (b) {
-        int* pKeyCatchers = (int*)0x1C65F20_b;
+        int* pKeyCatchers = (int*)0x1BAE4E0_b;
         *pKeyCatchers |= 1;
     }
     else {
-        int* pKeyCatchers = (int*)0x1C65F20_b;
+        int* pKeyCatchers = (int*)0x1BAE4E0_b;
         *pKeyCatchers &= ~1;
     }
 }
@@ -272,7 +272,7 @@ std::string GameUtil::getStringFromClipboard() {
  * @param command The command string to execute.
  */
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
-    commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
+    commandTextBuffers = reinterpret_cast<char**>(0xAA754A8_b);
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();
     if (bufferIndex == -1) {
         Console::printf("[Cbuf_AddText] No available command buffer");
@@ -424,7 +424,7 @@ std::string GameUtil::sanitizeFormatWidths(const char* fmt) {
  * @return Pointer to the CmdArgs structure, or nullptr if unavailable.
  */
 CmdArgs* GameUtil::getCmdArgs() {
-    CmdArgs* cmdArgs = reinterpret_cast<CmdArgs*>(0xAC662E0_b);
+    CmdArgs* cmdArgs = reinterpret_cast<CmdArgs*>(0xAA752D0_b);
     if (!cmdArgs) {
         Console::printf("%s was called but cmdArgs was null!", __FUNCTION__);
         return nullptr;

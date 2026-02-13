@@ -55,8 +55,8 @@ XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int all
 
 void Loaders::initAssetLoaders() {
 	//DB_FindXAssetHeader hook
-	MH_CreateHook(reinterpret_cast<void*>(0xFAB20_b), &hook_DB_FindXAssetHeader, reinterpret_cast<void**>(&_DB_FindXAssetHeader));
-	MH_EnableHook(reinterpret_cast<void*>(0xFAB20_b));
+	MH_CreateHook(reinterpret_cast<void*>(0xA0080_b), &hook_DB_FindXAssetHeader, reinterpret_cast<void**>(&_DB_FindXAssetHeader));
+	MH_EnableHook(reinterpret_cast<void*>(0xA0080_b));
 
 	LuiLoader::init();
 	FontLoader::init();
