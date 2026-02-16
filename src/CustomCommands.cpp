@@ -14,6 +14,8 @@ uintptr_t CustomCommands::rawBase = (uintptr_t)GetModuleHandle(NULL);
 bool CustomCommands::isGodmode = false;
 
 void CustomCommands::toggleGodmode() {
+	Console::printf("Not supported in latest version (yet)");
+	return;
 	int* health = (int*)(rawBase + 0xA0C740C);
 	if (CustomCommands::isGodmode) {
 		*health = 100;
@@ -50,10 +52,10 @@ void CustomCommands::toggleHudBlood(bool b) {
 	constexpr std::array<unsigned char, 5> ENABLE_HUDBLOOD_PATCH_BYTES = { 0xE8, 0xD1, 0x48, 0xFE, 0xFF }; //original
 	HANDLE pHandle = GetCurrentProcess();
 	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x4C35A), ENABLE_HUDBLOOD_PATCH_BYTES.data(), ENABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x4C35A_b), ENABLE_HUDBLOOD_PATCH_BYTES.data(), ENABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
 	}
 	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x4C35A), DISABLE_HUDBLOOD_PATCH_BYTES.data(), DISABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x4C35A_b), DISABLE_HUDBLOOD_PATCH_BYTES.data(), DISABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
 	}
 }
 
@@ -64,10 +66,10 @@ void CustomCommands::toggleFog(bool b) {
 	constexpr std::array<unsigned char, 5> ENABLE_FOG_PATCH_BYTES = { 0xE8, 0xBF, 0x14, 0x41, 0x00 }; //original
 	HANDLE pHandle = GetCurrentProcess();
 	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x35A2C), ENABLE_FOG_PATCH_BYTES.data(), ENABLE_FOG_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x35A2C_b), ENABLE_FOG_PATCH_BYTES.data(), ENABLE_FOG_PATCH_BYTES.size(), nullptr);
 	}
 	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x35A2C), DISABLE_FOG_PATCH_BYTES.data(), DISABLE_FOG_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x35A2C_b), DISABLE_FOG_PATCH_BYTES.data(), DISABLE_FOG_PATCH_BYTES.size(), nullptr);
 	}
 }
 
@@ -123,14 +125,14 @@ void CustomCommands::changeMap() {
 }
 
 void CustomCommands::fastRestart() {
-	int* sv_map_restart = (int*)(base + 0xBB4EE60);
+	int* sv_map_restart = (int*)(0xBB4EE60_b);
 	*sv_map_restart = 1;
 }
 
 void CustomCommands::mapRestart() {
-	int* sv_loadScripts = (int*)(base + 0xBB4EE64);
+	int* sv_loadScripts = (int*)(0xBB4EE64_b);
 	*sv_loadScripts = 1;
-	int* sv_map_restart = (int*)(base + 0xBB4EE60);
+	int* sv_map_restart = (int*)(0xBB4EE60_b);
 	*sv_map_restart = 1;
 }
 

@@ -32,6 +32,74 @@ std::string GameUtil::sanitizeFileName(const std::string& name) {
     return safe;
 }
 
+bool GameUtil::isReadablePtr(const void* ptr, size_t bytes = 1) {
+    if (!ptr) {
+        return false;
+    }
+    MEMORY_BASIC_INFORMATION mbi{};
+    if (VirtualQuery(ptr, &mbi, sizeof(mbi)) != sizeof(mbi)) {
+        return false;
+    }
+
+    if (mbi.State != MEM_COMMIT) return false;
+
+    const DWORD protect = mbi.Protect & 0xFF;
+    const bool readable =
+        protect == PAGE_READONLY ||
+        protect == PAGE_READWRITE ||
+        protect == PAGE_WRITECOPY ||
+        protect == PAGE_EXECUTE_READ ||
+        protect == PAGE_EXECUTE_READWRITE ||
+        protect == PAGE_EXECUTE_WRITECOPY;
+
+    if (!readable) {
+        return false;
+    }
+    if (mbi.Protect & PAGE_GUARD) {
+        return false;
+    }
+    if (mbi.Protect & PAGE_NOACCESS) {
+        return false;
+    }
+
+    //ensure [ptr, ptr+bytes) stays in region
+    uintptr_t base = reinterpret_cast<uintptr_t>(mbi.BaseAddress);
+    uintptr_t end = base + mbi.RegionSize;
+    uintptr_t p = reinterpret_cast<uintptr_t>(ptr);
+    if (p < base || p + bytes > end) {
+        return false;
+    }
+
+    return true;
+}
+
+const char* GameUtil::safeCString(const char* s, size_t maxLen) {
+    if (!s) {
+        return "<null>";
+    }
+
+
+    //common sentinel
+    const uintptr_t v = reinterpret_cast<uintptr_t>(s);
+    if (v == 0xFFFFFFFFFFFFFFFFull) {
+        return "<invalid>";
+    }
+
+    if (!isReadablePtr(s, 1)) {
+        return "<unreadable>";
+    }
+
+    for (size_t i = 0; i < maxLen; ++i) {
+        if (!isReadablePtr(s + i, 1)) {
+            return "<unterminated/unreadable>";
+        }
+        if (s[i] == '\0') {
+            return s;
+        }
+    }
+    return "<unterminated>";
+}
+
 /**
  * @brief Compares a memory region against a byte pattern.
  *

@@ -11,6 +11,15 @@
 //Credit:
 //https://kylehalladay.com/blog/2020/11/13/Hooking-By-Example.html
 
+void Hook::nopMem(void* addr, int len) {
+	DWORD oldProt;
+	VirtualProtect(addr, len, PAGE_EXECUTE_READWRITE, &oldProt);
+	memset(addr, 0x90, len);//nop
+	DWORD t;
+	VirtualProtect(addr, len, oldProt, &t);
+}
+
+
 void* Hook::allocatePageNearAddress(void* targetAddr) {
     SYSTEM_INFO sysInfo;
     GetSystemInfo(&sysInfo);

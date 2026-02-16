@@ -6,6 +6,7 @@
 class Hook {
 public:
 	static void installHook(void* func2hook, void* payloadFunction);
+	static void nopMem(void* addr, int len);
 private:
 	static void* allocatePageNearAddress(void* targetAddr);
 	static void writeAbsoluteJump64(void* absJumpMemory, void* addrToJumpTo);

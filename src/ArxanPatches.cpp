@@ -85,7 +85,7 @@ std::vector<uint64_t> integrityIntact =
     0x12010A98,
 };
 
-//NEED TO UPDATE FOR 2.20
+
 //hardcoding to save patching time
 std::vector<uint64_t> integrityIntactBig =
 {
@@ -152,7 +152,6 @@ std::vector<uint64_t> integrityIntactBig =
     0x11F60AD8,
     0x1200D1D6,
     0x12010B47,
-
 };
 
 //2.20 has none??

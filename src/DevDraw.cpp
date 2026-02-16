@@ -25,7 +25,7 @@ float debuggerBgColor[4] = {0.0f, 0.0f, 0.0f, 0.7f };
 float intConDbgColor[4] = { 1.0f, 0.5f, 0.0f, 1.0f };
 
 std::string versionString =
-"S2MP-MOD 1.0.1-Alpha"
+"S2MP-MOD 1.1.0-Alpha"
 #ifdef DEVELOPMENT_BUILD
 " (DEV)"
 #endif

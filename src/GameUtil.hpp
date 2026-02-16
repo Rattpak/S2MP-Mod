@@ -5,6 +5,8 @@
 class GameUtil {
 public:
 	static std::string sanitizeFileName(const std::string& name);
+	static bool isReadablePtr(const void* ptr, size_t bytes);
+	static const char* safeCString(const char* s, size_t maxLen = 4096);
 	static bool bytesMatch(const uint8_t* addr, const std::initializer_list<uint8_t>& pattern);
 	static void setCustomSplashScreen();
 	static void blockGameInput(bool b);

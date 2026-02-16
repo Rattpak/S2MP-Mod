@@ -17,6 +17,7 @@
 #include "DvarInterface.hpp"
 #include "DevDef.h"
 #include <Arxan.hpp>
+#include "LogFile.hpp"
 
 //Output to internal console without label
 void Console::printIntCon(std::string text) {
@@ -34,6 +35,8 @@ void Console::print(const std::string& text) {
 	ExternalConsoleGui::print(text);
 	// Internal Console
 	InternalConsole::addToOutputStack(text, 0);
+
+	Logfile::append(const_cast<std::string&>(text));
 }
 
 /**
@@ -71,6 +74,8 @@ void Console::labelPrint(std::string label, std::string text) {
 	ExternalConsoleGui::print(s);
 	//Internal Console
 	InternalConsole::addToOutputStack(s, 0);
+
+	Logfile::append(s);
 }
 
 //Output to all consoles as info print
@@ -82,6 +87,8 @@ void Console::infoPrint(std::string text) {
 	ExternalConsoleGui::print(s);
 	//Internal Console
 	InternalConsole::addToOutputStack(s, 0);
+
+	Logfile::append(s);
 }
 
 //TODO: add preprocessor directive for developer like in t6sp-mod
@@ -95,6 +102,9 @@ void Console::devPrint(std::string text) {
 	ExternalConsoleGui::print(s);
 	//Internal Console
 	InternalConsole::addToOutputStack(s, 0);
+
+
+	Logfile::append(s);
 #endif
 }
 
@@ -107,6 +117,8 @@ void Console::initPrint(std::string text) {
 	ExternalConsoleGui::print(s);
 	//Internal Console
 	InternalConsole::addToOutputStack(s, 0);
+
+	Logfile::append(s);
 }
 
 //Parse command string into a vector of strings. Anything inside of quotes will be a single string

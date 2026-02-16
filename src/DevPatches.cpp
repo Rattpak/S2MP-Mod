@@ -32,7 +32,16 @@ void DevPatches::imageTestPt2() {
 
 }
 
+void tempNewUnlockThing() {
+    Hook::nopMem((void*)0xCE822_b, 2);
+
+    //unlreated to unlockall but need place to test
+   // Hook::nopMem((void*)0x46FCBB_b, 2);
+   // Hook::nopMem((void*)0x46FCC4_b, 2);
+}
+
 void DevPatches::init()  {
     DEV_INIT_PRINT();
     imageThing();
+    tempNewUnlockThing();
 }

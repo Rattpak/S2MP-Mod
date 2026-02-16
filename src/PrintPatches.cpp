@@ -113,6 +113,7 @@ void hook_G_InitGame(int levelTime, unsigned int randomSeed, int restart, int re
 }
 
 void hook_Online_PatchStreamer_va(const char* label, const char* fmt, ...) {
+    Console::devPrint(__FUNCTION__);
     va_list args;
     va_start(args, fmt);
 
@@ -135,26 +136,35 @@ void hook_Online_PatchStreamer_va(const char* label, const char* fmt, ...) {
 }
 
 void hook_Com_WriteConfig_f(int localClientNum, const char* name) {
-    if (Functions::_Dvar_FindVar("1467")->current.integer) { //fs_debug
-        Console::printf("Writing to config file '%s' for local client %d", name, localClientNum);
+    dvar_t* fs_debug = Functions::_Dvar_FindVar("1467");
+    if (fs_debug) {
+        if (fs_debug->current.integer) { //fs_debug
+            Console::printf("Writing to config file '%s' for local client %d", name, localClientNum);
+        }
     }
+    
     
     _Com_WriteConfig_f(localClientNum, name);
 }
 
 void hook_DB_FileExists(const char* zoneName, FF_DIR source) {
-    if (Functions::_Dvar_FindVar("1467")->current.integer) { //fs_debug
-        Console::printf("Checking if file '%s' exists in %s", zoneName, source ? "usermaps directory" : "default directory");
+    dvar_t* fs_debug = Functions::_Dvar_FindVar("1467");
+    if (fs_debug) {
+        if (fs_debug->current.integer) { //fs_debug
+            Console::printf("Checking if file '%s' exists in %s", zoneName, source ? "usermaps directory" : "default directory");
+        }
     }
     _DB_FileExists(zoneName, source);
 }
 
 void hook_LUI_Error(const char* error, void* luiVm) {
+    Console::devPrint(__FUNCTION__);
     Console::printf("LUI Error: %s", Functions::_SEH_SafeTranslateString(error));
     _LUI_Error(error, luiVm);
 }
 
 void hook_printf(const char* const Format, ...) {
+    Console::devPrint(__FUNCTION__);
     if (!Format) {
         Console::print("format is NULL");
         return;
@@ -172,30 +182,64 @@ void hook_printf(const char* const Format, ...) {
 
 
 void printGfxBuildInfo(uintptr_t addr) {
+    Console::devPrint(__FUNCTION__);
     if (addr == 0) {
         Console::printf("GfxBuildInfo: address is 0");
         return;
     }
+    if (addr == 0xFFFFFFFFFFFFFFFFull) { //this happened a couple times
+        Console::printf("GfxBuildInfo: address is -1 (invalid sentinel)");
+        return;
+    }
+
 
     GfxBuildInfo** p = reinterpret_cast<GfxBuildInfo**>(addr);
+    if (!GameUtil::isReadablePtr(p, sizeof(*p))) {
+        Console::printf("GfxBuildInfo: ptr-to-ptr 0x%p is not readable", (void*)p);
+        return;
+    }
 
-    Console::printf("bspCommandline   : %s", (*p)->bspCommandline);
-    Console::printf("lightCommandline : %s", (*p)->lightCommandline);
-    Console::printf("bspTimestamp     : %s", (*p)->bspTimestamp);
-    Console::printf("lightTimestamp   : %s", (*p)->lightTimestamp);
+
+    GfxBuildInfo* info = *p;
+    if (!info) {
+        Console::printf("GfxBuildInfo: *p is null (addr=0x%p)", (void*)addr);
+        return;
+    }
+    const uintptr_t infoV = reinterpret_cast<uintptr_t>(info);
+    if (infoV == 0xFFFFFFFFFFFFFFFFull) {
+        Console::printf("GfxBuildInfo: *p is -1 (invalid sentinel)");
+        return;
+    }
+
+    //validate the struct memory itself before touching fields
+    if (!GameUtil::isReadablePtr(info, sizeof(GfxBuildInfo))) {
+        Console::printf("GfxBuildInfo: struct 0x%p is not readable", (void*)info);
+        return;
+    }
+
+    Console::printf("GfxBuildInfo @ addr=0x%p  p=0x%p  *p=0x%p", (void*)addr, (void*)p, (void*)info);
+    Console::printf("bspCommandline   : %s", GameUtil::safeCString(info->bspCommandline));
+    Console::printf("lightCommandline : %s", GameUtil::safeCString(info->lightCommandline));
+    Console::printf("bspTimestamp     : %s", GameUtil::safeCString(info->bspTimestamp));
+    Console::printf("lightTimestamp   : %s", GameUtil::safeCString(info->lightTimestamp));
 }
 
 
 
 void hook_Load_GfxBuildInfo(bool atStreamStart) {
+    Console::devPrint(__FUNCTION__);
     _Load_GfxBuildInfo(atStreamStart);
-
-    if (Functions::_Dvar_FindVar("printWorldInfo")->current.enabled) {
-        printGfxBuildInfo(0x9AD3D60_b);
+    dvar_t* printWorldInfo = Functions::_Dvar_FindVar("printWorldInfo");
+    if (printWorldInfo) {
+        if (printWorldInfo->current.enabled) {
+            printGfxBuildInfo(0x9AD3D60_b);
+        }
     }
+    
 }
 
 void hook_LUI_BeginEvent(LocalClientNum_t localClientNum, const char* eventName, void* luaVM) {
+    Console::devPrint(__FUNCTION__);
     std::string s = std::string(eventName);
 
     if (s != "mousemove" && s != "mouseup" && s != "mousedown") {
@@ -220,35 +264,35 @@ void PrintPatches::init() {
     //----- Server Shutdown -----
     MH_CreateHook(reinterpret_cast<void*>(0x6DAF50_b), &hook_SV_Shutdown, reinterpret_cast<void**>(&_SV_Shutdown));
     MH_EnableHook(reinterpret_cast<void*>(0x6DAF50_b));
-
+    
     //------ Server Initialization ------
     MH_CreateHook(reinterpret_cast<void*>(0x6DB350_b), &hook_SV_SpawnServer, reinterpret_cast<void**>(&_SV_SpawnServer));
     MH_EnableHook(reinterpret_cast<void*>(0x6DB350_b));
-
+    
     //LUI: Loading LUA File \"%s\""
     MH_CreateHook(reinterpret_cast<void*>(0xC5150_b), &hook_LUI_LoadLuaFile, reinterpret_cast<void**>(&_LUI_LoadLuaFile));
     MH_EnableHook(reinterpret_cast<void*>(0xC5150_b));
-
+    
     //LUI: Starting up...
     MH_CreateHook(reinterpret_cast<void*>(0xC3460_b), &hook_LUI_Init, reinterpret_cast<void**>(&_LUI_Init));
     MH_EnableHook(reinterpret_cast<void*>(0xC3460_b));
-
+    
     //Loading Zone:
     MH_CreateHook(reinterpret_cast<void*>(0xABE30_b), &hook_DB_TryLoadXFileInternal, reinterpret_cast<void**>(&_DB_TryLoadXFileInternal));
     MH_EnableHook(reinterpret_cast<void*>(0xABE30_b));
-
+    
     //Adding fastfile '%s' to queue
     MH_CreateHook(reinterpret_cast<void*>(0xA48D0_b), &hook_DB_LoadXZone, reinterpret_cast<void**>(&_DB_LoadXZone));
     MH_EnableHook(reinterpret_cast<void*>(0xA48D0_b));
-
+    
     //------- Game Initialization -------
     MH_CreateHook(reinterpret_cast<void*>(0x55EC90_b), &hook_G_InitGame, reinterpret_cast<void**>(&_G_InitGame));
     MH_EnableHook(reinterpret_cast<void*>(0x55EC90_b));
-
+    
     //Online_PatchStreamer printing
     MH_CreateHook(reinterpret_cast<void*>(0x2900F0_b), &hook_Online_PatchStreamer_va, reinterpret_cast<void**>(&_Online_PatchStreamer_va));
     MH_EnableHook(reinterpret_cast<void*>(0x2900F0_b));
-
+    
     //fs_debug required
     //Writing to config file '%s' for local client %d
     MH_CreateHook(reinterpret_cast<void*>(0x9C8E0_b), &hook_Com_WriteConfig_f, reinterpret_cast<void**>(&_Com_WriteConfig_f));
@@ -259,11 +303,11 @@ void PrintPatches::init() {
     MH_CreateHook(reinterpret_cast<void*>(0x9FE50_b), &hook_DB_FileExists, reinterpret_cast<void**>(&_DB_FileExists));
     MH_EnableHook(reinterpret_cast<void*>(0x9FE50_b));
     
-
+    
     //LUI_Error
     MH_CreateHook(reinterpret_cast<void*>(0xBD900_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
     MH_EnableHook(reinterpret_cast<void*>(0xBD900_b));
-
+    
     //GfxWorld build info
     MH_CreateHook(reinterpret_cast<void*>(0x4AD840_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
     MH_EnableHook(reinterpret_cast<void*>(0x4AD840_b));

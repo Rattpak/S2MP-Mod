@@ -90,6 +90,8 @@ workspace "s2mp-mod"
                 "src/ExtConsole.cpp",
                 "src/ExtConsoleGui.cpp",
                 "src/InternalConsole.cpp",
+                "src/LogFile.cpp",
+                "src/LogFile.hpp",
             },
             ["src/Loaders"] = {
                 "src/FontLoader.cpp",
