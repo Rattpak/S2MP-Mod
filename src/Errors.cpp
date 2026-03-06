@@ -157,6 +157,6 @@ void hook_Com_Error(errorParm_t code, const char* fmt, ...) {
 
 void Errors::init() {
     DEV_INIT_PRINT();
-    MH_CreateHook(reinterpret_cast<void*>(0xAA1E0_b), &hook_Com_Error, reinterpret_cast<void**>(&_Com_Error));
-    MH_EnableHook(reinterpret_cast<void*>(0xAA1E0_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x8F750_b), &hook_Com_Error, reinterpret_cast<void**>(&_Com_Error));
+    MH_EnableHook(reinterpret_cast<void*>(0x8F750_b));
 }

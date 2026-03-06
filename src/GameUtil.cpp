@@ -32,6 +32,74 @@ std::string GameUtil::sanitizeFileName(const std::string& name) {
     return safe;
 }
 
+bool GameUtil::isReadablePtr(const void* ptr, size_t bytes = 1) {
+    if (!ptr) {
+        return false;
+    }
+    MEMORY_BASIC_INFORMATION mbi{};
+    if (VirtualQuery(ptr, &mbi, sizeof(mbi)) != sizeof(mbi)) {
+        return false;
+    }
+
+    if (mbi.State != MEM_COMMIT) return false;
+
+    const DWORD protect = mbi.Protect & 0xFF;
+    const bool readable =
+        protect == PAGE_READONLY ||
+        protect == PAGE_READWRITE ||
+        protect == PAGE_WRITECOPY ||
+        protect == PAGE_EXECUTE_READ ||
+        protect == PAGE_EXECUTE_READWRITE ||
+        protect == PAGE_EXECUTE_WRITECOPY;
+
+    if (!readable) {
+        return false;
+    }
+    if (mbi.Protect & PAGE_GUARD) {
+        return false;
+    }
+    if (mbi.Protect & PAGE_NOACCESS) {
+        return false;
+    }
+
+    //ensure [ptr, ptr+bytes) stays in region
+    uintptr_t base = reinterpret_cast<uintptr_t>(mbi.BaseAddress);
+    uintptr_t end = base + mbi.RegionSize;
+    uintptr_t p = reinterpret_cast<uintptr_t>(ptr);
+    if (p < base || p + bytes > end) {
+        return false;
+    }
+
+    return true;
+}
+
+const char* GameUtil::safeCString(const char* s, size_t maxLen) {
+    if (!s) {
+        return "<null>";
+    }
+
+
+    //common sentinel
+    const uintptr_t v = reinterpret_cast<uintptr_t>(s);
+    if (v == 0xFFFFFFFFFFFFFFFFull) {
+        return "<invalid>";
+    }
+
+    if (!isReadablePtr(s, 1)) {
+        return "<unreadable>";
+    }
+
+    for (size_t i = 0; i < maxLen; ++i) {
+        if (!isReadablePtr(s + i, 1)) {
+            return "<unterminated/unreadable>";
+        }
+        if (s[i] == '\0') {
+            return s;
+        }
+    }
+    return "<unterminated>";
+}
+
 /**
  * @brief Compares a memory region against a byte pattern.
  *
@@ -66,11 +134,11 @@ void GameUtil::setCustomSplashScreen() {
  */
 void GameUtil::blockGameInput(bool b) {
     if (b) {
-        int* pKeyCatchers = (int*)0x1C65F20_b;
+        int* pKeyCatchers = (int*)0x1BAE4E0_b;
         *pKeyCatchers |= 1;
     }
     else {
-        int* pKeyCatchers = (int*)0x1C65F20_b;
+        int* pKeyCatchers = (int*)0x1BAE4E0_b;
         *pKeyCatchers &= ~1;
     }
 }
@@ -272,7 +340,7 @@ std::string GameUtil::getStringFromClipboard() {
  * @param command The command string to execute.
  */
 void GameUtil::Cbuf_AddText(LocalClientNum_t localClientNum, const std::string& command) {
-    commandTextBuffers = reinterpret_cast<char**>(0xAC664B8_b);
+    commandTextBuffers = reinterpret_cast<char**>(0xAA754A8_b);
     int bufferIndex = Functions::_GetAvailableCommandBufferIndex();
     if (bufferIndex == -1) {
         Console::printf("[Cbuf_AddText] No available command buffer");
@@ -424,7 +492,7 @@ std::string GameUtil::sanitizeFormatWidths(const char* fmt) {
  * @return Pointer to the CmdArgs structure, or nullptr if unavailable.
  */
 CmdArgs* GameUtil::getCmdArgs() {
-    CmdArgs* cmdArgs = reinterpret_cast<CmdArgs*>(0xAC662E0_b);
+    CmdArgs* cmdArgs = reinterpret_cast<CmdArgs*>(0xAA752D0_b);
     if (!cmdArgs) {
         Console::printf("%s was called but cmdArgs was null!", __FUNCTION__);
         return nullptr;

@@ -2,6 +2,8 @@
 #include "Console.hpp"
 #include "structs.h"
 #include <Hook.hpp>
+#include "LogFile.hpp"
+#include "DevDef.h"
 
 HMODULE hm;
 //0 - CLI, 1 - GUI, 2 - BOTH
@@ -20,6 +22,12 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpvReserved) {
 	hm = hModule;
 	if (dwReason == DLL_PROCESS_ATTACH) 
 	{
+		Logfile::init();
+
+#ifdef DEVELOPMENT_BUILD
+		Logfile::setEnabled(true); //always log on dev build
+#endif
+
 		utils::hook::detour::detour(); // initialize minhook
 
 		if (EXTERNAL_CONSOLE_MODE == 0 || EXTERNAL_CONSOLE_MODE == 2) {

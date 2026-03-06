@@ -16,6 +16,8 @@ uintptr_t CustomCommands::rawBase = (uintptr_t)GetModuleHandle(NULL);
 bool CustomCommands::isGodmode = false;
 
 void CustomCommands::toggleGodmode() {
+	Console::printf("Not supported in latest version (yet)");
+	return;
 	int* health = (int*)(rawBase + 0xA0C740C);
 	if (CustomCommands::isGodmode) {
 		*health = 100;
@@ -192,7 +194,7 @@ void CustomCommands::saveAssetPool() {
 
 
 void CustomCommands::listAllCmds() {
-	cmd_function_s* cmd = *(cmd_function_s**)0xAC662D8_b;
+	cmd_function_s* cmd = *(cmd_function_s**)0xAA752C8_b;
 	while (cmd) {
 		if (IsBadReadPtr(cmd, sizeof(cmd_function_s))) {
 			break;
@@ -209,13 +211,13 @@ void CustomCommands::listAllCmds() {
 //cg_hudblood
 void CustomCommands::toggleHudBlood(bool b) {
 	constexpr std::array<unsigned char, 5> DISABLE_HUDBLOOD_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
-	constexpr std::array<unsigned char, 5> ENABLE_HUDBLOOD_PATCH_BYTES = { 0xE8, 0xF6, 0x4D, 0xFE, 0xFF }; //original
+	constexpr std::array<unsigned char, 5> ENABLE_HUDBLOOD_PATCH_BYTES = { 0xE8, 0xD1, 0x48, 0xFE, 0xFF }; //original
 	HANDLE pHandle = GetCurrentProcess();
 	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x5DCE5), ENABLE_HUDBLOOD_PATCH_BYTES.data(), ENABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x4C35A_b), ENABLE_HUDBLOOD_PATCH_BYTES.data(), ENABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
 	}
 	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x5DCE5), DISABLE_HUDBLOOD_PATCH_BYTES.data(), DISABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x4C35A_b), DISABLE_HUDBLOOD_PATCH_BYTES.data(), DISABLE_HUDBLOOD_PATCH_BYTES.size(), nullptr);
 	}
 }
 
@@ -237,13 +239,13 @@ void CustomCommands::toggleWireframe(bool enable) {
 //r_fog
 void CustomCommands::toggleFog(bool b) {
 	constexpr std::array<unsigned char, 5> DISABLE_FOG_PATCH_BYTES = { 0x90, 0x90, 0x90, 0x90, 0x90 }; //patch
-	constexpr std::array<unsigned char, 5> ENABLE_FOG_PATCH_BYTES = { 0xE8, 0x02, 0x4B, 0x46, 0x00 }; //original
+	constexpr std::array<unsigned char, 5> ENABLE_FOG_PATCH_BYTES = { 0xE8, 0xBF, 0x14, 0x41, 0x00 }; //original
 	HANDLE pHandle = GetCurrentProcess();
 	if (b) {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x47B19), ENABLE_FOG_PATCH_BYTES.data(), ENABLE_FOG_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x35A2C_b), ENABLE_FOG_PATCH_BYTES.data(), ENABLE_FOG_PATCH_BYTES.size(), nullptr);
 	}
 	else {
-		WriteProcessMemory(pHandle, (LPVOID)(base + 0x47B19), DISABLE_FOG_PATCH_BYTES.data(), DISABLE_FOG_PATCH_BYTES.size(), nullptr);
+		WriteProcessMemory(pHandle, (LPVOID)(0x35A2C_b), DISABLE_FOG_PATCH_BYTES.data(), DISABLE_FOG_PATCH_BYTES.size(), nullptr);
 	}
 }
 
@@ -305,11 +307,11 @@ void CustomCommands::changeMap() {
 	}
 
 	if (count <= 3) {
-		int* sv_migrate = (int*)0xBD44248_b;
+		int* sv_migrate = (int*)0xBB4EE68_b;
 		*sv_migrate = 0;
 	}
 	else {
-		int* sv_migrate = (int*)0xBD44248_b;
+		int* sv_migrate = (int*)0xBB4EE68_b;
 		*sv_migrate = atol(cmdArgs->argv[nest][3]); //TODO: make this safe
 	}
 	
@@ -317,14 +319,14 @@ void CustomCommands::changeMap() {
 }
 
 void CustomCommands::fastRestart() {
-	int* sv_map_restart = (int*)(base + 0xBD44240);
+	int* sv_map_restart = (int*)(0xBB4EE60_b);
 	*sv_map_restart = 1;
 }
 
 void CustomCommands::mapRestart() {
-	int* sv_loadScripts = (int*)(base + 0xBD44244);
+	int* sv_loadScripts = (int*)(0xBB4EE64_b);
 	*sv_loadScripts = 1;
-	int* sv_map_restart = (int*)(base + 0xBD44240);
+	int* sv_map_restart = (int*)(0xBB4EE60_b);
 	*sv_map_restart = 1;
 }
 

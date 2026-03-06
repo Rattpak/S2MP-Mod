@@ -26,7 +26,7 @@ float debuggerBgColor[4] = {0.0f, 0.0f, 0.0f, 0.7f };
 float intConDbgColor[4] = { 1.0f, 0.5f, 0.0f, 1.0f };
 
 std::string versionString =
-"S2MP-MOD 1.0.1-Alpha"
+"S2MP-MOD 1.1.0-Alpha"
 #ifdef DEVELOPMENT_BUILD
 " (DEV)"
 #endif
@@ -122,8 +122,8 @@ void renderLuaDebugGui(int windowWidth, int windowHeight) {
     if (used > luaMemHighWatermark) {
         luaMemHighWatermark = used;
     }
-    bool s_errorInProgress = *(bool*)(0x122C10A_b);
-    bool g_virtualLobbyActive = *(bool*)(0x1C675F2_b);
+    bool s_errorInProgress = *(bool*)(0x1BD26FD_b);
+    bool g_virtualLobbyActive = *(bool*)(0x1BD26F8_b);
     guiTextList.push_back("S2MP-MOD LUA DEBUGGER");
     guiTextList.push_back("Lua memory used: " + std::to_string(used) + " / " + std::to_string(max / 1024) + " KB");
     guiTextList.push_back("Lua memory high watermark: " + std::to_string(luaMemHighWatermark) + " KB");
@@ -158,7 +158,7 @@ void renderEntDebugGui(int windowWidth, int windowHeight) {
     std::vector<std::string> guiTextList;
     font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
 
-    int entCount = *(int*)(0xA2D6DD0_b);
+    int entCount = *(int*)(0xA0E40D0_b);
 
     if (entCount <= 0) {
         guiTextList.push_back("S2MP-MOD ENT DEBUGGER [NOT READY]");
@@ -191,13 +191,13 @@ void renderAntiCheatDebugGui(int windowWidth, int windowHeight) {
     }
     std::vector<std::string> guiTextList;
     font_t* conFont = Functions::_R_RegisterFont("fonts/consoleFont", 15);
-
-    int s_playerInfractionsNum = *(int*)(0xE463D98_b);
-
-    guiTextList.push_back("S2MP-MOD AC DEBUGGER");
-    guiTextList.push_back("s_playerInfractionsNum: " + std::to_string(s_playerInfractionsNum));
-
-    DevDraw::renderDevGui(guiTextList, 615, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
+   //
+   // int s_playerInfractionsNum = *(int*)(0xE463D98_b);
+   //
+   // guiTextList.push_back("S2MP-MOD AC DEBUGGER");
+   // guiTextList.push_back("s_playerInfractionsNum: " + std::to_string(s_playerInfractionsNum));
+   //
+   // DevDraw::renderDevGui(guiTextList, 615, 35, windowWidth, windowHeight, entDebugGuiColor, conFont);
 }
 
 void DevDraw::toggleAntiCheatDebugGui() {

@@ -47,7 +47,7 @@ void __fastcall Load_LuaFileAsset_hookfunc(LuaFile** luaFile) {
 }
 
 void Hook_Load_LuaFileAsset() {
-    void* target = (void*)(0x13BB70_b);
+    void* target = (void*)(0xD81A0_b);
 
     if (MH_CreateHook(target, &Load_LuaFileAsset_hookfunc, reinterpret_cast<void**>(&oLoad_LuaFileAsset)) != MH_OK) {
         return;
@@ -119,6 +119,6 @@ void LuiLoader::init() {
     Hook_Load_LuaFileAsset();
 
     //hks_load
-    MH_CreateHook(reinterpret_cast<void*>(0x338D90_b), &hook_hks_load, reinterpret_cast<void**>(&_hks_load));
-    MH_EnableHook(reinterpret_cast<void*>(0x338D90_b));
+    MH_CreateHook(reinterpret_cast<void*>(0x2D6D10_b), &hook_hks_load, reinterpret_cast<void**>(&_hks_load));
+    MH_EnableHook(reinterpret_cast<void*>(0x2D6D10_b));
 }
