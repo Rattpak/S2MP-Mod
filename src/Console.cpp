@@ -17,6 +17,7 @@
 #include "DvarInterface.hpp"
 #include "DevDef.h"
 #include <Arxan.hpp>
+#include <Loaders.hpp>
 
 //Output to internal console without label
 void Console::printIntCon(std::string text) {
@@ -139,6 +140,85 @@ void printfCrashTest() {
 }
 #endif
 
+void aatestInfo() {
+	DEV_ONLY_FUNCTION();
+	int localclientprofile = 0;
+	uint8_t* base = reinterpret_cast<uint8_t*>(0x8DD0C90_b);
+	uint8_t* profile = base + (6920 * localclientprofile);
+	bool autoAim = profile[120] != 0;
+	bool aimAssistLockon = profile[275] != 0;
+	bool aimAssistSlowdown = profile[276] != 0;
+
+	Console::printf("Auto Aim (AutoAim): %s", autoAim ? "ON" : "OFF");
+	Console::printf("Aim Assist Rotation (AimAssistLockon): %s", aimAssistLockon ? "ON" : "OFF");
+	Console::printf("Aim Assist ??? (AimAssistSlowdown): %s", aimAssistSlowdown ? "ON" : "OFF");
+}
+
+void aatestOn() {
+	DEV_ONLY_FUNCTION();
+	//TODO: use CL_IsSplitscreenControllerActive when calculating these!
+	int localclientprofile = 0;
+	uint8_t* base = reinterpret_cast<uint8_t*>(0x8DD0C90_b);
+	uint8_t* profile = base + (6920 * localclientprofile);
+	profile[120] = 1;//autoAim
+	profile[275] = 1; //aimAssistLockon
+	profile[276] = 1; //aimAssistSlowdown
+}
+
+void dumpTable() {
+	DEV_ONLY_FUNCTION();
+	CmdArgs* cmdArgs = GameUtil::getCmdArgs();
+	if (!cmdArgs) {
+		return;
+	}
+
+	int nest = cmdArgs->nesting;
+	int count = cmdArgs->argc[nest];
+	if (count != 2) {
+		Console::printf("invalid params");
+		return;
+	}
+
+	const char** args = cmdArgs->argv[nest];
+
+	StringTable* table;
+	Functions::_StringTable_GetAsset(args[1], &table);
+	if (table) {
+		StringTableLoader::dump(table);
+	}
+	else {
+		Console::printf("does not exist");
+	}
+	
+}
+
+void printSupplyDropInfo() {
+	DEV_ONLY_FUNCTION();
+	const char* str = reinterpret_cast<const char*>(0x89D5CC0_b);
+	Console::printf(str);
+}
+
+//super temp
+#ifdef DEVELOPMENT_BUILD
+void dumpAssetNames() {
+	uintptr_t g_assetNamesAddr = (uintptr_t)0x10A02B0_b;
+	const int MAX_ASSET_TYPES = 0x53;
+
+	const char** assetNames = reinterpret_cast<const char**>(g_assetNamesAddr);
+
+	for (int i = 0; i < MAX_ASSET_TYPES; ++i) {
+		const char* name = assetNames[i];
+		if (!name) {
+			break;
+		}
+
+		Console::printf("%s = 0x%X", name, i);
+	}
+}
+#endif // DEVELOPMENT_BUILD
+
+
+
 void Console::registerCustomCommands() {
 	GameUtil::addCommand("noclip", &Noclip::toggle);
 	GameUtil::addCommand("map_restart", &CustomCommands::mapRestart);
@@ -154,22 +234,40 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
 	GameUtil::addCommand("quit", &CustomCommands::quit);
 	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
+	GameUtil::addCommand("r_fullbright", &CustomCommands::tempToggleFullbright);
+	GameUtil::addCommand("r_wireframe", &CustomCommands::tempToggleWireframe);
+	GameUtil::addCommand("listassetpool", &CustomCommands::listAssetPool);
+	GameUtil::addCommand("saveassetpool", &CustomCommands::saveAssetPool);
 #ifdef DEVELOPMENT_BUILD
+
+	GameUtil::addCommand("dumpAssetNames", &dumpAssetNames);
 	GameUtil::addCommand("printfNullptr", &printfCrashTest);
-	GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);
+	GameUtil::addCommand("aaInfo", &aatestInfo);
+	GameUtil::addCommand("aaOn", &aatestOn);
+	GameUtil::addCommand("dumpTable", &dumpTable);
+	GameUtil::addCommand("printSupplyDropInfo", &printSupplyDropInfo);
+	GameUtil::addCommand("prevmat", &CustomCommands::previewMaterial);
+	GameUtil::addCommand("imgtest", &DevPatches::imgtest);
 #endif // DEVELOPMENT_BUILD
 
 }
 
+
+
 void Console::registerCustomDvars() {
 #ifdef DEVELOPMENT_BUILD
 	DvarInterface::registerBool("testBool", 1, 0, "S2MP-Mod custom bool test");
+	DvarInterface::registerBool("unlockAllItems", 1, 0, "S2MP-Mod unlock all items test. Once this shit is on you aint turning it off without a restart.");
 #endif // DEVELOPMENT_BUILD
 	DvarInterface::registerBool("g_dumpLui", 0, 0, "Dump LUI files on map load");
 	DvarInterface::registerBool("g_dumpStringTables", 0, 0, "Dump StringTables when they are loaded");
 	DvarInterface::registerBool("g_dumpRawfiles", 0, 0, "Dump RawFiles when they are loaded");
+	DvarInterface::registerBool("g_dumpScripts", 0, 0, "Toggle dumping scripts on map load");
 	DvarInterface::registerBool("printWorldInfo", 0, 0, "Prints GfxWorld build info on load");
 	DvarInterface::registerBool("g_dumpMapEnts", 0, 0, "Dump MapEnts when they are loaded"); //TODO
+	//DvarInterface::registerBool("r_fullbright", 0, 0, "Toggles rendering without lighting");
+	DvarInterface::registerBool("cg_hudblood", 1, 0, "Enable drawing of on-screen damage blood");
+	DvarInterface::registerBool("r_fog", 1, 0, "Set to 0 to disable fog");
 }
 
 //useful for testing commands and handling non-cmd/non-dvar stuff
@@ -177,6 +275,7 @@ bool execCustomDevCmd(std::string& cmd) {
 	std::transform(cmd.begin(), cmd.end(), cmd.begin(), GameUtil::asciiToLower);
 	std::vector<std::string> p = Console::parseCmdToVec(cmd);
 
+#ifdef DEVELOPMENT_BUILD
 	//--------------------TEMP--------------------
 	if (p[0] == "trans") {
 		if (p.size() == 2) {
@@ -184,7 +283,7 @@ bool execCustomDevCmd(std::string& cmd) {
 		}
 		return true;
 	}
-	
+
 	if (p[0] == "send") {
 		if (p.size() == 2) {
 			std::string str = "%c \"" + p[1] + "\"";
@@ -192,40 +291,38 @@ bool execCustomDevCmd(std::string& cmd) {
 		}
 		return true;
 	}
-	
-	if (p[0] == "up") {
-		Functions::_LiveStorage_UploadStats(0);
-		return true;
-	}
-	
-	if (p[0] == "ftest") {
-		Functions::_R_RegisterFont("testfakefont.ttf", 16);
-		return true;
-	}
 	//--------------------------------------------
+#endif // DEVELOPMENT_BUILD
 
 	
-	if (p[0] == "quit") {
-		exit(0);
-		return true;
-	}
-
-
-	
+	//TODO: Maybe find a way to better setup these one-shot dvars.
 	if (p[0] == "cg_hudblood") {
 		if (p.size() >= 2) {
-			CustomCommands::toggleHudBlood(GameUtil::stringToBool(p[1]));
+			bool val = GameUtil::stringToBool(p[1]);
+			CustomCommands::toggleHudBlood(val);
+			Functions::_Dvar_FindVar("cg_hudblood")->current.enabled = val;
 		}
 		return true;
 	}
-	
-	//TODO: register these as dvar?
+
 	if (p[0] == "r_fog") {
 		if (p.size() >= 2) {
+			bool val = GameUtil::stringToBool(p[1]);
 			CustomCommands::toggleFog(GameUtil::stringToBool(p[1]));
+			Functions::_Dvar_FindVar("r_fog")->current.enabled = val;
 		}
 		return true;
 	}
+
+	//this can and will desync so easily
+	//if (p[0] == "r_fullbright") {
+	//	if (p.size() >= 2) {
+	//		bool val = GameUtil::stringToBool(p[1]);
+	//		CustomCommands::toggleFullbright(val);
+	//		Functions::_Dvar_FindVar("r_fullbright")->current.enabled = val;
+	//	}
+	//	return true;
+	//}
 
 	return false;
 }

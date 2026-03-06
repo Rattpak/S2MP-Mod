@@ -30,9 +30,22 @@
     do { } while (0)
 #endif
 
+#ifdef DEVELOPMENT_BUILD
+#define DEV_ONLY_FUNCTION() ((void)0)
+#else
+#define DEV_ONLY_FUNCTION() static_assert(false, \
+        "This function is only available in DEVELOPMENT_BUILD")
+#endif
+
 class DevPatches {
 public:
-	static void imageTestPt2();
+#ifdef DEVELOPMENT_BUILD
+	static bool customLocStr(const char* name, XAssetHeader& header);
+	static void doEulaTest();
+#endif
+
+	static void imgtest();
+
 	static void init();
 };
 
@@ -42,7 +55,10 @@ public:
 	static void renderIntConDebugGui(int windowWidth, int windowHeight);
 	static void toggleIntConDebugGui();
 	static void render(int windowWidth, int windowHeight);
+	static std::string getDevBuildDate();
 	static void renderDevGui(std::vector<std::string>& list, int xPos, int yPos, int wWid, int wHei, float* color, font_t* font);
 	static void toggleLuaDebugGui();
 	static void toggleAntiCheatDebugGui();
+
+	static material_t* previewMaterial;
 };

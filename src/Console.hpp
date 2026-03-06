@@ -87,9 +87,16 @@ public:
 	static void listAllCmds();
 	static void toggleHud(bool b);
 	static void toggleHudBlood(bool b);
+	static void toggleFullbright(bool b);
+	static void toggleWireframe(bool enable);
+	static void previewMaterial();
+	static void listAssetPool();
+	static void saveAssetPool();
 	static void toggleGun(bool b);
 	static void toggleFog(bool b);
 	static void translateString();
+	static void tempToggleFullbright();
+	static void tempToggleWireframe();
 	static void cmdTest();
 	static void changeMap();
 	static void fastRestart();

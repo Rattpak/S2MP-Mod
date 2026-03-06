@@ -141,31 +141,202 @@ struct RawFile
     const char* buffer;
 };
 
+struct LocalizeEntry
+{
+    const char* value;
+    const char* name;
+};
+
 enum XAssetType {
 	ASSET_TYPE_PHYSPRESET = 0x0,
+	ASSET_TYPE_SND_PHYSPRESET = 0x1,
+	ASSET_TYPE_SND_MUSICSET = 0x2,
+	ASSET_TYPE_PHYSCOLLMAP = 0x3,
+	ASSET_TYPE_PHYSWATERPRESET = 0x4,
+	ASSET_TYPE_PHYSWORLDMAP = 0x5,
+	ASSET_TYPE_PHYSCONSTRAINT = 0x6,
+	ASSET_TYPE_XANIMPARTS = 0x7,
+	ASSET_TYPE_XSURFSHARED = 0x8,
+	ASSET_TYPE_XMODEL_SURFS = 0x9,
     ASSET_TYPE_XMODEL = 0xA,
+    ASSET_TYPE_XMODELBASE = 0xB,
+    ASSET_TYPE_MAYHEM = 0xC,
     ASSET_TYPE_MATERIAL = 0xD,
-    ASSET_TYPE_GFXWORLD = 0x27,
+    ASSET_TYPE_COMPUTESHADER = 0xE,
+    ASSET_TYPE_VERTEXSHADER = 0xF,
+    ASSET_TYPE_HULLSHADER = 0x10,
+    ASSET_TYPE_DOMAINSHADER = 0x11,
+    ASSET_TYPE_PIXELSHADER = 0x12,
+    ASSET_TYPE_VERTEXDECL = 0x13,
+	ASSET_TYPE_TECHNIQUE_SET = 0x14,
+	ASSET_TYPE_IMAGE = 0x15,
+	ASSET_TYPE_SOUND = 0x16,
+	ASSET_TYPE_SOUND_SUBMIX = 0x17,
+	ASSET_TYPE_SOUND_CURVE = 0x18,
+	ASSET_TYPE_DIST_CURVE = 0x19,
+	ASSET_TYPE_REVERB_CURVE = 0x1A,
+	ASSET_TYPE_SOUND_CONTEXT = 0x1B,
+	ASSET_TYPE_ALIAS_PARAMETER_MODIFIER = 0x1C,
+	ASSET_TYPE_ALIAS_COMBAT_CONE = 0x1D,
+	ASSET_TYPE_LOADED_SOUND = 0x1E,
+	ASSET_TYPE_CLIPMAP = 0x1F,
+	ASSET_TYPE_COMWORLD = 0x20,
+	ASSET_TYPE_GLASSWORLD = 0x21,
+	ASSET_TYPE_PATHDATA = 0x22,
+	ASSET_TYPE_NAVMESH = 0x23,
+	ASSET_TYPE_VEHICLE_TRACK = 0x24,
+	ASSET_TYPE_MAP_ENTS = 0x25,
+	ASSET_TYPE_FX_MAP = 0x26,
+	ASSET_TYPE_GFXWORLD = 0x27,
+	ASSET_TYPE_GFXWORLD_TRANS = 0x28,
+	ASSET_TYPE_CLIPMAP_TRANS = 0x29,
+	ASSET_TYPE_IESPROFILE = 0x2A,
     ASSET_TYPE_LIGHT_DEF = 0x2B,
+	ASSET_TYPE_UI_MAP = 0x2C,
+	ASSET_TYPE_ANIMCLASS = 0x2D,
 	ASSET_TYPE_LOCALIZE_ENTRY = 0x2E,
+	ASSET_TYPE_ATTACHMENT = 0x2F,
     ASSET_TYPE_WEAPON = 0x30,
+	ASSET_TYPE_SNDDRIVER_GLOBALS = 0x31,
+	ASSET_TYPE_FX = 0x32,
+	ASSET_TYPE_IMPACT_FX = 0x33,
+	ASSET_TYPE_SURFACE_FX = 0x34,
+	ASSET_TYPE_AITYPE = 0x35,
+	ASSET_TYPE_MPTYPE = 0x36,
+	ASSET_TYPE_CHARACTER = 0x37,
+	ASSET_TYPE_XMODELALIAS = 0x38,
     ASSET_TYPE_RAWFILE = 0x39,
     ASSET_TYPE_SCRIPTFILE = 0x3A,
     ASSET_TYPE_STRINGTABLE = 0x3B,
+	ASSET_TYPE_LEADERBOARD = 0x3C,
+	ASSET_TYPE_VIRTUAL_LEADERBOARD = 0x3D,
+	ASSET_TYPE_STRUCTURED_DATA_DEF = 0x3E,
+	ASSET_TYPE_DDL = 0x3F,
 	ASSET_TYPE_TRACER = 0x40,
-	ASSET_TYPE_XMODELALIAS = 0x41,
+	ASSET_TYPE_VEHICLE = 0x41,
 	ASSET_TYPE_ADDON_MAP_ENTS = 0x42,
+	ASSET_TYPE_NET_CONST_STRINGS = 0x43,
+	ASSET_TYPE_REVERB_PRESET = 0x44,
     ASSET_TYPE_LUA_FILE = 0x45,
+	ASSET_TYPE_SCRIPTABLE = 0x46,
+	ASSET_TYPE_EQUIPMENT_SND_TABLE = 0x47,
+	ASSET_TYPE_VECTORFIELD = 0x48,
+	ASSET_TYPE_PARTICLE_SIM_ANIMATION = 0x49,
 	ASSET_TYPE_LASER = 0x4A,
+	ASSET_TYPE_BEAM = 0x4B,
+	ASSET_TYPE_SKELETON_SCRIPT = 0x4C,
+	ASSET_TYPE_CLUT = 0x4D,
     ASSET_TYPE_FONT = 0x4E,
+    ASSET_TYPE_SPLINE = 0x4F,
+    ASSET_TYPE_PHYS_CLOTH_TUNING = 0x50,
 	ASSET_TYPE_DLOGSCHEMA = 0x51,
+	ASSET_TYPE_DLOGROUTES = 0x52,
 };
 
-union XAssetHeader {
-    struct ScriptFile* script;
-    struct RawFile* rawfile;
-    struct StringTable* table;
-	void* data;
+//taken from s1
+enum GfxWarningType
+{
+    R_WARN_FRONTEND_ENT_LIMIT = 0,
+    R_WARN_KNOWN_MODELS = 1,
+    R_WARN_KNOWN_DOBJ = 2,
+    R_WARN_KNOWN_BRUSH = 3,
+    R_WARN_KNOWN_PER_CLIENT_MODELS = 4,
+    R_WARN_KNOWN_SPECIAL_MODELS = 5,
+    R_WARN_MODEL_LIGHT_CACHE = 6,
+    R_WARN_SCENE_ENTITIES = 7,
+    R_WARN_MAX_SKINNED_CACHE_VERTICES = 8,
+    R_WARN_MAX_SCENE_SURFS_SIZE = 9,
+    R_WARN_MAX_SURF_BUF = 10,
+    R_WARN_PORTAL_PLANES = 11,
+    R_WARN_MAX_CLOUDS = 12,
+    R_WARN_MAX_DLIGHTS = 13,
+    R_WARN_MAX_SPOTLIGHTS = 14,
+    R_WARN_DLIGHT_SMODEL_LIMIT = 15,
+    R_WARN_SMODEL_LIGHTING = 16,
+    R_WARN_SMODEL_VIS_DATA_LIMIT = 17,
+    R_WARN_SMODEL_SURF_LIMIT = 18,
+    R_WARN_SMODEL_SURF_DELAY_LIMIT = 19,
+    R_WARN_MARK_SMODEL_COLLIDED_LIMIT = 20,
+    R_WARN_MARK_WORLD_BRUSH_LIMIT = 21,
+    R_WARN_BSPSURF_DATA_LIMIT = 22,
+    R_WARN_BSPSURF_OMNI_LIGHT_LIMIT = 23,
+    R_WARN_BSPSURF_SPOT_LIGHT_LIMIT = 24,
+    R_WARN_MAX_DRAWSURFS = 25,
+    R_WARN_GFX_CODE_EMISSIVE_SURF_LIMIT = 26,
+    R_WARN_GFX_CODE_TRANS_SURF_LIMIT = 27,
+    R_WARN_GFX_GLASS_SURF_LIMIT = 28,
+    R_WARN_GFX_MARK_SURF_LIMIT = 29,
+    R_WARN_GFX_SPARK_SURF_LIMIT = 30,
+    R_WARN_MAX_SCENE_DRAWSURFS = 31,
+    R_WARN_MAX_FX_DRAWSURFS = 32,
+    R_WARN_NONEMISSIVE_FX_MATERIAL = 33,
+    R_WARN_NONLIT_MARK_MATERIAL = 34,
+    R_WARN_CMDBUF_OVERFLOW = 35,
+    R_WARN_MISSING_DECL_NONDEBUG = 36,
+    R_WARN_MAX_DYNENT_REFS = 37,
+    R_WARN_MAX_SCENE_DOBJ_REFS = 38,
+    R_WARN_MAX_SCENE_MODEL_REFS = 39,
+    R_WARN_MAX_SCENE_BRUSH_REFS = 40,
+    R_WARN_MAX_CODE_EMISSIVE_INDS = 41,
+    R_WARN_MAX_CODE_EMISSIVE_VERTS = 42,
+    R_WARN_MAX_CODE_EMISSIVE_ARGS = 43,
+    R_WARN_MAX_CODE_TRANS_INDS = 44,
+    R_WARN_MAX_CODE_TRANS_VERTS = 45,
+    R_WARN_MAX_CODE_TRANS_ARGS = 46,
+    R_WARN_MAX_GLASS_INDS = 47,
+    R_WARN_MAX_GLASS_VERTS = 48,
+    R_WARN_MAX_MARK_INDS = 49,
+    R_WARN_MAX_MARK_VERTS = 50,
+    R_WARN_MAX_SPARK_VERTS = 51,
+    R_WARN_MAX_TRAIL_ELEMS_PER_TRAIL = 52,
+    R_WARN_TRAIL_WITH_DELAY = 53,
+    R_WARN_DEBUG_ALLOC = 54,
+    R_WARN_SPOT_LIGHT_LIMIT = 55,
+    R_WARN_FX_EFFECT_LIMIT = 56,
+    R_WARN_FX_ELEM_LIMIT = 57,
+    R_WARN_FX_BOLT_LIMIT = 58,
+    R_WARN_WORKER_CMD_SIZE = 59,
+    R_WARN_PHYSICS_BODY = 60,
+    R_WARN_PHYSICS_JOINT = 61,
+    R_WARN_UNKNOWN_STATICMODEL_SHADER = 62,
+    R_WARN_UNKNOWN_XMODEL_SHADER = 63,
+    R_WARN_DYNAMIC_INDEX_BUFFER_SIZE = 64,
+    R_WARN_TOO_MANY_LIGHT_GRID_POINTS = 65,
+    R_WARN_FOGABLE_2DTEXT = 66,
+    R_WARN_FOGABLE_2DGLYPH = 67,
+    R_WARN_OCCLUSION_QUERY = 68,
+    R_WARN_MAX_OCCLUSION_QUERIES = 69,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL_BEGIN = 70,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL_BEGIN_STEPBACK = 69,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL0 = 70,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL1 = 71,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL2 = 72,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL_END = 73,
+    R_WARN_ESTIMATED_BOUNDS_TOO_SMALL_END_STEPBACK = 72,
+    R_WARN_GPU_TIMERS_INACCURATE = 73,
+    R_WARN_MAX_JOINT_COUNT = 74,
+    R_WARN_MAX_CONTACT_LIST = 75,
+    R_WARN_MAX_FX_PER_FRAME = 76,
+    R_WARN_ROTATED_CAPSULE_TRACE = 77,
+    R_WARN_MINIMAP_ASSETS_NOT_PRECACHED = 78,
+    R_WARN_DYNAMIC_INDEX_BUFFER_OVERFLOW = 79,
+    R_WARN_PRETESS_INDEX_BUFFER_OVERFLOW = 80,
+    R_WARN_RING_BUFFER = 81,
+    R_WARN_FX_MAX_RETRIGGER = 82,
+    R_WARN_FX_MAX_LIGHTGRID_SAMPLE_COUNT = 83,
+    R_WARN_NO_SUN_OVERRIDE = 84,
+    R_WARN_THERMAL_LIGHT_OVERFLOW = 85,
+    R_WARN_FLARE_OVERFLOW = 86,
+    R_WARN_MAX_FLARE_VERTS = 87,
+    R_WARN_MAX_FLARE_INDICES = 88,
+    R_WARN_SMALL_SCENE_SURFS_SIZE = 89,
+    R_WARN_DRAWSURF_PREPASS_NOT_NONE = 90,
+    R_WARN_DFOG_DISABLED_IN_FAST_FILE = 91,
+    R_WARN_NORMAL_FOG_DISABLED_IN_FAST_FILE = 92,
+    R_WARN_MATERIAL_OVERRIDE_LIMIT = 93,
+    R_WARN_FX_TRACE_LIMIT_EXCEEDED = 94,
+    R_WARN_TONEMAP_WORKER_NOT_FAST_ENOUGH = 95,
+    R_WARN_COUNT = 96,
 };
 
 struct cmd_function_s
@@ -347,228 +518,6 @@ struct GfxWorld {
 	//GfxHeroOnlyLight* heroOnlyLights; //0x41F
 };
 
-struct lua_State;
-struct HashTable;
-struct cclosure;
-
-struct GenericChunkHeader
-{
-	unsigned __int64 m_flags;
-};
-
-struct ChunkHeader : GenericChunkHeader
-{
-	ChunkHeader* m_next;
-};
-
-struct UserData : ChunkHeader
-{
-	unsigned __int64 m_envAndSizeOffsetHighBits;
-	unsigned __int64 m_metaAndSizeOffsetLowBits;
-	char m_data[8];
-};
-
-struct InternString
-{
-	unsigned __int64 m_flags;
-	unsigned __int64 m_lengthbits;
-	unsigned int m_hash;
-	char m_data[30];
-};
-
-union HksValue
-{
-	cclosure* cClosure;
-	void* closure;
-	UserData* userData;
-	HashTable* table;
-	void* tstruct;
-	InternString* str;
-	void* thread;
-	void* ptr;
-	float number;
-	long long i64;
-	unsigned long long ui64;
-	unsigned int native;
-	bool boolean;
-};
-
-enum HksObjectType
-{
-	TANY = 0xFFFFFFFE,
-	TNONE = 0xFFFFFFFF,
-	TNIL = 0x0,
-	TBOOLEAN = 0x1,
-	TLIGHTUSERDATA = 0x2,
-	TNUMBER = 0x3,
-	TSTRING = 0x4,
-	TTABLE = 0x5,
-	TFUNCTION = 0x6,  // idk
-	TUSERDATA = 0x7,
-	TTHREAD = 0x8,
-	TIFUNCTION = 0x9, // Lua function
-	TCFUNCTION = 0xA, // C function
-	TUI64 = 0xB,
-	TSTRUCT = 0xC,
-	NUM_TYPE_OBJECTS = 0xE,
-};
-
-struct HksObject
-{
-	HksObjectType t;
-	HksValue v;
-};
-
-const struct hksInstruction
-{
-	unsigned int code;
-};
-
-struct ActivationRecord
-{
-	HksObject* m_base;
-	const hksInstruction* m_returnAddress;
-	__int16 m_tailCallDepth;
-	__int16 m_numVarargs;
-	int m_numExpectedReturns;
-};
-
-struct CallStack
-{
-	ActivationRecord* m_records;
-	ActivationRecord* m_lastrecord;
-	ActivationRecord* m_current;
-	const hksInstruction* m_current_lua_pc;
-	const hksInstruction* m_hook_return_addr;
-	int m_hook_level;
-};
-
-struct ApiStack
-{
-	HksObject* top;
-	HksObject* base;
-	HksObject* alloc_top;
-	HksObject* bottom;
-};
-
-struct UpValue : ChunkHeader
-{
-	HksObject m_storage;
-	HksObject* loc;
-	UpValue* m_next;
-};
-
-struct CallSite
-{
-	_SETJMP_FLOAT128 m_jumpBuffer[16];
-	CallSite* m_prev;
-};
-
-enum Status
-{
-	NEW = 0x1,
-	RUNNING = 0x2,
-	YIELDED = 0x3,
-	DEAD_ERROR = 0x4,
-};
-
-enum HksError
-{
-	HKS_NO_ERROR = 0x0,
-	HKS_ERRSYNTAX = 0xFFFFFFFC,
-	HKS_ERRFILE = 0xFFFFFFFB,
-	HKS_ERRRUN = 0xFFFFFF9C,
-	HKS_ERRMEM = 0xFFFFFF38,
-	HKS_ERRERR = 0xFFFFFED4,
-	HKS_THROWING_ERROR = 0xFFFFFE0C,
-	HKS_GC_YIELD = 0x1,
-};
-
-struct lua_Debug
-{
-	int event;
-	const char* name;
-	const char* namewhat;
-	const char* what;
-	const char* source;
-	int currentline;
-	int nups;
-	int nparams;
-	int ishksfunc;
-	int linedefined;
-	int lastlinedefined;
-	char short_src[512];
-	int callstack_level;
-	int is_tail_call;
-};
-
-using lua_function = int(__fastcall*)(lua_State*);
-
-struct luaL_Reg
-{
-	const char* name;
-	lua_function function;
-};
-
-struct Node
-{
-	HksObject m_key;
-	HksObject m_value;
-};
-
-struct Metatable
-{
-};
-
-struct HashTable : ChunkHeader
-{
-	Metatable* m_meta;
-	unsigned int m_version;
-	unsigned int m_mask;
-	Node* m_hashPart;
-	HksObject* m_arrayPart;
-	unsigned int m_arraySize;
-	Node* m_freeNode;
-};
-
-struct cclosure : ChunkHeader
-{
-	lua_function m_function;
-	HashTable* m_env;
-	__int16 m_numUpvalues;
-	__int16 m_flags;
-	InternString* m_name;
-	HksObject m_upvalues[1];
-};
-
-enum HksCompilerSettings_BytecodeSharingFormat
-{
-	BYTECODE_DEFAULT = 0x0,
-	BYTECODE_INPLACE = 0x1,
-	BYTECODE_REFERENCED = 0x2,
-};
-
-enum HksCompilerSettings_IntLiteralOptions
-{
-	INT_LITERALS_NONE = 0x0,
-	INT_LITERALS_LUD = 0x1,
-	INT_LITERALS_32BIT = 0x1,
-	INT_LITERALS_UI64 = 0x2,
-	INT_LITERALS_64BIT = 0x2,
-	INT_LITERALS_ALL = 0x3,
-};
-
-struct HksCompilerSettings
-{
-	int m_emitStructCode;
-	const char** m_stripNames;
-	int m_emitGlobalMemoization;
-	int _m_isHksGlobalMemoTestingMode;
-	HksCompilerSettings_BytecodeSharingFormat m_bytecodeSharingFormat;
-	HksCompilerSettings_IntLiteralOptions m_enableIntLiterals;
-	int(__fastcall* m_debugMap)(const char*, int);
-};
-
 enum HksBytecodeSharingMode
 {
 	HKS_BYTECODE_SHARING_OFF = 0x0,
@@ -576,198 +525,55 @@ enum HksBytecodeSharingMode
 	HKS_BYTECODE_SHARING_SECURE = 0x2,
 };
 
-struct HksGcWeights
+enum HksCompilerSettings_IntLiteralOptions
 {
-	int m_removeString;
-	int m_finalizeUserdataNoMM;
-	int m_finalizeUserdataGcMM;
-	int m_cleanCoroutine;
-	int m_removeWeak;
-	int m_markObject;
-	int m_traverseString;
-	int m_traverseUserdata;
-	int m_traverseCoroutine;
-	int m_traverseWeakTable;
-	int m_freeChunk;
-	int m_sweepTraverse;
+    INT_LITERALS_NONE = 0x0,
+    INT_LITERALS_LUD = 0x1,
+    INT_LITERALS_32BIT = 0x1,
+    INT_LITERALS_UI64 = 0x2,
+    INT_LITERALS_64BIT = 0x2,
+    INT_LITERALS_ALL = 0x3,
 };
 
-struct GarbageCollector_Stack
+struct HksCompilerSettings
 {
-	void* m_storage;
-	unsigned int m_numEntries;
-	unsigned int m_numAllocated;
+    int m_emitStructCode;
+    int i1;
+    int i2;
+    int i3;
+    int m_emitGlobalMemoization;
+    int _m_isHksGlobalMemoTestingMode;
+    HksBytecodeSharingMode m_bytecodeSharingMode;
+    HksCompilerSettings_IntLiteralOptions m_enableIntLiterals;
+    int(__fastcall* m_debugMap)(const char*, int);
 };
 
-struct ProtoList
-{
-	void** m_protoList;
-	unsigned __int16 m_protoSize;
-	unsigned __int16 m_protoAllocSize;
+/*
+
+        struct HksCompilerSettings
+        {
+            int m_emitStructCode;
+            const char** m_stripNames;
+            int m_emitGlobalMemoization;
+            int _m_isHksGlobalMemoTestingMode;
+            HksCompilerSettings_BytecodeSharingFormat m_bytecodeSharingFormat;
+            HksCompilerSettings_IntLiteralOptions m_enableIntLiterals;
+            int(__fastcall* m_debugMap)(const char*, int);
+        };
+        */
+
+struct HksGlobal {
+    __int64 idk0;
+    __int64 idk1;
+    __int64 idk2;
+    HksBytecodeSharingMode m_bytecodeSharingMode;
+    char pad[0x53C];
+    HksCompilerSettings m_compilerSettings;
 };
 
-struct GarbageCollector
-{
-	int m_target;
-	int m_stepsLeft;
-	int m_stepLimit;
-	HksGcWeights m_costs;
-	int m_unit;
-	_SETJMP_FLOAT128(*m_jumpPoint)[16];
-	lua_State* m_mainState;
-	lua_State* m_finalizerState;
-	void* m_memory;
-	int m_phase;
-	GarbageCollector_Stack m_resumeStack;
-	GarbageCollector_Stack m_greyStack;
-	GarbageCollector_Stack m_remarkStack;
-	GarbageCollector_Stack m_weakStack;
-	int m_finalizing;
-	HksObject m_safeTableValue;
-	lua_State* m_startOfStateStackList;
-	lua_State* m_endOfStateStackList;
-	lua_State* m_currentState;
-	HksObject m_safeValue;
-	void* m_compiler;
-	void* m_bytecodeReader;
-	void* m_bytecodeWriter;
-	int m_pauseMultiplier;
-	int m_stepMultiplier;
-	bool m_stopped;
-	int(__fastcall* m_gcPolicy)(lua_State*);
-	unsigned __int64 m_pauseTriggerMemoryUsage;
-	int m_stepTriggerCountdown;
-	unsigned int m_stringTableIndex;
-	unsigned int m_stringTableSize;
-	UserData* m_lastBlackUD;
-	UserData* m_activeUD;
-};
-
-enum MemoryManager_ChunkColor
-{
-	RED = 0x0,
-	BLACK = 0x1,
-};
-
-struct ChunkList
-{
-	ChunkHeader m_prevToStart;
-};
-
-enum Hks_DeleteCheckingMode
-{
-	HKS_DELETE_CHECKING_OFF = 0x0,
-	HKS_DELETE_CHECKING_ACCURATE = 0x1,
-	HKS_DELETE_CHECKING_SAFE = 0x2,
-};
-
-struct MemoryManager
-{
-	void* (__fastcall* m_allocator)(void*, void*, unsigned __int64, unsigned __int64);
-	void* m_allocatorUd;
-	MemoryManager_ChunkColor m_chunkColor;
-	unsigned __int64 m_used;
-	unsigned __int64 m_highwatermark;
-	ChunkList m_allocationList;
-	ChunkList m_sweepList;
-	ChunkHeader* m_lastKeptChunk;
-	lua_State* m_state;
-	ChunkList m_deletedList;
-	int m_deleteMode;
-	Hks_DeleteCheckingMode m_deleteCheckingMode;
-};
-
-struct StaticStringCache
-{
-	HksObject m_objects[41];
-};
-
-enum HksBytecodeEndianness
-{
-	HKS_BYTECODE_DEFAULT_ENDIAN = 0x0,
-	HKS_BYTECODE_BIG_ENDIAN = 0x1,
-	HKS_BYTECODE_LITTLE_ENDIAN = 0x2,
-};
-
-struct RuntimeProfileData_Stats
-{
-	unsigned __int64 hksTime;
-	unsigned __int64 callbackTime;
-	unsigned __int64 gcTime;
-	unsigned __int64 cFinalizerTime;
-	unsigned __int64 compilerTime;
-	unsigned int hkssTimeSamples;
-	unsigned int callbackTimeSamples;
-	unsigned int gcTimeSamples;
-	unsigned int compilerTimeSamples;
-	unsigned int num_newuserdata;
-	unsigned int num_tablerehash;
-	unsigned int num_pushstring;
-	unsigned int num_pushcfunction;
-	unsigned int num_newtables;
-};
-
-struct RuntimeProfileData
-{
-	__int64 stackDepth;
-	__int64 callbackDepth;
-	unsigned __int64 lastTimer;
-	RuntimeProfileData_Stats frameStats;
-	unsigned __int64 gcStartTime;
-	unsigned __int64 finalizerStartTime;
-	unsigned __int64 compilerStartTime;
-	unsigned __int64 compilerStartGCTime;
-	unsigned __int64 compilerStartGCFinalizerTime;
-	unsigned __int64 compilerCallbackStartTime;
-	__int64 compilerDepth;
-	void* outFile;
-	lua_State* rootState;
-};
-
-//taken straight from s1-mod so need to double check everything for lui
-
-
-struct HksGlobal
-{
-	MemoryManager m_memory;
-	GarbageCollector m_collector;
-	StringTable m_stringTable;
-	HksBytecodeSharingMode m_bytecodeSharingMode;
-	unsigned int m_tableVersionInitializer;
-	HksObject m_registry;
-	ProtoList m_protoList;
-	HashTable* m_structProtoByName;
-	ChunkList m_userDataList;
-	lua_State* m_root;
-	StaticStringCache m_staticStringCache;
-	void* m_debugger;
-	void* m_profiler;
-	RuntimeProfileData m_runProfilerData;
-	HksCompilerSettings m_compilerSettings;
-	int(__fastcall* m_panicFunction)(lua_State*);
-	void* m_luaplusObjectList;
-	int m_heapAssertionFrequency;
-	int m_heapAssertionCount;
-	void (*m_logFunction)(lua_State*, const char*, ...);
-	HksBytecodeEndianness m_bytecodeDumpEndianness;
-};
-
-struct lua_State : ChunkHeader
-{
+struct lua_State {
 	HksGlobal* m_global;
-	CallStack m_callStack;
-	ApiStack m_apistack;
-	UpValue* pending;
-	HksObject globals;
-	HksObject m_cEnv;
-	CallSite* m_callsites;
-	int m_numberOfCCalls;
-	void* m_context;
-	InternString* m_name;
-	lua_State* m_nextState;
-	lua_State* m_nextStateStack;
-	Status m_status;
-	HksError m_error;
+
 };
 
 struct GfxBuildInfo {
@@ -782,29 +588,32 @@ struct CardMemory {
 //WIP
 struct GfxImage {
 	const char* name; //0x0
-	/*
-	16 bytes of DX buffer?
-	*/
-	char unknown[0x40]; //0x8
-	int format; //0x48
-	unsigned short width; //0x4C
-	unsigned short height; //0x4E
-	unsigned short depth; //0x50
-	unsigned short mipCount; //0x52
-	CardMemory cardMemory; //0x54
-	unsigned char mapType; //0x58
-	unsigned char _pad0[3]; //just to ensure alignment
-	unsigned char levelCount; //0x5C
+    void* ptr1; //0x8 These two pointers are missing about half the time
+    void* ptr2; //0x10
+    char unknown[0x8]; //0x18
+    void* ptr3; //0x20 very rarely a ptr here
+    unsigned short width; //0x28
+    unsigned short height; //0x2B
+    unsigned short depth;
+    unsigned short unk;
+
+    char idk[0x18];
+    int imageFormat;
+    unsigned short w;
+    unsigned short h;
+    unsigned short d;
+    unsigned short height2;//0x52 these are not always used
+    unsigned int cardmemory;
+    //unsigned short mipcount2; //0x56
+
+    char idk2;
+    unsigned char semantic;
+    unsigned char category;
+    unsigned char flags;
+    unsigned char levelCount;
+    char idk3[3];
 };
-static_assert(offsetof(GfxImage, name) == 0x0);
-static_assert(offsetof(GfxImage, format) == 0x48);
-static_assert(offsetof(GfxImage, width) == 0x4C);
-static_assert(offsetof(GfxImage, height) == 0x4E);
-static_assert(offsetof(GfxImage, depth) == 0x50);
-static_assert(offsetof(GfxImage, mipCount) == 0x52);
-static_assert(offsetof(GfxImage, cardMemory) == 0x54);
-static_assert(offsetof(GfxImage, mapType) == 0x58);
-static_assert(offsetof(GfxImage, levelCount) == 0x5C);
+
 
 union OmnvarValue
 {
@@ -872,4 +681,12 @@ struct WeaponAttachment {
 	BOOL riotShield;
 	BOOL adsSceneBlur;
 	BOOL automaticAttachment;
+};
+union XAssetHeader {
+    ScriptFile* script;
+    RawFile* rawfile;
+    StringTable* table;
+    LocalizeEntry* localize;
+    GfxImage* image;
+    void* data;
 };

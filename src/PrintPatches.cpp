@@ -8,6 +8,7 @@
 #include <MinHook.h>
 #include <FuncPointers.h>
 #include "structs.h"
+#include "DevDef.h"
 #include "GameUtil.hpp"
 
 typedef void(*CM_LoadMap)(const char* name, int* checksum);
@@ -57,6 +58,9 @@ Load_GfxBuildInfo _Load_GfxBuildInfo = nullptr;
 
 typedef bool(*LUI_BeginEvent)(LocalClientNum_t localClientNum, const char* eventName, void* luaVM);
 LUI_BeginEvent _LUI_BeginEvent = nullptr;
+
+typedef bool(*R_WarnOncePerFrame)(GfxWarningType warnType, ...);
+R_WarnOncePerFrame _R_WarnOncePerFrame = nullptr;
 
 void hook_CM_LoadMap(const char* name, int* checksum) {
     if (name) {
@@ -206,8 +210,25 @@ void hook_LUI_BeginEvent(LocalClientNum_t localClientNum, const char* eventName,
     _LUI_BeginEvent(localClientNum, eventName, luaVM);
 }
 
+void hook_R_WarnOncePerFrame(GfxWarningType warnType, ...) {
+   // Console::printf("R_WarnOncePerFrame type: %u", warnType);
+   // float updated;
+   // char buffa[1024]
+   // va_list va;
+  //  unsigned int rg_frontEndFrameCount = *(int*)(0x101F68AC_b);
+   // va_start(va, warnType);
+   // updated = R_UpdateFrameRate();
+   // if (s_warnCount[warnType] < rg_frontEndFrameCount) {
+   //     Com_vsnprintf(buffa, 0x400ui64, (int)s_warnFormat[warnType], va);
+   //     s_warnCount[warnType] = rg_frontEndFrameCount + (updated * r_warningRepeatDelay->current.integer);
+   // }
+
+   
+    return;
+}
+
 void PrintPatches::init() {
-	Console::infoPrint(__FUNCTION__);
+    DEV_INIT_PRINT();
 
     //Loading Map:
     MH_CreateHook(reinterpret_cast<void*>(0x6A1050_b), &hook_CM_LoadMap, reinterpret_cast<void**>(&_CM_LoadMap));
@@ -258,7 +279,6 @@ void PrintPatches::init() {
     //Checking if file '%s' exists in %s
     MH_CreateHook(reinterpret_cast<void*>(0xFA770_b), &hook_DB_FileExists, reinterpret_cast<void**>(&_DB_FileExists));
     MH_EnableHook(reinterpret_cast<void*>(0xFA770_b));
-    
 
     //LUI_Error
     MH_CreateHook(reinterpret_cast<void*>(0x122BD0_b), &hook_LUI_Error, reinterpret_cast<void**>(&_LUI_Error));
@@ -267,6 +287,10 @@ void PrintPatches::init() {
     //GfxWorld build info
     MH_CreateHook(reinterpret_cast<void*>(0x5112B0_b), &hook_Load_GfxBuildInfo, reinterpret_cast<void**>(&_Load_GfxBuildInfo));
     MH_EnableHook(reinterpret_cast<void*>(0x5112B0_b));
+
+    //R_WarnOncePerFrame
+    MH_CreateHook(reinterpret_cast<void*>(0x94A1C0_b), &hook_R_WarnOncePerFrame, reinterpret_cast<void**>(&_R_WarnOncePerFrame));
+    MH_EnableHook(reinterpret_cast<void*>(0x94A1C0_b));
 
     //LUI_BeginEvent test
    // MH_CreateHook(reinterpret_cast<void*>(0x121380_b), &hook_LUI_BeginEvent, reinterpret_cast<void**>(&_LUI_BeginEvent));

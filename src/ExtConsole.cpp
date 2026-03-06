@@ -76,6 +76,8 @@ void infoPrintOffsets() {
 	Console::infoPrint("s2_mp64_ship BaseOff at: " + addressStr2);
 }
 
+
+
 //0 - CLI, 1 - GUI, 2 - BOTH
 void ExtConsole::extConInit(int extConsoleMode) {
 
@@ -110,6 +112,7 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	if (!FindWindowA("S2", NULL)) {
 		Console::print("Waiting for game to initialize...");
 	}
+
 	DeleteFileA("ZM");//just in case
 	while (!FindWindowA("S2", NULL)) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -126,7 +129,6 @@ void ExtConsole::extConInit(int extConsoleMode) {
 	Errors::init();
 	InternalConsole::init(); //mod halts here until renderer ready (for arxan purposes)
 
-	
 	DeleteFileA("ZM");//just in case
 	if (extConsoleMode == 0 || extConsoleMode == 2) {
 		consoleMainLoop();

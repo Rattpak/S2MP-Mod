@@ -15,6 +15,7 @@ static std::unordered_map<int, std::string> errorMap = {
     {198, "Couldn't load file or file is invalid '%s'"},
     {202, "Couldn't load file or file is invalid '%s'"},
     {224, "Unable to find the lookup table 'mp/attachmenttable.csv' in the fastfile"},
+    {320, "Shared ammo cap mismatch for \"%s\" shared ammo cap: \"%s\" set it to %i, but \"%s\" already set it to %i."},
     {342, "Error in parsing a rumble graph file %s"},
     {363, "CG_RegisterWeapon: No idle anim specified for [%s]"},
     {365, "CG_RegisterWeapon: No idle anim specified for [%s]"},

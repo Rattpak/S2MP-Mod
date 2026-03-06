@@ -954,9 +954,14 @@ void hook_CL_KeyEvent(int client, int key, int down) {
     _CL_KeyEvent(client, key, down);
 }
 
+
+
 int frameThreshold = 0;
 bool intConReady = false;
 void R_EndFrame_hookfunc() {
+#ifdef DEVELOPMENT_BUILD
+	DevPatches::doEulaTest();
+#endif
 	if (frameThreshold < 10) {
 		frameThreshold++;
 	}

@@ -700,7 +700,8 @@ void DvarInterface::addAllMappings() {
     addMapping("dlog_active", "5785");
     addMapping("marketing_refresh_time", "1543", "time in seconds to wait before refreshing marketing messages from demonware");
     addMapping("emblems_active", "4798", "Are we allowed to enable Emblems or not");
-    addMapping("aim_lockon_enabled", "387");
+
+    addMapping("aim_lockon_enabled", "387"); //way too strong for mp.
     addMapping("ca_intra_only", "3302", "CoD Anywhere Intra Network Only");
     addMapping("ca_do_mlc", "1966", "CoD Anywhere Do Multi Login check");
     addMapping("ca_require_signin", "2520", "CoD Anywhere require sign in to enter MP");

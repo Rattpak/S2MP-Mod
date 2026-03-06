@@ -11,6 +11,7 @@ public:
 
 class LuiLoader {
 public:
+	static bool FindXAssetHeader(XAssetType type, const char* name, int allow_create_default, XAssetHeader& header);
 	static void init();
 };
 

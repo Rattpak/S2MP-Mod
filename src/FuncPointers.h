@@ -5,6 +5,27 @@ class Functions {
 public:
 	static void init();
 
+	typedef XAssetHeader(*DB_FindXAssetHeader)(XAssetType type, const char* name, int allow_create_default);
+	static DB_FindXAssetHeader _DB_FindXAssetHeader;
+
+	typedef int (__cdecl* hksi_hksL_loadbuffer)(lua_State* s, const HksCompilerSettings* options, const char* buff, unsigned __int64 sz, const char* name);
+	static hksi_hksL_loadbuffer _hksi_hksL_loadbuffer;
+
+	typedef int (__cdecl* DB_GetXAssetTypeSize)(int type);
+	static DB_GetXAssetTypeSize _DB_GetXAssetTypeSize;
+
+	typedef const char* (__cdecl* DB_GetXAssetName)(const void* asset);
+	static DB_GetXAssetName _DB_GetXAssetName;
+
+	typedef void (__cdecl* StringTable_GetAsset)(const char* name, StringTable** table);
+	static StringTable_GetAsset _StringTable_GetAsset;
+
+	typedef void (__cdecl* GamerProfile_ToggleAimAssistSlowdown)(int controller);
+	static GamerProfile_ToggleAimAssistSlowdown _GamerProfile_ToggleAimAssistSlowdown;
+
+	typedef void (__cdecl* GamerProfile_ToggleAimAssistLockon)(int controller);
+	static GamerProfile_ToggleAimAssistLockon _GamerProfile_ToggleAimAssistLockon;
+
 	typedef void (__cdecl* SV_StartMap)(LocalClientNum_t localClientNum, const char* map, bool mapIsPreloaded);
 	static SV_StartMap _SV_StartMap;
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Loaders.hpp"
+#include "FuncPointers.h"
 
 typedef void(*Load_ScriptFileAsset)(ScriptFile** scriptFile);
 Load_ScriptFileAsset _Load_ScriptFileAsset = nullptr;
@@ -32,8 +33,9 @@ void hook_Load_ScriptFileAsset(ScriptFile** scriptFile) {
 		ScriptFile* varScriptFile = *scriptFile;
 		if (varScriptFile->buffer) {
 			//Console::printf("Loading ScriptFile '%s' with compressedLen of: %d", varScriptFile->name, varScriptFile->compressedLen);
-			//dumpScript(varScriptFile);
-
+			if (Functions::_Dvar_FindVar("g_dumpScripts")->current.enabled) {
+				dumpScript(varScriptFile);
+			}
 		}
 	}
 	else {

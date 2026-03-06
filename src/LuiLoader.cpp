@@ -41,8 +41,6 @@ void __fastcall Load_LuaFileAsset_hookfunc(LuaFile** luaFile) {
         if (Functions::_Dvar_FindVar("g_dumpLui")->current.enabled) {
             dumpLuaFile(*luaFile);
         }
-        // Console::devPrint("Loaded LUA File: " + std::string((*luaFile)->name));
-        //
     }
 
     oLoad_LuaFileAsset(luaFile);
@@ -60,15 +58,61 @@ void Hook_Load_LuaFileAsset() {
     }
 }
 
+//////////////////////////////
+//                          //
+//  Lui Loader starts here  //
+//                          //
+//////////////////////////////
+
+struct script {
+    std::string name;
+    std::string root;
+};
+
+std::string requireCaller;
+std::string rawLuaFileName;
+std::vector<script> loadedLua;
+bool doCustomLoad = false;
+
+bool isScriptLoaded(const std::string& name) {
+    for (const script& lua : loadedLua) {
+        if (lua.name == name) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+//called from actual DB_FindXAssetHeader
+//return true if we loaded a custom lua file
+bool LuiLoader::FindXAssetHeader(XAssetType type, const char* name, int allow_create_default, XAssetHeader &header) {
+    if (isScriptLoaded(requireCaller)) {
+
+    }
+    return false;
+}
+
+int loadBuffer(const std::string& name, const std::string& data) {
+    lua_State* luastate = (lua_State*)0x1CEA890_b;
+    HksBytecodeSharingMode origShare = luastate->m_global->m_bytecodeSharingMode;
+    luastate->m_global->m_bytecodeSharingMode = HKS_BYTECODE_SHARING_ON;
+    HksCompilerSettings settings{};
+    int ret = Functions::_hksi_hksL_loadbuffer(luastate, &settings, data.data(), data.size(), name.data());
+    luastate->m_global->m_bytecodeSharingMode = origShare;
+    return ret;
+}
+
+int hook_hks_load(lua_State* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name) {
+   
+    //if (doCustomLoad) {
+    //    doCustomLoad = false;
+    //    loadedLua.push_back({ rawLuaFileName, requireCaller });
+    //    return loadBuffer(rawLuaFileName, )
+    //}
 
 
-void hook_hks_load(lua_State* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name) {
-    //HksBytecodeSharingMode origShare = state->m_global->m_bytecodeSharingMode;
-    //state->m_global->m_bytecodeSharingMode = HKS_BYTECODE_SHARING_ON;
-
-
-
-    _hks_load(state, compiler_options, reader, reader_data, chunk_name);
+    return _hks_load(state, compiler_options, reader, reader_data, chunk_name);
 }
 
 void LuiLoader::init() {

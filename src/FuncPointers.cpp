@@ -7,6 +7,13 @@
 #include "Console.hpp"
 #include "DevDef.h"
 
+Functions::DB_FindXAssetHeader Functions::_DB_FindXAssetHeader = nullptr;
+Functions::hksi_hksL_loadbuffer Functions::_hksi_hksL_loadbuffer = nullptr;
+Functions::DB_GetXAssetTypeSize Functions::_DB_GetXAssetTypeSize = nullptr;
+Functions::DB_GetXAssetName Functions::_DB_GetXAssetName = nullptr;
+Functions::StringTable_GetAsset Functions::_StringTable_GetAsset = nullptr;
+Functions::GamerProfile_ToggleAimAssistSlowdown Functions::_GamerProfile_ToggleAimAssistSlowdown = nullptr;
+Functions::GamerProfile_ToggleAimAssistLockon Functions::_GamerProfile_ToggleAimAssistLockon = nullptr;
 Functions::SV_StartMap Functions::_SV_StartMap = nullptr;
 Functions::GetStringFromResource Functions::_GetStringFromResource = nullptr;
 Functions::SV_SendServerCommand Functions::_SV_SendServerCommand = nullptr;
@@ -42,6 +49,13 @@ void Functions::init()
 {
 	DEV_INIT_PRINT();
 
+	_DB_FindXAssetHeader = (DB_FindXAssetHeader)(0xFAB20_b);
+	_hksi_hksL_loadbuffer = (hksi_hksL_loadbuffer)(0x33B290_b);
+	_DB_GetXAssetTypeSize = (DB_GetXAssetTypeSize)(0x505330_b);
+	_DB_GetXAssetName = (DB_GetXAssetName)(0x5052E0_b);
+	_StringTable_GetAsset = (StringTable_GetAsset)(0x7CA930_b);
+	_GamerProfile_ToggleAimAssistSlowdown = (GamerProfile_ToggleAimAssistSlowdown)(0x4D11C0_b);
+	_GamerProfile_ToggleAimAssistLockon = (GamerProfile_ToggleAimAssistLockon)(0x4D1130_b);
 	_SV_StartMap = (SV_StartMap)(0x740000_b);
 	_GetStringFromResource = (GetStringFromResource)(0x7EF3A0_b);
 	_SV_SendServerCommand = (SV_SendServerCommand)(0x7485E0_b);

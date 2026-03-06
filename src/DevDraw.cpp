@@ -16,6 +16,7 @@ std::string compiledBy = "COMPILED BY: " + std::string(BUILD_USER);
 #include <GameUtil.hpp>
 #include <Console.hpp>
 
+float testColorWhite[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 float watermarkCol[4] = { 1.0f, 1.0f, 1.0f, 0.35f };
 float devBuildInfoColor[4] = { 1.0f, 0.0f, 0.0f, 0.55f };
 float luiDebugGuiColor[4] = {0.54f, 0.32f, 0.2f, 1.0f };
@@ -31,6 +32,11 @@ std::string versionString =
 #endif
 ;
 
+material_t* DevDraw::previewMaterial = nullptr;
+
+std::string DevDraw::getDevBuildDate() {
+    return devBuildDate;
+}
 
 /**
  * @brief Draws development build information and version text on screen.
@@ -235,6 +241,13 @@ void DevDraw::toggleIntConDebugGui() {
     drawIntConDbg = !drawIntConDbg;
 }
 
+void renderMaterialPreview() {
+    if (DevDraw::previewMaterial != nullptr) {
+        float white[4] = { 1, 1, 1, 1 };
+        Functions::_R_AddCmdDrawStretchPic(-100, -100, 200, 200, -1, -1, 1, 1, testColorWhite, DevDraw::previewMaterial);
+    }
+}
+
 /**
  * @brief Renders all developer debug overlays.
  *
@@ -250,5 +263,6 @@ void DevDraw::render(int windowWidth, int windowHeight) {
     renderLuaDebugGui(windowWidth, windowHeight);
     renderEntDebugGui(windowWidth, windowHeight);
     renderAntiCheatDebugGui(windowWidth, windowHeight);
+    renderMaterialPreview();
 }
 
