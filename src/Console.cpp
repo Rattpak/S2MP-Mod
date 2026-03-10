@@ -168,7 +168,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
 #ifdef DEVELOPMENT_BUILD
 	GameUtil::addCommand("printfNullptr", &printfCrashTest);
-	GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);
+	//GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);
 #endif // DEVELOPMENT_BUILD
 
 }
@@ -178,6 +178,7 @@ void Console::registerCustomDvars() {
 	DvarInterface::registerBool("testBool", 1, 0, "S2MP-Mod custom bool test");
 #endif // DEVELOPMENT_BUILD
 	DvarInterface::registerBool("g_dumpLui", 0, 0, "Dump LUI files on map load");
+	DvarInterface::registerBool("g_dumpScripts", 0, 0, "Dump script files on map load");
 	DvarInterface::registerBool("g_dumpStringTables", 0, 0, "Dump StringTables when they are loaded");
 	DvarInterface::registerBool("g_dumpRawfiles", 0, 0, "Dump RawFiles when they are loaded");
 	DvarInterface::registerBool("printWorldInfo", 0, 0, "Prints GfxWorld build info on load");

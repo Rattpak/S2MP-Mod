@@ -28,9 +28,9 @@ void imageThing() {
     MH_EnableHook(reinterpret_cast<void*>(0x8978C0_b));
 }
 
-void DevPatches::imageTestPt2() {
-
-}
+//void DevPatches::imageTestPt2() {
+//
+//}
 
 void tempNewUnlockThing() {
     Hook::nopMem((void*)0xCE822_b, 2);

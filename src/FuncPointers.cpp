@@ -37,6 +37,9 @@ Functions::LUI_CoD_GetFreeMemoryBytes Functions::_LUI_CoD_GetFreeMemoryBytes = n
 Functions::hks_HashTable_contiguousArraySize Functions::_hks_HashTable_contiguousArraySize = nullptr;
 Functions::Material_RegisterHandle Functions::_Material_RegisterHandle = nullptr;
 Functions::Dvar_RegisterBool Functions::_Dvar_RegisterBool = nullptr;
+Functions::DB_GetXAssetTypeSize Functions::_DB_GetXAssetTypeSize = nullptr;
+Functions::DB_GetXAssetName Functions::_DB_GetXAssetName = nullptr;
+Functions::hksi_hksL_loadbuffer Functions::_hksi_hksL_loadbuffer = nullptr;
 
 void Functions::init()
 {
@@ -69,4 +72,7 @@ void Functions::init()
 	_LUI_CoD_GetFreeMemoryBytes = (LUI_CoD_GetFreeMemoryBytes)(0x180C90_b);
 	_hks_HashTable_contiguousArraySize = (hks_HashTable_contiguousArraySize)(0x2CA7D0_b);
 	_Material_RegisterHandle = (Material_RegisterHandle)(0x8AB5F0_b);
+	_DB_GetXAssetTypeSize = (DB_GetXAssetTypeSize)(0x4A2F20_b);
+	_DB_GetXAssetName = (DB_GetXAssetName)(0x4A2EF0_b);
+	_hksi_hksL_loadbuffer = (hksi_hksL_loadbuffer)(0x2D9020_b);
 }
