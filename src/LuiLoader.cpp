@@ -42,6 +42,9 @@ void __fastcall Load_LuaFileAsset_hookfunc(LuaFile** luaFile) {
             dumpLuaFile(*luaFile);
         }
     }
+    else {
+        DEV_PRINTF("!(luaFile && *luaFile) ", __FUNCTION__);
+    }
 
     oLoad_LuaFileAsset(luaFile);
 }
@@ -50,10 +53,12 @@ void Hook_Load_LuaFileAsset() {
     void* target = (void*)(0xD81A0_b);
 
     if (MH_CreateHook(target, &Load_LuaFileAsset_hookfunc, reinterpret_cast<void**>(&oLoad_LuaFileAsset)) != MH_OK) {
+        DEV_PRINTF("CREATEHOOK FAILURE IN FUNCTION ", __FUNCTION__);
         return;
     }
 
     if (MH_EnableHook(target) != MH_OK) {
+        DEV_PRINTF("ENABLEHOOK FAILURE IN FUNCTION ", __FUNCTION__);
         return;
     }
 }

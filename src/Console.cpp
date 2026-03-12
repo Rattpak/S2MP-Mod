@@ -166,6 +166,8 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
 	GameUtil::addCommand("quit", &CustomCommands::quit);
 	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
+	GameUtil::addCommand("r_fullbright", &CustomCommands::tempToggleFullbright);
+	GameUtil::addCommand("r_wireframe", &CustomCommands::tempToggleWireframe);
 #ifdef DEVELOPMENT_BUILD
 	GameUtil::addCommand("printfNullptr", &printfCrashTest);
 	//GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);

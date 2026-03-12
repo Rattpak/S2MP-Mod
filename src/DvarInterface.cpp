@@ -320,6 +320,7 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("scr_diehard");
     addDvarsWithName("scr_oldschool");
     addDvarsWithName("ui_hud_obituaries");
+    addDvarsWithName("inventory_numItemsPerPage");
 
 
     addMapping("g_gametype", "1924", "The current game mode");
@@ -852,6 +853,16 @@ void DvarInterface::addAllMappings() {
     addMapping("fx_dynamicGritDisableBlood", "543");
     addMapping("fx_dynamicGritDisableHide", "5442");
     addMapping("fx_dynamicGritDisableFire", "1487");
+    
+    //ComGroups_Init
+    addMapping("groupUploadIntervalDS", "3827");
+    addMapping("groupDownloadInterval", "411");
+
+
+    //some Live_Init stuff
+    addMapping("lui_waitingfornetworktype", "2100");
+    addMapping("lui_waitingforonlinedatafetch_controller", "2457");
+    addMapping("lui_waitingforgavelmessagesconfirmed", "3210");
 
     addMapping("cg_drawCrosshair", "1874");
     addMapping("cg_drawCrosshairNames", "1979");

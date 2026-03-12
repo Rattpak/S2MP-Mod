@@ -225,14 +225,14 @@ void CustomCommands::toggleFullbright(bool enable) {
 	constexpr std::byte ENABLE{ 0x08 };
 	constexpr std::byte DISABLE{ 0x0F };
 	const std::byte value = enable ? ENABLE : DISABLE;
-	WriteProcessMemory(GetCurrentProcess(), reinterpret_cast<void*>(0x10037464_b), &value, sizeof(value), nullptr);
+	WriteProcessMemory(GetCurrentProcess(), reinterpret_cast<void*>(0xFE073F4_b), &value, sizeof(value), nullptr);
 }
 
 void CustomCommands::toggleWireframe(bool enable) {
 	constexpr std::byte ENABLE{ 0x20 };
 	constexpr std::byte DISABLE{ 0x0F };
 	const std::byte value = enable ? ENABLE : DISABLE;
-	WriteProcessMemory(GetCurrentProcess(), reinterpret_cast<void*>(0x10037464_b), &value, sizeof(value), nullptr);
+	WriteProcessMemory(GetCurrentProcess(), reinterpret_cast<void*>(0xFE073F4_b), &value, sizeof(value), nullptr);
 }
 
 
@@ -274,7 +274,7 @@ void CustomCommands::cmdTest() {
 
 void CustomCommands::tempToggleFullbright() {
 	std::byte current{};
-	const auto address = reinterpret_cast<void*>(0x10037464_b);
+	const auto address = reinterpret_cast<void*>(0xFE073F4_b);
 
 	if (ReadProcessMemory(GetCurrentProcess(), address, &current, sizeof(current), nullptr)) {
 		toggleFullbright(current != std::byte{ 0x08 });
@@ -283,7 +283,7 @@ void CustomCommands::tempToggleFullbright() {
 
 void CustomCommands::tempToggleWireframe() {
 	std::byte current{};
-	const auto address = reinterpret_cast<void*>(0x10037464_b);
+	const auto address = reinterpret_cast<void*>(0xFE073F4_b);
 
 	if (ReadProcessMemory(GetCurrentProcess(), address, &current, sizeof(current), nullptr)) {
 		toggleWireframe(current != std::byte{ 0x20 });
