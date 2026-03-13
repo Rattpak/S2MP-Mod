@@ -874,6 +874,8 @@ void DvarInterface::addAllMappings() {
 
     addMapping("r_warningRepeatDelay", "1371");
 
+
+
     addMapping("r_lockPvs", "1897");
     addMapping("r_skipPvs", "2745");
     addMapping("r_portalBevels", "5317");
@@ -1148,10 +1150,28 @@ void DvarInterface::addAllMappings() {
     addMapping("dlog_devpointHost", "5138");
 
     //Server Demo Dvars
+    addMapping("g_password", "5370", "Password");
+    addMapping("g_banIPs", "5370", "IP addresses to ban from playing");
     addMapping("g_knockback", "4541");
     addMapping("g_maxDroppedWeapons", "1605", "Maximum number of dropped weapons");
     addMapping("g_inactivity", "2916", "Time delay before player is kicked for inactivity");
-    //TODO: finish this later
+    addMapping("g_dropForwardSpeed", "1346");
+    addMapping("g_dropUpSpeedBase", "4470");
+    addMapping("g_dropUpSpeedRand", "178");
+    addMapping("g_dropHorzSpeedRand", "843");
+    addMapping("g_clonePlayerMaxVelocity", "4516");
+    addMapping("g_listEntity", "4831");
+    addMapping("g_deadChat", "2335");
+    addMapping("g_voiceChatTalkingDuration", "3992");
+    addMapping("player_throwbackInnerRadius", "2729");
+    addMapping("player_throwbackOuterRadius", "2657");
+    addMapping("player_useRadius", "2098");
+    addMapping("player_MGUseRadius", "5403");
+    addMapping("g_minGrenadeDamageSpeed", "1794");
+    addMapping("g_earthquakeEnable", "3913");
+    addMapping("g_mantleBlockTimeBuffer", "483");
+    addMapping("g_lagged_damage_threshold", "3120");
+
 
     //SND_Init
     addMapping("snd_errorOnMissing", "2321");

@@ -164,7 +164,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("listcmd", &CustomCommands::listAllCmds);
 	GameUtil::addCommand("map", &CustomCommands::changeMap);
 	GameUtil::addCommand("cmdtest", &CustomCommands::cmdTest);
-	GameUtil::addCommand("quit", &CustomCommands::quit);
+	//GameUtil::addCommand("quit", &CustomCommands::quit);
 	GameUtil::addCommand("clear", &InternalConsole::clearFullConsole);
 	GameUtil::addCommand("r_fullbright", &CustomCommands::tempToggleFullbright);
 	GameUtil::addCommand("r_wireframe", &CustomCommands::tempToggleWireframe);

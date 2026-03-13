@@ -5,8 +5,18 @@
 #include "FuncPointers.h"
 #include "DevDef.h"
 
-typedef int(*hks_load)(lua_State* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name);
+typedef int(*hks_load)(void* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name);
 hks_load _hks_load = nullptr;
+
+typedef void(*LUI_CoD_Init)(bool frontend);
+LUI_CoD_Init _LUI_CoD_Init = nullptr;
+
+typedef void(*LUI_CoD_Shutdown)();
+LUI_CoD_Shutdown _LUI_CoD_Shutdown = nullptr;
+
+static const DWORD OFFSET_GLOBAL_FROM_STATE = 0x10;
+static const DWORD OFFSET_BYTECODE_SHARING_FROM_GLOBAL = 0x1C0;
+static const int   BYTECODE_SHARING_ON = 1;
 
 void dumpLuaFile(const LuaFile* luaFile) {
     if (!luaFile || !luaFile->name || !luaFile->buffer || luaFile->len <= 0) {
@@ -89,6 +99,24 @@ bool isScriptLoaded(const std::string& name) {
     return false;
 }
 
+inline int* getBytecodeSharingPtr(void* state) {
+    if (OFFSET_BYTECODE_SHARING_FROM_GLOBAL == 0) {
+        return nullptr;
+    }
+    char* base;
+    if (OFFSET_GLOBAL_FROM_STATE != 0) {
+        void* global = *(void**)((char*)state + OFFSET_GLOBAL_FROM_STATE);
+        if (!global) {
+            return nullptr;
+        }
+        base = (char*)global;
+    }
+    else {
+        base = (char*)state;
+    }
+    return (int*)(base + OFFSET_BYTECODE_SHARING_FROM_GLOBAL);
+}
+
 //called from actual DB_FindXAssetHeader
 //return true if we loaded a custom lua file
 bool LuiLoader::FindXAssetHeader(XAssetType type, const char* name, int allow_create_default, XAssetHeader &header) {
@@ -108,22 +136,45 @@ int loadBuffer(const std::string& name, const std::string& data) {
     return ret;
 }
 
-int hook_hks_load(lua_State* state, void* compiler_options, void* reader, void* reader_data, const char* chunk_name) {
-   
-    //if (doCustomLoad) {
-    //    doCustomLoad = false;
-    //    loadedLua.push_back({ rawLuaFileName, requireCaller });
-    //    return loadBuffer(rawLuaFileName, )
-    //}
+int hook_hks_load(void* state, void* compilerOptions, void* reader, void* readerData, const char* chunkName) {
 
 
-    return _hks_load(state, compiler_options, reader, reader_data, chunk_name);
+    return _hks_load(state, compilerOptions, reader, readerData, chunkName);
+}
+
+void hook_LUI_CoD_Init(bool frontend) {
+    _LUI_CoD_Init(frontend);
+
+}
+
+void hook_LUI_CoD_Shutdown() {
+    Console::printf("LUI: Shutting Down");
+    _LUI_CoD_Shutdown();
+}
+
+
+//return true if XAssetHeader was loaded custom
+//false otherwise
+bool LuiLoader::LUI_CoD_GetRawFile(XAssetHeader& header, const char* name) {
+
+    return false;
 }
 
 void LuiLoader::init() {
-    Hook_Load_LuaFileAsset();
+    Hook_Load_LuaFileAsset(); //for loadtime dump
 
     //hks_load
     MH_CreateHook(reinterpret_cast<void*>(0x2D6D10_b), &hook_hks_load, reinterpret_cast<void**>(&_hks_load));
     MH_EnableHook(reinterpret_cast<void*>(0x2D6D10_b));
+
+    //LUI_CoD_Init
+    MH_CreateHook(reinterpret_cast<void*>(0x317A00_b), &hook_LUI_CoD_Init, reinterpret_cast<void**>(&_LUI_CoD_Init));
+    MH_EnableHook(reinterpret_cast<void*>(0x317A00_b));
+
+    //LUI_CoD_Shutdown
+    MH_CreateHook(reinterpret_cast<void*>(0x31A6F0_b), &hook_LUI_CoD_Shutdown, reinterpret_cast<void**>(&_LUI_CoD_Shutdown));
+    MH_EnableHook(reinterpret_cast<void*>(0x31A6F0_b));
+
+
+
 }

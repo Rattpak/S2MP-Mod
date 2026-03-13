@@ -18,21 +18,35 @@ XAssetHeader hook_DB_FindXAssetHeader(XAssetType type, const char* name, int all
         Console::printf("New XAssetType: %d (first seen with name: %s)", type, name);
     }
 #endif // DEVELOPMENT_BUILD
+    XAssetHeader header{};
 
-
-    auto start = std::chrono::high_resolution_clock::now();
+    //these will never call findxassetheader
+    bool headerLoaded = false;
     const char* safeName = (name && name[0]) ? name : "<null>";
-    XAssetHeader header = _DB_FindXAssetHeader(type, name, allow_create_default);
-    auto end = std::chrono::high_resolution_clock::now();
-    auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    switch (type) {
+    case ASSET_TYPE_LUA_FILE: {
+        headerLoaded = LuiLoader::LUI_CoD_GetRawFile(header, safeName);
+        break;
+    }
+    }
 
-    if (dur > 100) {
-        Console::printf("Waited %i msec for asset '%s'", dur, safeName);
+
+
+    if (!headerLoaded) {
+        auto start = std::chrono::high_resolution_clock::now();
+        
+        header = _DB_FindXAssetHeader(type, name, allow_create_default);
+        auto end = std::chrono::high_resolution_clock::now();
+        auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+
+        if (dur > 100) {
+            Console::printf("Waited %i msec for asset '%s'", dur, safeName);
+        }
+
     }
 
     switch (type) {
     case ASSET_TYPE_STRINGTABLE: {
-        //always dump before load
         if (Functions::_Dvar_FindVar("g_dumpStringTables")->current.enabled) {
             StringTableLoader::dump(header.table);
         }

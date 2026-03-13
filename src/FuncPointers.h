@@ -5,10 +5,13 @@ class Functions {
 public:
 	static void init();
 
+	typedef void(*Cmd_RemoveCommand)(const char* name);
+	static Cmd_RemoveCommand _Cmd_RemoveCommand;
+
 	typedef XAssetHeader(*DB_FindXAssetHeader)(XAssetType type, const char* name, int allow_create_default);
 	static DB_FindXAssetHeader _DB_FindXAssetHeader;
 
-	typedef int (__cdecl* hksi_hksL_loadbuffer)(lua_State* s, const HksCompilerSettings* options, const char* buff, unsigned __int64 sz, const char* name);
+	typedef int (__cdecl* hksi_hksL_loadbuffer)(void* s, const void* options, const char* buff, unsigned __int64 sz, const char* name);
 	static hksi_hksL_loadbuffer _hksi_hksL_loadbuffer;
 
 	typedef int (__cdecl* DB_GetXAssetTypeSize)(int type);

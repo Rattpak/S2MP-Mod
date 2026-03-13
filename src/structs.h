@@ -424,6 +424,8 @@ struct dvar_t
     //more stuff
 };
 
+
+
 //making this from scratch
 struct playerState_s
 {
@@ -449,6 +451,7 @@ struct CmdArgs
 };
 
 //WIP
+//SIZE: 0x418
 struct gentity_s {
 
 };
@@ -688,5 +691,6 @@ union XAssetHeader {
     StringTable* table;
     LocalizeEntry* localize;
     GfxImage* image;
+    LuaFile* luafile;
     void* data;
 };

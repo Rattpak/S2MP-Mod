@@ -40,6 +40,7 @@ Functions::Dvar_RegisterBool Functions::_Dvar_RegisterBool = nullptr;
 Functions::DB_GetXAssetTypeSize Functions::_DB_GetXAssetTypeSize = nullptr;
 Functions::DB_GetXAssetName Functions::_DB_GetXAssetName = nullptr;
 Functions::hksi_hksL_loadbuffer Functions::_hksi_hksL_loadbuffer = nullptr;
+Functions::Cmd_RemoveCommand Functions::_Cmd_RemoveCommand = nullptr;
 
 void Functions::init()
 {
@@ -75,4 +76,5 @@ void Functions::init()
 	_DB_GetXAssetTypeSize = (DB_GetXAssetTypeSize)(0x4A2F20_b);
 	_DB_GetXAssetName = (DB_GetXAssetName)(0x4A2EF0_b);
 	_hksi_hksL_loadbuffer = (hksi_hksL_loadbuffer)(0x2D9020_b);
+	_Cmd_RemoveCommand = (Cmd_RemoveCommand)(0x64A830_b);
 }
