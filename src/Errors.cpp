@@ -88,6 +88,7 @@ static std::unordered_map<int, std::string> errorMap = {
     {3989, "Time must be positive"},
     {3990, "Blur value must be greater than 0"},
     {4005, "not a hud element"},
+    {4304, "Owner entity is not a character"},
     {4515, "entity %u is not a player"},
     {4516, "not an entity"},
     {4517, "entity %u is not a player or agent"},

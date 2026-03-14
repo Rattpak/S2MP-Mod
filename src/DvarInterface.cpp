@@ -321,9 +321,43 @@ void DvarInterface::addAllMappings() {
     addDvarsWithName("scr_oldschool");
     addDvarsWithName("ui_hud_obituaries");
     addDvarsWithName("inventory_numItemsPerPage");
+    addDvarsWithName("bg_turretIgnoreAttachedEnt");
+    addDvarsWithName("fighter_vs_fighter_mode");
+    addDvarsWithName("player_allowHubOpponentInMP");
+    addDvarsWithName("perk_bulletSuperPenetrationMultiplier");
+    addDvarsWithName("cg_weapon_charm_killswitch");
+    addDvarsWithName("ui_war_last_obj_flipped");
+    addDvarsWithName("fd_enable_fbw");
+    addDvarsWithName("fd_pause_update");
+    addDvarsWithName("spv_hub_firingrange_kswitch");
+    addDvarsWithName("ui_showPaintshop");
+    addDvarsWithName("dlc4_killswitch");
+    addDvarsWithName("mtx12_killswitch");
+    addDvarsWithName("mtx11_killswitch");
+    addDvarsWithName("mtx10_killswitch");
+    addDvarsWithName("mtx9_killswitch");
+    addDvarsWithName("mtx8_killswitch");
+    addDvarsWithName("dlc3_killswitch");
+    addDvarsWithName("dlc3_killswitch");
+    addDvarsWithName("mtx7_killswitch");
+    addDvarsWithName("mtx6_killswitch");
+    addDvarsWithName("dlc2_killswitch");
+    addDvarsWithName("mtx5_killswitch");
+    addDvarsWithName("mtx4_killswitch");
+    addDvarsWithName("mtx3_5_killswitch");
+    addDvarsWithName("mtx3_killswitch");
+    addDvarsWithName("lui_parse_notify_max_args");
+    addDvarsWithName("virtualLobbySkipReinit");
+    addDvarsWithName("virtualLobbySkipReinitEnabled");
+    addDvarsWithName("party_enableblacklist");
+    addDvarsWithName("framesToWaitForVLobbyErrors");
+    addDvarsWithName("allow_hub_vendor_menu");
+    addDvarsWithName("r_ssrMaxQuality");
+
 
 
     addMapping("g_gametype", "1924", "The current game mode");
+    addMapping("vendor_overhead_update_proximity", "5950");
     addMapping("nextmap", "4059", "Next map to play");
     addMapping("mapname", "1673");
     //from R_RegisterDvars
@@ -722,17 +756,25 @@ void DvarInterface::addAllMappings() {
     addMapping("lfg_playlist_search_offset", "4609");
     addMapping("lfg_freeslot_advertise_cutoff", "3008");
 
-    //some lui and hub jawns
+    //LUI_CoD
     //also a bunch of E3 stuff
     addMapping("lui_menuFlowEnabled", "4436", "Enables LUI menu flow");
     addMapping("lui_xboxlive_menu", "3547", "Enables the LUI xboxlive menu");
     addMapping("lui_systemlink_menu", "1572", "Enables the LUI systemlink menu");
     addMapping("lui_splitscreenupscaling", "659", "Force splitscreen upscaling off/on (-1 off, 1 on) -- requires map change");
+    addMapping("lui_hud_show_turret_ammo", "4329");
     addMapping("lui_draw_hints", "5270");
     addMapping("e3demo", "2803");
     addMapping("e3demo_host", "4605");
     addMapping("e3demo_client", "1303");
+    addMapping("e3demo_mapset", "4794");
     addMapping("e3demo_show_client_title_screen", "871");
+    addMapping("gamescom_build", "2543");
+    addMapping("winners_circle_skiplisten", "1810");
+    addMapping("winners_circle_length", "5087");
+    addMapping("winners_circle_timeout", "5660");
+    addMapping("fte_demo", "5737");
+    addMapping("fte_progress", "1471");
     addMapping("lui_hud_motion_enabled", "42", "Enable hud motion");
     addMapping("lui_hud_motion_perspective", "5345", "value for hud motion perspective transform in pixels");
     addMapping("lui_hud_motion_translation_scale", "381", "lui_hud_motion_translation_scale");
@@ -750,6 +792,115 @@ void DvarInterface::addAllMappings() {
     addMapping("hub_supply_drop_max_distance", "4143");
     addMapping("hub_leaderboard_max_distance", "3296");
     addMapping("LUI_MemErrorsFatal", "1626", "Out of memory errors cause drops when true, reinits the UI system if false");
+    addMapping("lui_FFotDLocalLoadEnabled", "4373");
+
+    addMapping("clientscript_debugPrint", "2995");
+    addMapping("accessToSubscriberContent", "838");
+    addMapping("cl_modifiedDebugPlacement", "2303");
+    addMapping("hubTeam", "4135");
+    addMapping("virtualLobbyEnabled", "4287");
+    addMapping("virtualLobbyInCao", "3183");
+    addMapping("virtualLobbyEnabledForZombies", "4404");
+    addMapping("virtualLobbyInFiringRange", "2454");
+    addMapping("virtualLobbyActive", "4017");
+    addMapping("virtualLobbyAllocated", "4835");
+    addMapping("useNewVL", "4476");
+    addMapping("cg_fakeSafeSKU", "5468");
+    addMapping("cachedContentDebug", "4279");
+    addMapping("patchmanifestoverride", "2363");
+    addMapping("patchmanifestversionoverride", "5546");
+    addMapping("latestDlcReleaseOverride", "5755");
+    addMapping("latestDlcRelease", "4717");
+    addMapping("patchSystemDebug", "3179");
+    addMapping("patchManifestUpdateDisabled", "3990");
+
+    //PartyHost
+    addMapping("partyCoopMatchmakingDelay", "216");
+    addMapping("tb_report", "3333", "tb event record");
+    addMapping("team_rebalance", "2451", "rebalance");
+    addMapping("mapPackMPGroupFreeFlags", "380", "Map pack flags that comprise the free MP ala carte map pack");
+    addMapping("mapPackMPGroupFourFlags", "3418", "Map pack flags that comprise MP ala carte map pack 4");
+    addMapping("mapPackMPGroupThreeFlags", "4380", "Map pack flags that comprise MP ala carte map pack 3");
+    addMapping("mapPackMPGroupTwoFlags", "5670", "Map pack flags that comprise MP ala carte map pack 2");
+    addMapping("mapPackMPGroupOneFlags", "655", "Map pack flags that comprise MP ala carte map pack 1");
+    addMapping("restrictMapPacksToGroups", "2764");
+
+    //Party
+    addMapping("party_teamsVisible", "5174");
+    addMapping("party_timer", "5842", "Time until game begins in seconds, for UI display");
+    addMapping("party_nextMapVoteStatus", "3562", "Next map vote progress");
+    addMapping("party_alternateMapVoteStatus", "5675", "Alternate map vote progress");
+    addMapping("party_randomMapVoteStatus", "3136", "Random map vote progress");
+    addMapping("party_search_for_dlc_content", "3582");
+    addMapping("party_initial_dlc_search_timer", "2645", "Time until DLC enabled search should show an error dialog suggesting the user consider going to non dlc search");
+    addMapping("party_resume_dlc_search_timer", "2645", "Time until DLC enabled search should show an error dialog after it's been searching already and a player leaves");
+    addMapping("party_kickplayerquestion", "5858", "String to store the question about kicking the selected player");
+    addMapping("party_lobbyPlayerCount", "2770", "Number of players currently in the party/lobby in lobby format (x/y players)");
+    addMapping("party_partyPlayerCount", "5010", "Number of players currently in the party/lobby in party format (x players in y's party)");
+    addMapping("party_partyPlayerCountNum", "5458", "Number of players currently in the party/lobby");
+    addMapping("party_teambased", "928");
+    addMapping("party_playersCoop", "4036");
+    addMapping("party_maxTeamDiff", "2989", "Maximum difference allowed between teams before starting a match");
+    addMapping("party_playerVisible", "2881");
+    addMapping("party_IsLocalClientSelected", "4981");
+    addMapping("party_selectedIndex", "2201", "Current selected player index in the feeder.");
+    addMapping("party_selectedIndexChangedTime", "354", "Time stamp in milliseconds when the selected index last changed.");
+    addMapping("party_firstSubpartyIndex", "1329", "Determines sort order and coloring of parties in lobbies.  Randomly set by code.  Dvar provided for debugging.");
+    addMapping("party_maxPrivatePartyPlayers", "5321", "Max number of players allowed in a private party.");
+    addMapping("party_membersMissingMapPack", "5862");
+    addMapping("party_statusString", "3633", "Party Status (localized )");
+    addMapping("party_followPartyHostOutOfGames", "3598");
+    addMapping("party_privatePartyJoinsHub", "1672");
+    addMapping("party_inactiveHeartbeatPeriod", "3871");
+    addMapping("partymigrate_pingtest_active", "4473");
+    addMapping("partymigrate_pingtest_retry", "232");
+    addMapping("partymigrate_pingtest_timeout", "54");
+    addMapping("partymigrate_selectiontime", "548");
+    addMapping("partymigrate_pingtest_filterThreshold", "5735");
+    addMapping("partymigrate_pingtest_minThreshold", "4875");
+    addMapping("partymigrate_logResults", "3615");
+    addMapping("partymigrate_broadcast_interval", "1843");
+    addMapping("partymigrate_timeout", "4637");
+    addMapping("partymigrate_timeoutmax", "2248");
+    addMapping("partymigrate_makeHostTimeout", "5247");
+    addMapping("partymigrate_uploadtest_minThreshold", "3879");
+    addMapping("party_alwaysNeedReadyUp", "2890");
+    addMapping("party_needFullPartyReady", "2474");
+
+    //com
+    addMapping("com_errorMessage", "1943");
+    addMapping("com_errorTitle", "1278");
+    addMapping("com_errorRemoveKeyCatcher", "5071");
+    addMapping("dedicated_dhclient", "1591");
+    addMapping("onlinegame", "2291");
+    addMapping("fixedtime", "299", "Use a fixed time rate for each frame");
+    addMapping("com_maxFrameTime", "1292", "Time slows down if a frame takes longer than this many milliseconds");
+    addMapping("sv_paused", "5351", "Pause the server");
+    addMapping("cl_force_paused", "1265", "Force the client to be paused. Can't be overridden by LUA scripts, the start button, etc.");
+    addMapping("com_filter_output", "2919");
+    addMapping("intro", "2464");
+    addMapping("com_animCheck", "1790");
+    addMapping("hiDef", "1916");
+    addMapping("wideScreen", "4817");
+    addMapping("com_cinematicEndInWhite", "2196");
+    addMapping("com_errorResolveCommand", "4278");
+    addMapping("com_completionResolveCommand", "5369");
+    addMapping("playlistFilename", "1396");
+    addMapping("showPlaylistTotalPlayers", "5293");
+    addMapping("playlistAggrFilename", "1415");
+    addMapping("playListUpdateCheckMinutes", "1580");
+    addMapping("ffotdUpdateCheckMinutes", "5168");
+    addMapping("dcacheThrottleEnabled", "1126");
+    addMapping("dcacheThrottleKBytesPerSec", "1945");
+    addMapping("band_2players", "357");
+    addMapping("band_4players", "2237");
+    addMapping("band_8players", "2871");
+    addMapping("band_12players", "3829");
+    addMapping("band_18players", "889");
+    addMapping("band_lotsplayers", "4342");
+
+
+
 
     addMapping("cg_foliagesnd_alias", "4011", "The sound that plays when an actor or player enters a foliage clip brush.");
     addMapping("cg_broadcasterSkycamDistance", "3119");
@@ -1204,6 +1355,33 @@ void DvarInterface::addAllMappings() {
     //4835 disabled game start button
     //4670 0 removes microtransaction deals from qm menu
     //4660 some render bool
+
+    //DS_PingClient
+    addMapping("ds_pingclient_maxpings", "5636", "max pings to send per datacenter");
+    addMapping("ds_pingclient_minpings", "4091", "min responses required per datacenter");
+    addMapping("ds_pingclient_maxpings_per_tick", "1461", "max new pings each tick");
+    addMapping("ds_pingclient_odsf", "4492", "does dsping set odsf flag");
+
+    //Perks
+    addMapping("perk_extendedMagsPistolAmmo", "1777", "Number of extra bullets per clip for pistol weapons with the extended mags perk.");
+    addMapping("perk_extendedMagsPistolAmmo", "3112", "Number of extra bullets per clip for spread weapons with the extended mags perk.");
+    addMapping("perk_extendedMagsSMGAmmo", "2341", "Number of extra bullets per clip for sub machine gun weapons with the extended mags perk.");
+    addMapping("perk_extendedMagsMGAmmo", "4114", "Number of extra bullets per clip for machine gun weapons with the extended mags perk.");
+    addMapping("perk_extendedMagsSniperAmmo", "3101", "Number of extra bullets per clip for sniper rifle weapons with the extended mags perk.");
+    addMapping("perk_extendedMagsRifleAmmo", "4722", "Number of extra bullets per clip for rifle weapons with the extended mags perk.");
+    addMapping("perk_numExtraTactical", "1410", "Number of extra tactical grenades");
+    addMapping("perk_numExtraLethal", "1477", "Number of extra lethal grenades");
+    addMapping("perk_sprintMultiplier", "885");
+    addMapping("perk_parabolicIcon", "1761", "Eavesdrop icon to use when displaying eavesdropped voice chats");
+    addMapping("perk_parabolicAngle", "2277");
+    addMapping("perk_parabolicRadius", "2789");
+    addMapping("perk_grenadeDeath", "2984", "Name of the grenade weapon to drop");
+    addMapping("perk_lightWeightViewBobScale", "2847");
+    addMapping("perk_quickDrawSpeedScale", "4314");
+    addMapping("perk_quickDrawSpeedScaleSniper", "1587");
+    addMapping("perk_fastClimb", "2810");
+    addMapping("perk_fastSnipeScale", "364");
+
 }
 
 void DvarInterface::init() {

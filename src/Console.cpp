@@ -149,6 +149,25 @@ std::string toHex(uint32_t value) {
 void printfCrashTest() {
 	Console::printf("%s %i %s", nullptr, nullptr, 0);
 }
+
+void setenginemode() {
+	CmdArgs* cmdArgs = GameUtil::getCmdArgs();
+	if (!cmdArgs) {
+		return;
+	}
+
+	int nest = cmdArgs->nesting;
+	int count = cmdArgs->argc[nest];
+	if (count != 2) {
+		DEV_PRINTF("bozo");
+		return;
+	}
+
+	const char** args = cmdArgs->argv[nest];
+	unsigned int mode = static_cast<unsigned int>(std::strtoul(args[1], nullptr, 10));
+	int* enginemode = reinterpret_cast<int*>(0xD8AE894_b);
+	*enginemode = mode; //1 - MP | 2 - ZM | I think it has other flags packed in
+}
 #endif
 
 void Console::registerCustomCommands() {
@@ -170,6 +189,7 @@ void Console::registerCustomCommands() {
 	GameUtil::addCommand("r_wireframe", &CustomCommands::tempToggleWireframe);
 #ifdef DEVELOPMENT_BUILD
 	GameUtil::addCommand("printfNullptr", &printfCrashTest);
+	GameUtil::addCommand("enginemode", &setenginemode);
 	//GameUtil::addCommand("imagetest", &DevPatches::imageTestPt2);
 #endif // DEVELOPMENT_BUILD
 

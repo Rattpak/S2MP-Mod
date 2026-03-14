@@ -158,13 +158,11 @@ void hook_DB_FileExists(const char* zoneName, FF_DIR source) {
 }
 
 void hook_LUI_Error(const char* error, void* luiVm) {
-    Console::devPrint(__FUNCTION__);
     Console::printf("LUI Error: %s", Functions::_SEH_SafeTranslateString(error));
     _LUI_Error(error, luiVm);
 }
 
 void hook_printf(const char* const Format, ...) {
-    Console::devPrint(__FUNCTION__);
     if (!Format) {
         Console::print("format is NULL");
         return;
